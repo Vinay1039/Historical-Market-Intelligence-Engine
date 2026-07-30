@@ -1,0 +1,30 @@
+{
+  "dataset_version": "v2.0.0",
+  "generated_at": "2026-07-30T20:48:00Z",
+  "data_source": "Fyers Historical Equity Data + Yahoo Finance Fallback",
+  "warehouse_schema": "STAGING",
+  "primary_table": "STAGING.STOCK_HIST_DATA",
+  "symbol_statistics": {
+    "total_distinct_symbols": 856,
+    "total_monthly_bars": 118229,
+    "symbols_with_gt_120m_history": 546,
+    "symbols_with_gt_60m_history": 712,
+    "symbols_with_gt_36m_history": 789
+  },
+  "coverage_period": {
+    "start_date": "2011-01-01",
+    "end_date": "2026-07-31",
+    "total_years": 15.5,
+    "total_months": 180
+  },
+  "adjustments": {
+    "splits_and_bonuses": "Fully adjusted close prices",
+    "dividends": "Unadjusted cash dividends (Price Return metric)"
+  },
+  "auxiliary_tables": {
+    "holiday_calendar": "ANALYSIS.HOLIDAYS_EVENTS_DATES (v3.0)",
+    "sectors": "ANALYSIS.SECTORS_LIST",
+    "index_constituents": "ANALYSIS.INDEX_STOCKS"
+  },
+  "governance_policy": "HMIE Benchmark Policy v2.0 (Zero Symbol Overlap Required)"
+}

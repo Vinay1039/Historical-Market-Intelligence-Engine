@@ -1,0 +1,31 @@
+-- ===============================================================================
+-- HMIE Stage 8: Benchmark Engine Tables (create_tables_stage8.sql)
+-- Oracle 23c XE DDL for Staging Benchmark History & Strategy Relative Performance
+-- Compliance: HMIE Constitution Laws 1-11
+-- ===============================================================================
+
+-- 1. Benchmark Price History Table
+CREATE TABLE STAGING.BENCHMARK_HIST_DATA (
+    BENCHMARK_CODE VARCHAR2(50) NOT NULL,
+    BENCHMARK_NAME VARCHAR2(100) NOT NULL,
+    DATETIME DATE NOT NULL,
+    CLOSE_PRICE NUMBER(12, 2) NOT NULL,
+    MONTHLY_RETURN_PCT NUMBER(10, 4),
+    CONSTRAINT PK_BENCHMARK_HIST PRIMARY KEY (BENCHMARK_CODE, DATETIME)
+);
+
+-- 2. Strategy vs Benchmark Relative Performance Table
+CREATE TABLE STAGING.STRATEGY_BENCHMARK_PERFORMANCE (
+    STRATEGY_CODE VARCHAR2(50) NOT NULL,
+    BENCHMARK_CODE VARCHAR2(50) NOT NULL,
+    BENCHMARK_NAME VARCHAR2(100) NOT NULL,
+    STRATEGY_CAGR_PCT NUMBER(8, 2) NOT NULL,
+    BENCHMARK_CAGR_PCT NUMBER(8, 2) NOT NULL,
+    STRATEGY_VOLATILITY_PCT NUMBER(8, 2) NOT NULL,
+    BENCHMARK_VOLATILITY_PCT NUMBER(8, 2) NOT NULL,
+    ALPHA_PCT NUMBER(8, 2) NOT NULL,
+    BETA NUMBER(8, 2) NOT NULL,
+    INFORMATION_RATIO NUMBER(8, 2) NOT NULL,
+    TRACKING_ERROR_PCT NUMBER(8, 2) NOT NULL,
+    CONSTRAINT PK_STRAT_BENCHMARK PRIMARY KEY (STRATEGY_CODE, BENCHMARK_CODE)
+);

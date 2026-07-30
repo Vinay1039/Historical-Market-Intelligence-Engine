@@ -1,0 +1,625 @@
+[2026-07-30 00:10:15,279] INFO - =================================================================
+[2026-07-30 00:10:15,280] INFO -  STAGE 3.1: Market Structure Foundation ETL Pipeline
+[2026-07-30 00:10:15,280] INFO - =================================================================
+[2026-07-30 00:10:15,325] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 00:10:15,427] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 00:10:15,481] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 00:10:15,482] INFO - 
+--- Phase 2: Computing Daily Aggregations (SECTOR_DAILY & INDUSTRY_DAILY) ---
+[2026-07-30 00:11:33,317] INFO - ✓ Computed 71,131 daily sector aggregate records
+[2026-07-30 00:13:28,427] INFO - ✓ Computed 348,181 daily industry aggregate records
+[2026-07-30 00:13:28,428] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 00:13:29,437] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 00:13:32,196] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 00:13:32,199] INFO - 
+=================================================================
+[2026-07-30 00:13:32,199] INFO -  STAGE 3.1 ETL COMPLETED SUCCESSFULLY
+[2026-07-30 00:13:32,199] INFO - =================================================================
+[2026-07-30 15:19:14,882] INFO - =================================================================
+[2026-07-30 15:19:14,897] INFO -  STAGE 3.1: Market Structure Foundation ETL Pipeline
+[2026-07-30 15:19:14,898] INFO - =================================================================
+[2026-07-30 15:19:14,984] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 15:19:35,595] INFO - =================================================================
+[2026-07-30 15:19:35,596] INFO -  STAGE 3.1: Market Structure Foundation ETL Pipeline
+[2026-07-30 15:19:35,596] INFO - =================================================================
+[2026-07-30 15:19:35,645] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 15:19:35,688] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 15:19:35,752] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 15:19:35,754] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 15:19:55,304] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 15:21:13,236] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 15:23:11,668] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 15:23:11,669] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 15:23:12,816] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 15:23:17,510] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 15:23:17,547] INFO - 
+=================================================================
+[2026-07-30 15:23:17,547] INFO -  STAGE 3.1 ETL COMPLETED SUCCESSFULLY
+[2026-07-30 15:23:17,548] INFO - =================================================================
+[2026-07-30 15:28:47,753] INFO - =================================================================
+[2026-07-30 15:28:47,753] INFO -  STAGE 3.3: Market Structure & Rotation Engine ETL Pipeline
+[2026-07-30 15:28:47,754] INFO - =================================================================
+[2026-07-30 15:28:47,798] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 15:28:47,866] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 15:28:47,877] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 15:28:47,879] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 15:29:07,616] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 15:30:26,451] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 15:32:10,824] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 15:32:10,826] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 15:32:12,038] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 15:32:14,771] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 15:32:14,853] INFO - 
+--- Phase 4: Computing Rotation Engine (SECTOR_ROTATION & INDUSTRY_ROTATION) ---
+[2026-07-30 15:32:38,215] INFO - =================================================================
+[2026-07-30 15:32:38,216] INFO -  STAGE 3.3: Market Structure & Rotation Engine ETL Pipeline
+[2026-07-30 15:32:38,216] INFO - =================================================================
+[2026-07-30 15:32:38,268] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 15:32:38,351] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 15:32:38,360] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 15:32:38,360] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 15:32:58,967] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 15:34:05,143] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 15:35:42,926] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 15:35:42,928] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 15:35:44,461] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 15:35:46,504] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 15:35:46,530] INFO - 
+--- Phase 4: Computing Rotation Engine (SECTOR_ROTATION & INDUSTRY_ROTATION) ---
+[2026-07-30 15:36:14,226] INFO - =================================================================
+[2026-07-30 15:36:14,227] INFO -  STAGE 3.3: Market Structure & Rotation Engine ETL Pipeline
+[2026-07-30 15:36:14,228] INFO - =================================================================
+[2026-07-30 15:36:14,273] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 15:36:14,352] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 15:36:14,365] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 15:36:14,366] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 15:36:33,008] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 15:37:41,192] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 15:39:11,825] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 15:39:11,826] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 15:39:13,261] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 15:39:15,848] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 15:39:15,850] INFO - 
+--- Phase 4: Computing Rotation Engine (SECTOR_ROTATION & INDUSTRY_ROTATION) ---
+[2026-07-30 15:39:29,576] INFO - ✓ Inserted 71,131 sector rotation records into STAGING.SECTOR_ROTATION
+[2026-07-30 15:40:20,036] INFO - ✓ Inserted 348,181 industry rotation records into STAGING.INDUSTRY_ROTATION
+[2026-07-30 15:40:20,207] INFO - 
+=================================================================
+[2026-07-30 15:40:20,207] INFO -  STAGE 3.3 ETL COMPLETED SUCCESSFULLY
+[2026-07-30 15:40:20,208] INFO - =================================================================
+[2026-07-30 15:45:14,164] INFO - =================================================================
+[2026-07-30 15:45:14,164] INFO -  STAGE 3.4: Market Structure, Rotation & Stock Ranking Engine ETL
+[2026-07-30 15:45:14,164] INFO - =================================================================
+[2026-07-30 15:45:14,256] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 15:45:14,299] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 15:45:14,310] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 15:45:14,311] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 15:45:26,571] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 15:46:35,161] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 15:48:19,826] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 15:48:19,829] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 15:48:21,290] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 15:48:23,980] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 15:48:23,987] INFO - 
+--- Phase 4: Computing Rotation Engine (SECTOR_ROTATION & INDUSTRY_ROTATION) ---
+[2026-07-30 15:48:36,786] INFO - ✓ Inserted 71,131 sector rotation records into STAGING.SECTOR_ROTATION
+[2026-07-30 15:49:15,298] INFO - ✓ Inserted 348,181 industry rotation records into STAGING.INDUSTRY_ROTATION
+[2026-07-30 15:49:15,746] INFO - 
+--- Phase 5: Computing Stock Rankings (STAGING.STOCK_RANKINGS) ---
+[2026-07-30 15:51:15,635] INFO -   Inserted 25,000/2,429,021 stock ranking records
+[2026-07-30 15:51:15,967] INFO -   Inserted 50,000/2,429,021 stock ranking records
+[2026-07-30 15:51:16,494] INFO -   Inserted 75,000/2,429,021 stock ranking records
+[2026-07-30 15:51:16,914] INFO -   Inserted 100,000/2,429,021 stock ranking records
+[2026-07-30 15:51:17,250] INFO -   Inserted 125,000/2,429,021 stock ranking records
+[2026-07-30 15:51:17,821] INFO -   Inserted 150,000/2,429,021 stock ranking records
+[2026-07-30 15:51:18,517] INFO -   Inserted 175,000/2,429,021 stock ranking records
+[2026-07-30 15:51:18,990] INFO -   Inserted 200,000/2,429,021 stock ranking records
+[2026-07-30 15:51:19,452] INFO -   Inserted 225,000/2,429,021 stock ranking records
+[2026-07-30 15:51:20,155] INFO -   Inserted 250,000/2,429,021 stock ranking records
+[2026-07-30 15:51:20,521] INFO -   Inserted 275,000/2,429,021 stock ranking records
+[2026-07-30 15:51:20,864] INFO -   Inserted 300,000/2,429,021 stock ranking records
+[2026-07-30 15:51:21,394] INFO -   Inserted 325,000/2,429,021 stock ranking records
+[2026-07-30 15:51:21,719] INFO -   Inserted 350,000/2,429,021 stock ranking records
+[2026-07-30 15:51:22,077] INFO -   Inserted 375,000/2,429,021 stock ranking records
+[2026-07-30 15:51:23,625] INFO -   Inserted 400,000/2,429,021 stock ranking records
+[2026-07-30 15:51:25,762] INFO -   Inserted 425,000/2,429,021 stock ranking records
+[2026-07-30 15:51:26,122] INFO -   Inserted 450,000/2,429,021 stock ranking records
+[2026-07-30 15:51:26,801] INFO -   Inserted 475,000/2,429,021 stock ranking records
+[2026-07-30 15:51:27,159] INFO -   Inserted 500,000/2,429,021 stock ranking records
+[2026-07-30 15:51:27,465] INFO -   Inserted 525,000/2,429,021 stock ranking records
+[2026-07-30 15:51:28,093] INFO -   Inserted 550,000/2,429,021 stock ranking records
+[2026-07-30 15:51:28,461] INFO -   Inserted 575,000/2,429,021 stock ranking records
+[2026-07-30 15:51:28,771] INFO -   Inserted 600,000/2,429,021 stock ranking records
+[2026-07-30 15:51:29,127] INFO -   Inserted 625,000/2,429,021 stock ranking records
+[2026-07-30 15:51:29,775] INFO -   Inserted 650,000/2,429,021 stock ranking records
+[2026-07-30 15:51:30,134] INFO -   Inserted 675,000/2,429,021 stock ranking records
+[2026-07-30 15:51:30,463] INFO -   Inserted 700,000/2,429,021 stock ranking records
+[2026-07-30 15:51:30,748] INFO -   Inserted 725,000/2,429,021 stock ranking records
+[2026-07-30 15:51:31,101] INFO -   Inserted 750,000/2,429,021 stock ranking records
+[2026-07-30 15:51:31,402] INFO -   Inserted 775,000/2,429,021 stock ranking records
+[2026-07-30 15:51:31,795] INFO -   Inserted 800,000/2,429,021 stock ranking records
+[2026-07-30 15:51:32,132] INFO -   Inserted 825,000/2,429,021 stock ranking records
+[2026-07-30 15:51:32,679] INFO -   Inserted 850,000/2,429,021 stock ranking records
+[2026-07-30 15:51:33,177] INFO -   Inserted 875,000/2,429,021 stock ranking records
+[2026-07-30 15:51:34,366] INFO -   Inserted 900,000/2,429,021 stock ranking records
+[2026-07-30 15:51:35,550] INFO -   Inserted 925,000/2,429,021 stock ranking records
+[2026-07-30 15:51:36,074] INFO -   Inserted 950,000/2,429,021 stock ranking records
+[2026-07-30 15:51:36,905] INFO -   Inserted 975,000/2,429,021 stock ranking records
+[2026-07-30 15:51:37,235] INFO -   Inserted 1,000,000/2,429,021 stock ranking records
+[2026-07-30 15:51:37,544] INFO -   Inserted 1,025,000/2,429,021 stock ranking records
+[2026-07-30 15:51:38,246] INFO -   Inserted 1,050,000/2,429,021 stock ranking records
+[2026-07-30 15:51:38,620] INFO -   Inserted 1,075,000/2,429,021 stock ranking records
+[2026-07-30 15:51:39,302] INFO -   Inserted 1,100,000/2,429,021 stock ranking records
+[2026-07-30 15:51:40,055] INFO -   Inserted 1,125,000/2,429,021 stock ranking records
+[2026-07-30 15:51:40,430] INFO -   Inserted 1,150,000/2,429,021 stock ranking records
+[2026-07-30 15:51:40,753] INFO -   Inserted 1,175,000/2,429,021 stock ranking records
+[2026-07-30 15:51:41,739] INFO -   Inserted 1,200,000/2,429,021 stock ranking records
+[2026-07-30 15:51:42,023] INFO -   Inserted 1,225,000/2,429,021 stock ranking records
+[2026-07-30 15:51:42,434] INFO -   Inserted 1,250,000/2,429,021 stock ranking records
+[2026-07-30 15:51:42,863] INFO -   Inserted 1,275,000/2,429,021 stock ranking records
+[2026-07-30 15:51:43,170] INFO -   Inserted 1,300,000/2,429,021 stock ranking records
+[2026-07-30 15:51:44,620] INFO -   Inserted 1,325,000/2,429,021 stock ranking records
+[2026-07-30 15:51:45,271] INFO -   Inserted 1,350,000/2,429,021 stock ranking records
+[2026-07-30 15:51:45,573] INFO -   Inserted 1,375,000/2,429,021 stock ranking records
+[2026-07-30 15:51:45,897] INFO -   Inserted 1,400,000/2,429,021 stock ranking records
+[2026-07-30 15:51:46,393] INFO -   Inserted 1,425,000/2,429,021 stock ranking records
+[2026-07-30 15:51:46,758] INFO -   Inserted 1,450,000/2,429,021 stock ranking records
+[2026-07-30 15:51:49,339] INFO -   Inserted 1,475,000/2,429,021 stock ranking records
+[2026-07-30 15:51:49,642] INFO -   Inserted 1,500,000/2,429,021 stock ranking records
+[2026-07-30 15:51:50,154] INFO -   Inserted 1,525,000/2,429,021 stock ranking records
+[2026-07-30 15:51:50,681] INFO -   Inserted 1,550,000/2,429,021 stock ranking records
+[2026-07-30 15:51:51,153] INFO -   Inserted 1,575,000/2,429,021 stock ranking records
+[2026-07-30 15:51:51,909] INFO -   Inserted 1,600,000/2,429,021 stock ranking records
+[2026-07-30 15:51:52,215] INFO -   Inserted 1,625,000/2,429,021 stock ranking records
+[2026-07-30 15:51:52,529] INFO -   Inserted 1,650,000/2,429,021 stock ranking records
+[2026-07-30 15:51:52,834] INFO -   Inserted 1,675,000/2,429,021 stock ranking records
+[2026-07-30 15:51:53,535] INFO -   Inserted 1,700,000/2,429,021 stock ranking records
+[2026-07-30 15:51:54,303] INFO -   Inserted 1,725,000/2,429,021 stock ranking records
+[2026-07-30 15:51:54,619] INFO -   Inserted 1,750,000/2,429,021 stock ranking records
+[2026-07-30 15:51:54,948] INFO -   Inserted 1,775,000/2,429,021 stock ranking records
+[2026-07-30 15:51:55,274] INFO -   Inserted 1,800,000/2,429,021 stock ranking records
+[2026-07-30 15:51:55,778] INFO -   Inserted 1,825,000/2,429,021 stock ranking records
+[2026-07-30 15:51:56,946] INFO -   Inserted 1,850,000/2,429,021 stock ranking records
+[2026-07-30 15:51:57,362] INFO -   Inserted 1,875,000/2,429,021 stock ranking records
+[2026-07-30 15:51:57,687] INFO -   Inserted 1,900,000/2,429,021 stock ranking records
+[2026-07-30 15:51:58,206] INFO -   Inserted 1,925,000/2,429,021 stock ranking records
+[2026-07-30 15:51:58,631] INFO -   Inserted 1,950,000/2,429,021 stock ranking records
+[2026-07-30 15:51:58,967] INFO -   Inserted 1,975,000/2,429,021 stock ranking records
+[2026-07-30 15:51:59,996] INFO -   Inserted 2,000,000/2,429,021 stock ranking records
+[2026-07-30 15:52:00,400] INFO -   Inserted 2,025,000/2,429,021 stock ranking records
+[2026-07-30 15:52:01,759] INFO -   Inserted 2,050,000/2,429,021 stock ranking records
+[2026-07-30 15:52:04,397] INFO -   Inserted 2,075,000/2,429,021 stock ranking records
+[2026-07-30 15:52:04,726] INFO -   Inserted 2,100,000/2,429,021 stock ranking records
+[2026-07-30 15:52:05,067] INFO -   Inserted 2,125,000/2,429,021 stock ranking records
+[2026-07-30 15:52:05,445] INFO -   Inserted 2,150,000/2,429,021 stock ranking records
+[2026-07-30 15:52:06,078] INFO -   Inserted 2,175,000/2,429,021 stock ranking records
+[2026-07-30 15:52:06,381] INFO -   Inserted 2,200,000/2,429,021 stock ranking records
+[2026-07-30 15:52:06,798] INFO -   Inserted 2,225,000/2,429,021 stock ranking records
+[2026-07-30 15:52:07,152] INFO -   Inserted 2,250,000/2,429,021 stock ranking records
+[2026-07-30 15:52:07,494] INFO -   Inserted 2,275,000/2,429,021 stock ranking records
+[2026-07-30 15:52:07,848] INFO -   Inserted 2,300,000/2,429,021 stock ranking records
+[2026-07-30 15:52:08,597] INFO -   Inserted 2,325,000/2,429,021 stock ranking records
+[2026-07-30 15:52:08,936] INFO -   Inserted 2,350,000/2,429,021 stock ranking records
+[2026-07-30 15:52:09,290] INFO -   Inserted 2,375,000/2,429,021 stock ranking records
+[2026-07-30 15:52:09,674] INFO -   Inserted 2,400,000/2,429,021 stock ranking records
+[2026-07-30 15:52:10,492] INFO -   Inserted 2,425,000/2,429,021 stock ranking records
+[2026-07-30 15:52:10,570] INFO -   Inserted 2,429,021/2,429,021 stock ranking records
+[2026-07-30 15:52:10,571] INFO - ✓ Inserted total 2,429,021 stock ranking records into STAGING.STOCK_RANKINGS
+[2026-07-30 15:52:11,389] INFO - 
+=================================================================
+[2026-07-30 15:52:11,389] INFO -  STAGE 3.4 ETL COMPLETED SUCCESSFULLY
+[2026-07-30 15:52:11,389] INFO - =================================================================
+[2026-07-30 15:55:56,798] INFO - =================================================================
+[2026-07-30 15:55:56,799] INFO -  STAGE 3.5: Market Structure, Rotation, Ranking & Theme Engine ETL
+[2026-07-30 15:55:56,799] INFO - =================================================================
+[2026-07-30 15:55:56,849] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 15:55:56,890] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 15:55:56,900] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 15:55:56,901] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 15:56:08,968] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 15:57:15,142] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 15:59:00,137] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 15:59:00,139] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 15:59:01,352] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 15:59:03,126] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 15:59:03,130] INFO - 
+--- Phase 4: Computing Rotation Engine (SECTOR_ROTATION & INDUSTRY_ROTATION) ---
+[2026-07-30 15:59:17,724] INFO - ✓ Inserted 71,131 sector rotation records into STAGING.SECTOR_ROTATION
+[2026-07-30 16:00:11,113] INFO - ✓ Inserted 348,181 industry rotation records into STAGING.INDUSTRY_ROTATION
+[2026-07-30 16:00:11,550] INFO - 
+--- Phase 5: Computing Stock Rankings (STAGING.STOCK_RANKINGS) ---
+[2026-07-30 16:02:06,384] INFO -   Inserted 25,000/2,429,021 stock ranking records
+[2026-07-30 16:02:06,961] INFO -   Inserted 50,000/2,429,021 stock ranking records
+[2026-07-30 16:02:09,940] INFO -   Inserted 75,000/2,429,021 stock ranking records
+[2026-07-30 16:02:11,043] INFO -   Inserted 100,000/2,429,021 stock ranking records
+[2026-07-30 16:02:13,484] INFO -   Inserted 125,000/2,429,021 stock ranking records
+[2026-07-30 16:02:14,883] INFO -   Inserted 150,000/2,429,021 stock ranking records
+[2026-07-30 16:02:16,482] INFO -   Inserted 175,000/2,429,021 stock ranking records
+[2026-07-30 16:02:17,353] INFO -   Inserted 200,000/2,429,021 stock ranking records
+[2026-07-30 16:02:17,692] INFO -   Inserted 225,000/2,429,021 stock ranking records
+[2026-07-30 16:02:18,127] INFO -   Inserted 250,000/2,429,021 stock ranking records
+[2026-07-30 16:02:18,460] INFO -   Inserted 275,000/2,429,021 stock ranking records
+[2026-07-30 16:02:20,906] INFO -   Inserted 300,000/2,429,021 stock ranking records
+[2026-07-30 16:02:21,236] INFO -   Inserted 325,000/2,429,021 stock ranking records
+[2026-07-30 16:02:21,608] INFO -   Inserted 350,000/2,429,021 stock ranking records
+[2026-07-30 16:02:21,947] INFO -   Inserted 375,000/2,429,021 stock ranking records
+[2026-07-30 16:02:22,281] INFO -   Inserted 400,000/2,429,021 stock ranking records
+[2026-07-30 16:02:22,606] INFO -   Inserted 425,000/2,429,021 stock ranking records
+[2026-07-30 16:02:22,924] INFO -   Inserted 450,000/2,429,021 stock ranking records
+[2026-07-30 16:02:23,305] INFO -   Inserted 475,000/2,429,021 stock ranking records
+[2026-07-30 16:02:23,640] INFO -   Inserted 500,000/2,429,021 stock ranking records
+[2026-07-30 16:02:24,000] INFO -   Inserted 525,000/2,429,021 stock ranking records
+[2026-07-30 16:02:26,556] INFO -   Inserted 550,000/2,429,021 stock ranking records
+[2026-07-30 16:02:26,912] INFO -   Inserted 575,000/2,429,021 stock ranking records
+[2026-07-30 16:02:27,280] INFO -   Inserted 600,000/2,429,021 stock ranking records
+[2026-07-30 16:02:27,650] INFO -   Inserted 625,000/2,429,021 stock ranking records
+[2026-07-30 16:02:27,978] INFO -   Inserted 650,000/2,429,021 stock ranking records
+[2026-07-30 16:02:28,663] INFO -   Inserted 675,000/2,429,021 stock ranking records
+[2026-07-30 16:02:28,980] INFO -   Inserted 700,000/2,429,021 stock ranking records
+[2026-07-30 16:02:29,337] INFO -   Inserted 725,000/2,429,021 stock ranking records
+[2026-07-30 16:02:29,737] INFO -   Inserted 750,000/2,429,021 stock ranking records
+[2026-07-30 16:02:31,506] INFO -   Inserted 775,000/2,429,021 stock ranking records
+[2026-07-30 16:02:31,830] INFO -   Inserted 800,000/2,429,021 stock ranking records
+[2026-07-30 16:02:32,205] INFO -   Inserted 825,000/2,429,021 stock ranking records
+[2026-07-30 16:02:32,539] INFO -   Inserted 850,000/2,429,021 stock ranking records
+[2026-07-30 16:02:32,846] INFO -   Inserted 875,000/2,429,021 stock ranking records
+[2026-07-30 16:02:33,168] INFO -   Inserted 900,000/2,429,021 stock ranking records
+[2026-07-30 16:02:33,491] INFO -   Inserted 925,000/2,429,021 stock ranking records
+[2026-07-30 16:02:33,794] INFO -   Inserted 950,000/2,429,021 stock ranking records
+[2026-07-30 16:02:34,486] INFO -   Inserted 975,000/2,429,021 stock ranking records
+[2026-07-30 16:02:35,320] INFO -   Inserted 1,000,000/2,429,021 stock ranking records
+[2026-07-30 16:02:39,552] INFO -   Inserted 1,025,000/2,429,021 stock ranking records
+[2026-07-30 16:02:39,993] INFO -   Inserted 1,050,000/2,429,021 stock ranking records
+[2026-07-30 16:02:40,410] INFO -   Inserted 1,075,000/2,429,021 stock ranking records
+[2026-07-30 16:02:40,728] INFO -   Inserted 1,100,000/2,429,021 stock ranking records
+[2026-07-30 16:02:41,099] INFO -   Inserted 1,125,000/2,429,021 stock ranking records
+[2026-07-30 16:02:41,434] INFO -   Inserted 1,150,000/2,429,021 stock ranking records
+[2026-07-30 16:02:41,740] INFO -   Inserted 1,175,000/2,429,021 stock ranking records
+[2026-07-30 16:02:42,088] INFO -   Inserted 1,200,000/2,429,021 stock ranking records
+[2026-07-30 16:02:42,429] INFO -   Inserted 1,225,000/2,429,021 stock ranking records
+[2026-07-30 16:02:47,501] INFO -   Inserted 1,250,000/2,429,021 stock ranking records
+[2026-07-30 16:02:47,865] INFO -   Inserted 1,275,000/2,429,021 stock ranking records
+[2026-07-30 16:02:48,210] INFO -   Inserted 1,300,000/2,429,021 stock ranking records
+[2026-07-30 16:02:48,535] INFO -   Inserted 1,325,000/2,429,021 stock ranking records
+[2026-07-30 16:02:48,869] INFO -   Inserted 1,350,000/2,429,021 stock ranking records
+[2026-07-30 16:02:49,235] INFO -   Inserted 1,375,000/2,429,021 stock ranking records
+[2026-07-30 16:02:49,901] INFO -   Inserted 1,400,000/2,429,021 stock ranking records
+[2026-07-30 16:02:50,236] INFO -   Inserted 1,425,000/2,429,021 stock ranking records
+[2026-07-30 16:02:50,556] INFO -   Inserted 1,450,000/2,429,021 stock ranking records
+[2026-07-30 16:02:50,895] INFO -   Inserted 1,475,000/2,429,021 stock ranking records
+[2026-07-30 16:02:52,728] INFO -   Inserted 1,500,000/2,429,021 stock ranking records
+[2026-07-30 16:02:53,080] INFO -   Inserted 1,525,000/2,429,021 stock ranking records
+[2026-07-30 16:02:53,423] INFO -   Inserted 1,550,000/2,429,021 stock ranking records
+[2026-07-30 16:02:53,757] INFO -   Inserted 1,575,000/2,429,021 stock ranking records
+[2026-07-30 16:02:54,068] INFO -   Inserted 1,600,000/2,429,021 stock ranking records
+[2026-07-30 16:02:54,394] INFO -   Inserted 1,625,000/2,429,021 stock ranking records
+[2026-07-30 16:02:54,729] INFO -   Inserted 1,650,000/2,429,021 stock ranking records
+[2026-07-30 16:02:55,096] INFO -   Inserted 1,675,000/2,429,021 stock ranking records
+[2026-07-30 16:02:55,690] INFO -   Inserted 1,700,000/2,429,021 stock ranking records
+[2026-07-30 16:02:58,244] INFO -   Inserted 1,725,000/2,429,021 stock ranking records
+[2026-07-30 16:03:02,380] INFO -   Inserted 1,750,000/2,429,021 stock ranking records
+[2026-07-30 16:03:02,722] INFO -   Inserted 1,775,000/2,429,021 stock ranking records
+[2026-07-30 16:03:03,231] INFO -   Inserted 1,800,000/2,429,021 stock ranking records
+[2026-07-30 16:03:03,589] INFO -   Inserted 1,825,000/2,429,021 stock ranking records
+[2026-07-30 16:03:03,935] INFO -   Inserted 1,850,000/2,429,021 stock ranking records
+[2026-07-30 16:03:04,294] INFO -   Inserted 1,875,000/2,429,021 stock ranking records
+[2026-07-30 16:03:04,874] INFO -   Inserted 1,900,000/2,429,021 stock ranking records
+[2026-07-30 16:03:05,601] INFO -   Inserted 1,925,000/2,429,021 stock ranking records
+[2026-07-30 16:03:06,551] INFO -   Inserted 1,950,000/2,429,021 stock ranking records
+[2026-07-30 16:03:07,759] INFO -   Inserted 1,975,000/2,429,021 stock ranking records
+[2026-07-30 16:03:08,057] INFO -   Inserted 2,000,000/2,429,021 stock ranking records
+[2026-07-30 16:03:08,372] INFO -   Inserted 2,025,000/2,429,021 stock ranking records
+[2026-07-30 16:03:08,688] INFO -   Inserted 2,050,000/2,429,021 stock ranking records
+[2026-07-30 16:03:09,212] INFO -   Inserted 2,075,000/2,429,021 stock ranking records
+[2026-07-30 16:03:09,765] INFO -   Inserted 2,100,000/2,429,021 stock ranking records
+[2026-07-30 16:03:10,084] INFO -   Inserted 2,125,000/2,429,021 stock ranking records
+[2026-07-30 16:03:10,361] INFO -   Inserted 2,150,000/2,429,021 stock ranking records
+[2026-07-30 16:03:11,667] INFO -   Inserted 2,175,000/2,429,021 stock ranking records
+[2026-07-30 16:03:11,973] INFO -   Inserted 2,200,000/2,429,021 stock ranking records
+[2026-07-30 16:03:12,431] INFO -   Inserted 2,225,000/2,429,021 stock ranking records
+[2026-07-30 16:03:12,775] INFO -   Inserted 2,250,000/2,429,021 stock ranking records
+[2026-07-30 16:03:13,565] INFO -   Inserted 2,275,000/2,429,021 stock ranking records
+[2026-07-30 16:03:14,180] INFO -   Inserted 2,300,000/2,429,021 stock ranking records
+[2026-07-30 16:03:14,721] INFO -   Inserted 2,325,000/2,429,021 stock ranking records
+[2026-07-30 16:03:15,103] INFO -   Inserted 2,350,000/2,429,021 stock ranking records
+[2026-07-30 16:03:15,426] INFO -   Inserted 2,375,000/2,429,021 stock ranking records
+[2026-07-30 16:03:15,728] INFO -   Inserted 2,400,000/2,429,021 stock ranking records
+[2026-07-30 16:03:16,179] INFO -   Inserted 2,425,000/2,429,021 stock ranking records
+[2026-07-30 16:03:16,278] INFO -   Inserted 2,429,021/2,429,021 stock ranking records
+[2026-07-30 16:03:16,279] INFO - ✓ Inserted total 2,429,021 stock ranking records into STAGING.STOCK_RANKINGS
+[2026-07-30 16:03:17,396] INFO - 
+--- Phase 6: Computing Custom Theme Engine (THEME_MASTER, THEME_CONSTITUENTS, THEME_DAILY, THEME_ROTATION) ---
+[2026-07-30 16:03:18,349] INFO - ✓ Seeded 5 custom themes and 30 constituent mappings
+[2026-07-30 16:03:28,604] INFO - ✓ Inserted 18,565 daily theme aggregate records into STAGING.THEME_DAILY
+[2026-07-30 16:03:36,880] INFO - ✓ Inserted 18,565 theme rotation records into STAGING.THEME_ROTATION
+[2026-07-30 16:03:36,891] INFO - 
+=================================================================
+[2026-07-30 16:03:36,891] INFO -  STAGE 3.5 ETL COMPLETED SUCCESSFULLY
+[2026-07-30 16:03:36,891] INFO - =================================================================
+[2026-07-30 16:05:55,282] INFO - =================================================================
+[2026-07-30 16:05:55,282] INFO -  STAGE 3.6: Market Structure, Rotation, Ranking, Theme & Regime Engine ETL
+[2026-07-30 16:05:55,283] INFO - =================================================================
+[2026-07-30 16:05:55,333] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 16:05:55,655] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 16:05:55,692] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 16:05:55,693] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 16:06:07,533] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 16:07:10,977] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 16:08:52,754] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 16:08:52,756] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 16:08:53,408] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 16:08:53,900] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 16:08:53,903] INFO - 
+--- Phase 4: Computing Rotation Engine (SECTOR_ROTATION & INDUSTRY_ROTATION) ---
+[2026-07-30 16:09:06,599] INFO - ✓ Inserted 71,131 sector rotation records into STAGING.SECTOR_ROTATION
+[2026-07-30 16:09:42,063] INFO - ✓ Inserted 348,181 industry rotation records into STAGING.INDUSTRY_ROTATION
+[2026-07-30 16:09:42,462] INFO - 
+--- Phase 5: Computing Stock Rankings (STAGING.STOCK_RANKINGS) ---
+[2026-07-30 16:11:29,402] INFO -   Inserted 25,000/2,429,021 stock ranking records
+[2026-07-30 16:11:29,761] INFO -   Inserted 50,000/2,429,021 stock ranking records
+[2026-07-30 16:11:30,543] INFO -   Inserted 75,000/2,429,021 stock ranking records
+[2026-07-30 16:11:31,011] INFO -   Inserted 100,000/2,429,021 stock ranking records
+[2026-07-30 16:11:31,403] INFO -   Inserted 125,000/2,429,021 stock ranking records
+[2026-07-30 16:11:32,028] INFO -   Inserted 150,000/2,429,021 stock ranking records
+[2026-07-30 16:11:32,430] INFO -   Inserted 175,000/2,429,021 stock ranking records
+[2026-07-30 16:11:32,781] INFO -   Inserted 200,000/2,429,021 stock ranking records
+[2026-07-30 16:11:33,124] INFO -   Inserted 225,000/2,429,021 stock ranking records
+[2026-07-30 16:11:34,229] INFO -   Inserted 250,000/2,429,021 stock ranking records
+[2026-07-30 16:11:34,545] INFO -   Inserted 275,000/2,429,021 stock ranking records
+[2026-07-30 16:11:34,890] INFO -   Inserted 300,000/2,429,021 stock ranking records
+[2026-07-30 16:11:35,323] INFO -   Inserted 325,000/2,429,021 stock ranking records
+[2026-07-30 16:11:35,680] INFO -   Inserted 350,000/2,429,021 stock ranking records
+[2026-07-30 16:11:38,130] INFO -   Inserted 375,000/2,429,021 stock ranking records
+[2026-07-30 16:11:38,464] INFO -   Inserted 400,000/2,429,021 stock ranking records
+[2026-07-30 16:11:38,827] INFO -   Inserted 425,000/2,429,021 stock ranking records
+[2026-07-30 16:11:39,181] INFO -   Inserted 450,000/2,429,021 stock ranking records
+[2026-07-30 16:11:40,467] INFO -   Inserted 475,000/2,429,021 stock ranking records
+[2026-07-30 16:11:41,337] INFO -   Inserted 500,000/2,429,021 stock ranking records
+[2026-07-30 16:11:41,701] INFO -   Inserted 525,000/2,429,021 stock ranking records
+[2026-07-30 16:11:42,052] INFO -   Inserted 550,000/2,429,021 stock ranking records
+[2026-07-30 16:11:42,389] INFO -   Inserted 575,000/2,429,021 stock ranking records
+[2026-07-30 16:11:43,565] INFO -   Inserted 600,000/2,429,021 stock ranking records
+[2026-07-30 16:11:43,929] INFO -   Inserted 625,000/2,429,021 stock ranking records
+[2026-07-30 16:11:44,300] INFO -   Inserted 650,000/2,429,021 stock ranking records
+[2026-07-30 16:11:44,615] INFO -   Inserted 675,000/2,429,021 stock ranking records
+[2026-07-30 16:11:44,990] INFO -   Inserted 700,000/2,429,021 stock ranking records
+[2026-07-30 16:11:46,015] INFO -   Inserted 725,000/2,429,021 stock ranking records
+[2026-07-30 16:11:46,410] INFO -   Inserted 750,000/2,429,021 stock ranking records
+[2026-07-30 16:11:46,732] INFO -   Inserted 775,000/2,429,021 stock ranking records
+[2026-07-30 16:11:47,159] INFO -   Inserted 800,000/2,429,021 stock ranking records
+[2026-07-30 16:11:47,471] INFO -   Inserted 825,000/2,429,021 stock ranking records
+[2026-07-30 16:11:50,162] INFO -   Inserted 850,000/2,429,021 stock ranking records
+[2026-07-30 16:11:50,721] INFO -   Inserted 875,000/2,429,021 stock ranking records
+[2026-07-30 16:11:51,222] INFO -   Inserted 900,000/2,429,021 stock ranking records
+[2026-07-30 16:11:51,523] INFO -   Inserted 925,000/2,429,021 stock ranking records
+[2026-07-30 16:11:51,888] INFO -   Inserted 950,000/2,429,021 stock ranking records
+[2026-07-30 16:11:52,462] INFO -   Inserted 975,000/2,429,021 stock ranking records
+[2026-07-30 16:11:52,793] INFO -   Inserted 1,000,000/2,429,021 stock ranking records
+[2026-07-30 16:11:53,119] INFO -   Inserted 1,025,000/2,429,021 stock ranking records
+[2026-07-30 16:11:53,631] INFO -   Inserted 1,050,000/2,429,021 stock ranking records
+[2026-07-30 16:11:53,966] INFO -   Inserted 1,075,000/2,429,021 stock ranking records
+[2026-07-30 16:11:56,795] INFO -   Inserted 1,100,000/2,429,021 stock ranking records
+[2026-07-30 16:11:57,092] INFO -   Inserted 1,125,000/2,429,021 stock ranking records
+[2026-07-30 16:11:57,397] INFO -   Inserted 1,150,000/2,429,021 stock ranking records
+[2026-07-30 16:11:57,717] INFO -   Inserted 1,175,000/2,429,021 stock ranking records
+[2026-07-30 16:11:59,702] INFO -   Inserted 1,200,000/2,429,021 stock ranking records
+[2026-07-30 16:12:00,155] INFO -   Inserted 1,225,000/2,429,021 stock ranking records
+[2026-07-30 16:12:00,895] INFO -   Inserted 1,250,000/2,429,021 stock ranking records
+[2026-07-30 16:12:01,497] INFO -   Inserted 1,275,000/2,429,021 stock ranking records
+[2026-07-30 16:12:01,910] INFO -   Inserted 1,300,000/2,429,021 stock ranking records
+[2026-07-30 16:12:06,928] INFO -   Inserted 1,325,000/2,429,021 stock ranking records
+[2026-07-30 16:12:07,274] INFO -   Inserted 1,350,000/2,429,021 stock ranking records
+[2026-07-30 16:12:07,678] INFO -   Inserted 1,375,000/2,429,021 stock ranking records
+[2026-07-30 16:12:08,031] INFO -   Inserted 1,400,000/2,429,021 stock ranking records
+[2026-07-30 16:12:08,371] INFO -   Inserted 1,425,000/2,429,021 stock ranking records
+[2026-07-30 16:12:08,695] INFO -   Inserted 1,450,000/2,429,021 stock ranking records
+[2026-07-30 16:12:09,040] INFO -   Inserted 1,475,000/2,429,021 stock ranking records
+[2026-07-30 16:12:09,424] INFO -   Inserted 1,500,000/2,429,021 stock ranking records
+[2026-07-30 16:12:09,796] INFO -   Inserted 1,525,000/2,429,021 stock ranking records
+[2026-07-30 16:12:10,152] INFO -   Inserted 1,550,000/2,429,021 stock ranking records
+[2026-07-30 16:12:12,814] INFO -   Inserted 1,575,000/2,429,021 stock ranking records
+[2026-07-30 16:12:13,182] INFO -   Inserted 1,600,000/2,429,021 stock ranking records
+[2026-07-30 16:12:13,522] INFO -   Inserted 1,625,000/2,429,021 stock ranking records
+[2026-07-30 16:12:13,851] INFO -   Inserted 1,650,000/2,429,021 stock ranking records
+[2026-07-30 16:12:14,228] INFO -   Inserted 1,675,000/2,429,021 stock ranking records
+[2026-07-30 16:12:14,564] INFO -   Inserted 1,700,000/2,429,021 stock ranking records
+[2026-07-30 16:12:14,891] INFO -   Inserted 1,725,000/2,429,021 stock ranking records
+[2026-07-30 16:12:15,246] INFO -   Inserted 1,750,000/2,429,021 stock ranking records
+[2026-07-30 16:12:15,626] INFO -   Inserted 1,775,000/2,429,021 stock ranking records
+[2026-07-30 16:12:15,995] INFO -   Inserted 1,800,000/2,429,021 stock ranking records
+[2026-07-30 16:12:19,008] INFO -   Inserted 1,825,000/2,429,021 stock ranking records
+[2026-07-30 16:12:19,360] INFO -   Inserted 1,850,000/2,429,021 stock ranking records
+[2026-07-30 16:12:19,690] INFO -   Inserted 1,875,000/2,429,021 stock ranking records
+[2026-07-30 16:12:20,068] INFO -   Inserted 1,900,000/2,429,021 stock ranking records
+[2026-07-30 16:12:20,433] INFO -   Inserted 1,925,000/2,429,021 stock ranking records
+[2026-07-30 16:12:20,968] INFO -   Inserted 1,950,000/2,429,021 stock ranking records
+[2026-07-30 16:12:21,351] INFO -   Inserted 1,975,000/2,429,021 stock ranking records
+[2026-07-30 16:12:21,685] INFO -   Inserted 2,000,000/2,429,021 stock ranking records
+[2026-07-30 16:12:22,039] INFO -   Inserted 2,025,000/2,429,021 stock ranking records
+[2026-07-30 16:12:25,281] INFO -   Inserted 2,050,000/2,429,021 stock ranking records
+[2026-07-30 16:12:25,640] INFO -   Inserted 2,075,000/2,429,021 stock ranking records
+[2026-07-30 16:12:26,000] INFO -   Inserted 2,100,000/2,429,021 stock ranking records
+[2026-07-30 16:12:26,367] INFO -   Inserted 2,125,000/2,429,021 stock ranking records
+[2026-07-30 16:12:26,728] INFO -   Inserted 2,150,000/2,429,021 stock ranking records
+[2026-07-30 16:12:27,082] INFO -   Inserted 2,175,000/2,429,021 stock ranking records
+[2026-07-30 16:12:27,456] INFO -   Inserted 2,200,000/2,429,021 stock ranking records
+[2026-07-30 16:12:27,961] INFO -   Inserted 2,225,000/2,429,021 stock ranking records
+[2026-07-30 16:12:28,362] INFO -   Inserted 2,250,000/2,429,021 stock ranking records
+[2026-07-30 16:12:30,867] INFO -   Inserted 2,275,000/2,429,021 stock ranking records
+[2026-07-30 16:12:31,204] INFO -   Inserted 2,300,000/2,429,021 stock ranking records
+[2026-07-30 16:12:31,559] INFO -   Inserted 2,325,000/2,429,021 stock ranking records
+[2026-07-30 16:12:31,921] INFO -   Inserted 2,350,000/2,429,021 stock ranking records
+[2026-07-30 16:12:32,244] INFO -   Inserted 2,375,000/2,429,021 stock ranking records
+[2026-07-30 16:12:32,812] INFO -   Inserted 2,400,000/2,429,021 stock ranking records
+[2026-07-30 16:12:33,143] INFO -   Inserted 2,425,000/2,429,021 stock ranking records
+[2026-07-30 16:12:33,215] INFO -   Inserted 2,429,021/2,429,021 stock ranking records
+[2026-07-30 16:12:33,215] INFO - ✓ Inserted total 2,429,021 stock ranking records into STAGING.STOCK_RANKINGS
+[2026-07-30 16:12:34,060] INFO - 
+--- Phase 6: Computing Custom Theme Engine (THEME_MASTER, THEME_CONSTITUENTS, THEME_DAILY, THEME_ROTATION) ---
+[2026-07-30 16:12:34,464] INFO - ✓ Seeded 5 custom themes and 30 constituent mappings
+[2026-07-30 16:12:42,470] INFO - ✓ Inserted 18,565 daily theme aggregate records into STAGING.THEME_DAILY
+[2026-07-30 16:12:50,568] INFO - ✓ Inserted 18,565 theme rotation records into STAGING.THEME_ROTATION
+[2026-07-30 16:12:50,582] INFO - 
+--- Phase 7: Computing Historical Regime Engine (STAGING.MARKET_REGIMES) ---
+[2026-07-30 16:12:59,112] INFO - ✓ Inserted total 3,714 macro market regime records into STAGING.MARKET_REGIMES
+[2026-07-30 16:12:59,117] INFO - 
+=================================================================
+[2026-07-30 16:12:59,117] INFO -  STAGE 3.6 ETL COMPLETED SUCCESSFULLY
+[2026-07-30 16:12:59,117] INFO - =================================================================
+[2026-07-30 17:27:18,443] INFO - =================================================================
+[2026-07-30 17:27:18,443] INFO -  STAGE 3.6: Market Structure, Rotation, Ranking, Theme & Regime Engine ETL
+[2026-07-30 17:27:18,443] INFO - =================================================================
+[2026-07-30 17:27:18,485] INFO - 
+--- Phase 1: Seeding SECTOR_MASTER and INDUSTRY_MASTER ---
+[2026-07-30 17:27:19,029] INFO - ✓ Inserted 20 sectors into STAGING.SECTOR_MASTER
+[2026-07-30 17:27:19,041] INFO - ✓ Inserted 118 industries into STAGING.INDUSTRY_MASTER
+[2026-07-30 17:27:19,042] INFO - 
+--- Phase 2: Computing Daily Aggregations & Breadth Engine (MARKET, SECTOR, INDUSTRY) ---
+[2026-07-30 17:27:32,947] INFO - ✓ Computed 3,714 daily market-wide breadth records
+[2026-07-30 17:28:43,512] INFO - ✓ Computed 71,131 daily sector aggregate & breadth records
+[2026-07-30 17:30:44,704] INFO - ✓ Computed 348,181 daily industry aggregate & breadth records
+[2026-07-30 17:30:44,705] INFO - 
+--- Phase 3: Computing Performance Stats (SECTOR_PERFORMANCE & INDUSTRY_PERFORMANCE) ---
+[2026-07-30 17:30:47,371] INFO - ✓ Inserted 240 monthly performance records into STAGING.SECTOR_PERFORMANCE
+[2026-07-30 17:30:52,586] INFO - ✓ Inserted 1,224 monthly performance records into STAGING.INDUSTRY_PERFORMANCE
+[2026-07-30 17:30:52,588] INFO - 
+--- Phase 4: Computing Rotation Engine (SECTOR_ROTATION & INDUSTRY_ROTATION) ---
+[2026-07-30 17:31:05,455] INFO - ✓ Inserted 71,131 sector rotation records into STAGING.SECTOR_ROTATION
+[2026-07-30 17:31:46,597] INFO - ✓ Inserted 348,181 industry rotation records into STAGING.INDUSTRY_ROTATION
+[2026-07-30 17:31:46,757] INFO - 
+--- Phase 5: Computing Stock Rankings (STAGING.STOCK_RANKINGS) ---
+[2026-07-30 17:33:45,521] INFO -   Inserted 25,000/2,429,021 stock ranking records
+[2026-07-30 17:33:45,892] INFO -   Inserted 50,000/2,429,021 stock ranking records
+[2026-07-30 17:33:46,377] INFO -   Inserted 75,000/2,429,021 stock ranking records
+[2026-07-30 17:33:46,731] INFO -   Inserted 100,000/2,429,021 stock ranking records
+[2026-07-30 17:33:47,436] INFO -   Inserted 125,000/2,429,021 stock ranking records
+[2026-07-30 17:33:47,790] INFO -   Inserted 150,000/2,429,021 stock ranking records
+[2026-07-30 17:33:50,587] INFO -   Inserted 175,000/2,429,021 stock ranking records
+[2026-07-30 17:33:50,984] INFO -   Inserted 200,000/2,429,021 stock ranking records
+[2026-07-30 17:33:51,335] INFO -   Inserted 225,000/2,429,021 stock ranking records
+[2026-07-30 17:33:51,679] INFO -   Inserted 250,000/2,429,021 stock ranking records
+[2026-07-30 17:33:52,008] INFO -   Inserted 275,000/2,429,021 stock ranking records
+[2026-07-30 17:33:52,351] INFO -   Inserted 300,000/2,429,021 stock ranking records
+[2026-07-30 17:33:52,749] INFO -   Inserted 325,000/2,429,021 stock ranking records
+[2026-07-30 17:33:54,111] INFO -   Inserted 350,000/2,429,021 stock ranking records
+[2026-07-30 17:33:55,602] INFO -   Inserted 375,000/2,429,021 stock ranking records
+[2026-07-30 17:33:56,497] INFO -   Inserted 400,000/2,429,021 stock ranking records
+[2026-07-30 17:33:57,144] INFO -   Inserted 425,000/2,429,021 stock ranking records
+[2026-07-30 17:33:57,710] INFO -   Inserted 450,000/2,429,021 stock ranking records
+[2026-07-30 17:33:58,328] INFO -   Inserted 475,000/2,429,021 stock ranking records
+[2026-07-30 17:33:58,690] INFO -   Inserted 500,000/2,429,021 stock ranking records
+[2026-07-30 17:33:59,129] INFO -   Inserted 525,000/2,429,021 stock ranking records
+[2026-07-30 17:33:59,754] INFO -   Inserted 550,000/2,429,021 stock ranking records
+[2026-07-30 17:34:00,082] INFO -   Inserted 575,000/2,429,021 stock ranking records
+[2026-07-30 17:34:00,595] INFO -   Inserted 600,000/2,429,021 stock ranking records
+[2026-07-30 17:34:02,697] INFO -   Inserted 625,000/2,429,021 stock ranking records
+[2026-07-30 17:34:03,475] INFO -   Inserted 650,000/2,429,021 stock ranking records
+[2026-07-30 17:34:03,868] INFO -   Inserted 675,000/2,429,021 stock ranking records
+[2026-07-30 17:34:04,495] INFO -   Inserted 700,000/2,429,021 stock ranking records
+[2026-07-30 17:34:04,829] INFO -   Inserted 725,000/2,429,021 stock ranking records
+[2026-07-30 17:34:05,203] INFO -   Inserted 750,000/2,429,021 stock ranking records
+[2026-07-30 17:34:06,552] INFO -   Inserted 775,000/2,429,021 stock ranking records
+[2026-07-30 17:34:07,121] INFO -   Inserted 800,000/2,429,021 stock ranking records
+[2026-07-30 17:34:07,662] INFO -   Inserted 825,000/2,429,021 stock ranking records
+[2026-07-30 17:34:08,237] INFO -   Inserted 850,000/2,429,021 stock ranking records
+[2026-07-30 17:34:09,649] INFO -   Inserted 875,000/2,429,021 stock ranking records
+[2026-07-30 17:34:09,999] INFO -   Inserted 900,000/2,429,021 stock ranking records
+[2026-07-30 17:34:10,336] INFO -   Inserted 925,000/2,429,021 stock ranking records
+[2026-07-30 17:34:10,852] INFO -   Inserted 950,000/2,429,021 stock ranking records
+[2026-07-30 17:34:11,366] INFO -   Inserted 975,000/2,429,021 stock ranking records
+[2026-07-30 17:34:11,740] INFO -   Inserted 1,000,000/2,429,021 stock ranking records
+[2026-07-30 17:34:12,208] INFO -   Inserted 1,025,000/2,429,021 stock ranking records
+[2026-07-30 17:34:12,596] INFO -   Inserted 1,050,000/2,429,021 stock ranking records
+[2026-07-30 17:34:12,993] INFO -   Inserted 1,075,000/2,429,021 stock ranking records
+[2026-07-30 17:34:13,358] INFO -   Inserted 1,100,000/2,429,021 stock ranking records
+[2026-07-30 17:34:15,348] INFO -   Inserted 1,125,000/2,429,021 stock ranking records
+[2026-07-30 17:34:15,656] INFO -   Inserted 1,150,000/2,429,021 stock ranking records
+[2026-07-30 17:34:16,013] INFO -   Inserted 1,175,000/2,429,021 stock ranking records
+[2026-07-30 17:34:16,341] INFO -   Inserted 1,200,000/2,429,021 stock ranking records
+[2026-07-30 17:34:16,725] INFO -   Inserted 1,225,000/2,429,021 stock ranking records
+[2026-07-30 17:34:17,105] INFO -   Inserted 1,250,000/2,429,021 stock ranking records
+[2026-07-30 17:34:17,445] INFO -   Inserted 1,275,000/2,429,021 stock ranking records
+[2026-07-30 17:34:17,783] INFO -   Inserted 1,300,000/2,429,021 stock ranking records
+[2026-07-30 17:34:19,026] INFO -   Inserted 1,325,000/2,429,021 stock ranking records
+[2026-07-30 17:34:23,931] INFO -   Inserted 1,350,000/2,429,021 stock ranking records
+[2026-07-30 17:34:24,296] INFO -   Inserted 1,375,000/2,429,021 stock ranking records
+[2026-07-30 17:34:24,643] INFO -   Inserted 1,400,000/2,429,021 stock ranking records
+[2026-07-30 17:34:24,997] INFO -   Inserted 1,425,000/2,429,021 stock ranking records
+[2026-07-30 17:34:25,344] INFO -   Inserted 1,450,000/2,429,021 stock ranking records
+[2026-07-30 17:34:25,872] INFO -   Inserted 1,475,000/2,429,021 stock ranking records
+[2026-07-30 17:34:26,227] INFO -   Inserted 1,500,000/2,429,021 stock ranking records
+[2026-07-30 17:34:26,583] INFO -   Inserted 1,525,000/2,429,021 stock ranking records
+[2026-07-30 17:34:26,972] INFO -   Inserted 1,550,000/2,429,021 stock ranking records
+[2026-07-30 17:34:27,313] INFO -   Inserted 1,575,000/2,429,021 stock ranking records
+[2026-07-30 17:34:33,294] INFO -   Inserted 1,600,000/2,429,021 stock ranking records
+[2026-07-30 17:34:33,679] INFO -   Inserted 1,625,000/2,429,021 stock ranking records
+[2026-07-30 17:34:34,165] INFO -   Inserted 1,650,000/2,429,021 stock ranking records
+[2026-07-30 17:34:35,095] INFO -   Inserted 1,675,000/2,429,021 stock ranking records
+[2026-07-30 17:34:35,707] INFO -   Inserted 1,700,000/2,429,021 stock ranking records
+[2026-07-30 17:34:36,228] INFO -   Inserted 1,725,000/2,429,021 stock ranking records
+[2026-07-30 17:34:37,295] INFO -   Inserted 1,750,000/2,429,021 stock ranking records
+[2026-07-30 17:34:37,788] INFO -   Inserted 1,775,000/2,429,021 stock ranking records
+[2026-07-30 17:34:38,306] INFO -   Inserted 1,800,000/2,429,021 stock ranking records
+[2026-07-30 17:34:39,921] INFO -   Inserted 1,825,000/2,429,021 stock ranking records
+[2026-07-30 17:34:40,397] INFO -   Inserted 1,850,000/2,429,021 stock ranking records
+[2026-07-30 17:34:40,889] INFO -   Inserted 1,875,000/2,429,021 stock ranking records
+[2026-07-30 17:34:41,360] INFO -   Inserted 1,900,000/2,429,021 stock ranking records
+[2026-07-30 17:34:41,735] INFO -   Inserted 1,925,000/2,429,021 stock ranking records
+[2026-07-30 17:34:42,154] INFO -   Inserted 1,950,000/2,429,021 stock ranking records
+[2026-07-30 17:34:42,879] INFO -   Inserted 1,975,000/2,429,021 stock ranking records
+[2026-07-30 17:34:43,432] INFO -   Inserted 2,000,000/2,429,021 stock ranking records
+[2026-07-30 17:34:43,880] INFO -   Inserted 2,025,000/2,429,021 stock ranking records
+[2026-07-30 17:34:44,394] INFO -   Inserted 2,050,000/2,429,021 stock ranking records
+[2026-07-30 17:34:45,923] INFO -   Inserted 2,075,000/2,429,021 stock ranking records
+[2026-07-30 17:34:46,445] INFO -   Inserted 2,100,000/2,429,021 stock ranking records
+[2026-07-30 17:34:46,953] INFO -   Inserted 2,125,000/2,429,021 stock ranking records
+[2026-07-30 17:34:49,915] INFO -   Inserted 2,150,000/2,429,021 stock ranking records
+[2026-07-30 17:34:50,464] INFO -   Inserted 2,175,000/2,429,021 stock ranking records
+[2026-07-30 17:34:50,922] INFO -   Inserted 2,200,000/2,429,021 stock ranking records
+[2026-07-30 17:34:51,345] INFO -   Inserted 2,225,000/2,429,021 stock ranking records
+[2026-07-30 17:34:51,817] INFO -   Inserted 2,250,000/2,429,021 stock ranking records
+[2026-07-30 17:34:52,342] INFO -   Inserted 2,275,000/2,429,021 stock ranking records
+[2026-07-30 17:34:53,559] INFO -   Inserted 2,300,000/2,429,021 stock ranking records
+[2026-07-30 17:34:54,021] INFO -   Inserted 2,325,000/2,429,021 stock ranking records
+[2026-07-30 17:34:54,496] INFO -   Inserted 2,350,000/2,429,021 stock ranking records
+[2026-07-30 17:34:54,939] INFO -   Inserted 2,375,000/2,429,021 stock ranking records
+[2026-07-30 17:34:55,542] INFO -   Inserted 2,400,000/2,429,021 stock ranking records
+[2026-07-30 17:34:56,084] INFO -   Inserted 2,425,000/2,429,021 stock ranking records
+[2026-07-30 17:34:57,187] INFO -   Inserted 2,429,021/2,429,021 stock ranking records
+[2026-07-30 17:34:57,188] INFO - ✓ Inserted total 2,429,021 stock ranking records into STAGING.STOCK_RANKINGS
+[2026-07-30 17:34:58,000] INFO - 
+--- Phase 6: Computing Custom Theme Engine (THEME_MASTER, THEME_CONSTITUENTS, THEME_DAILY, THEME_ROTATION) ---
+[2026-07-30 17:34:58,770] INFO - ✓ Seeded 5 custom themes and 30 constituent mappings
+[2026-07-30 17:35:08,181] INFO - ✓ Inserted 18,565 daily theme aggregate records into STAGING.THEME_DAILY
+[2026-07-30 17:35:18,425] INFO - ✓ Inserted 18,565 theme rotation records into STAGING.THEME_ROTATION
+[2026-07-30 17:35:18,443] INFO - 
+--- Phase 7: Computing Historical Regime Engine (STAGING.MARKET_REGIMES) ---
+[2026-07-30 17:35:25,850] INFO - ✓ Inserted total 3,714 macro market regime records into STAGING.MARKET_REGIMES
+[2026-07-30 17:35:25,854] INFO - 
+=================================================================
+[2026-07-30 17:35:25,854] INFO -  STAGE 3.6 ETL COMPLETED SUCCESSFULLY
+[2026-07-30 17:35:25,854] INFO - =================================================================

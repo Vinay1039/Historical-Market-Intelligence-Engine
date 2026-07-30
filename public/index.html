@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HMIE Visual Research Dashboard v1.5.0</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="logo-icon">🏛️</div>
+                <div>
+                    <h1>HMIE Visual Research Dashboard <span class="version-tag">v1.5.0</span></h1>
+                    <p class="subtitle">Historical Market Intelligence Engine • NSE Equity Research</p>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="status-indicator">
+                    <span class="pulse-dot"></span>
+                    <span id="oracle-status">Oracle 23c Connected</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="tab-btn active" data-tab="regimes-tab">
+                <span class="tab-icon">📊</span> Market Regimes & Breadth
+            </button>
+            <button class="tab-btn" data-tab="rotation-tab">
+                <span class="tab-icon">🔄</span> Sector & Theme Rotation
+            </button>
+            <button class="tab-btn" data-tab="strategy-tab">
+                <span class="tab-icon">📈</span> Quantitative Strategy Lab
+            </button>
+            <button class="tab-btn" data-tab="evidence-tab">
+                <span class="tab-icon">📜</span> Historical Evidence Bank
+            </button>
+            <button class="tab-btn" data-tab="ai-tab">
+                <span class="tab-icon">🤖</span> AI Evidence Briefing
+            </button>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+
+            <!-- TAB 1: Market Regimes & Breadth -->
+            <section id="regimes-tab" class="tab-content active">
+                <div class="grid-layout">
+                    <!-- Regime Card -->
+                    <div class="glass-card main-regime-card">
+                        <div class="card-header">
+                            <h3>Current Macro Market Regime</h3>
+                            <span class="info-badge">Precomputed Oracle State</span>
+                        </div>
+                        <div class="regime-body">
+                            <div id="regime-badge" class="regime-badge-large">LOADING...</div>
+                            <div class="regime-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Active Duration</span>
+                                    <span id="regime-duration" class="stat-value">-- Days</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">As Of Date</span>
+                                    <span id="regime-date" class="stat-value">------</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Advance/Decline Ratio</span>
+                                    <span id="breadth-ratio" class="stat-value">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Breadth Meters -->
+                    <div class="glass-card">
+                        <div class="card-header">
+                            <h3>Market Participation Breadth</h3>
+                            <span class="info-badge">2,234 Equities</span>
+                        </div>
+                        <div class="breadth-meters">
+                            <div class="meter-group">
+                                <div class="meter-label">
+                                    <span>Stocks Above EMA 20</span>
+                                    <span id="pct-ema20-val">--%</span>
+                                </div>
+                                <div class="meter-bar-bg"><div id="pct-ema20-bar" class="meter-bar-fill" style="width: 0%"></div></div>
+                            </div>
+                            <div class="meter-group">
+                                <div class="meter-label">
+                                    <span>Stocks Above EMA 50</span>
+                                    <span id="pct-ema50-val">--%</span>
+                                </div>
+                                <div class="meter-bar-bg"><div id="pct-ema50-bar" class="meter-bar-fill" style="width: 0%"></div></div>
+                            </div>
+                            <div class="meter-group">
+                                <div class="meter-label">
+                                    <span>Stocks Above EMA 200</span>
+                                    <span id="pct-ema200-val">--%</span>
+                                </div>
+                                <div class="meter-bar-bg"><div id="pct-ema200-bar" class="meter-bar-fill" style="width: 0%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breadth Chart -->
+                <div class="glass-card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <h3>Market Breadth Participation Overview</h3>
+                        <span class="info-badge">Interactive Chart</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="breadthChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 2: Sector & Theme Rotation -->
+            <section id="rotation-tab" class="tab-content">
+                <div class="glass-card" style="margin-bottom: 24px;">
+                    <div class="card-header">
+                        <h3>Sector Relative Strength Heatmap Visualizer</h3>
+                        <span class="info-badge">Chart.js Visualizer</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sectorChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>Sector Relative Strength Leaderboard (3-Month Rolling RS)</h3>
+                        <span class="info-badge">Precomputed Sector Ranks</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Sector Code</th>
+                                    <th>3M Relative Strength</th>
+                                    <th>63D Delta</th>
+                                    <th>Rotation Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="sector-table-body">
+                                <tr><td colspan="5" class="loading-td">Loading precomputed sector rankings...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 3: Quantitative Strategy Lab -->
+            <section id="strategy-tab" class="tab-content">
+                <div class="glass-card" style="margin-bottom: 24px;">
+                    <div class="card-header">
+                        <h3>15-Year Quantitative Strategy CAGR & Sharpe Comparison</h3>
+                        <span class="info-badge">Stage 6 Strategy Lab Engine</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="strategyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>Quantitative Strategy Performance Matrix</h3>
+                        <span class="info-badge">15-Year Backtest Summary</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Strategy Code</th>
+                                    <th>Strategy Name</th>
+                                    <th>CAGR</th>
+                                    <th>Max Drawdown</th>
+                                    <th>Sharpe Ratio</th>
+                                    <th>Win Rate</th>
+                                    <th>Trades</th>
+                                </tr>
+                            </thead>
+                            <tbody id="strategy-table-body">
+                                <tr><td colspan="7" class="loading-td">Loading strategy backtest summary...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 4: Historical Evidence Bank -->
+            <section id="evidence-tab" class="tab-content">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>15-Year Historical Drawdowns & Recovery Evidence</h3>
+                        <span class="info-badge">Stage 4 Historical Evidence Engine</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Correction Event</th>
+                                    <th>Peak Date</th>
+                                    <th>Trough Date</th>
+                                    <th>Recovery Date</th>
+                                    <th>Max Drawdown</th>
+                                    <th>Corr Days</th>
+                                    <th>Rec Days</th>
+                                    <th>Recovery Pattern</th>
+                                    <th>Top 60D Sector</th>
+                                </tr>
+                            </thead>
+                            <tbody id="corrections-table-body">
+                                <tr><td colspan="9" class="loading-td">Loading historical correction evidence...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-card" style="margin-top: 24px;">
+                    <div class="card-header">
+                        <h3>Historical Macro Event Evidence (Union Budgets, Elections, Crises)</h3>
+                        <span class="info-badge">Precomputed Event Windows</span>
+                    </div>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Event Name</th>
+                                    <th>Category</th>
+                                    <th>Event Date</th>
+                                    <th>Market Regime</th>
+                                    <th>Pre-30D Return</th>
+                                    <th>Post-30D Return</th>
+                                    <th>Top Post Sector</th>
+                                </tr>
+                            </thead>
+                            <tbody id="macro-table-body">
+                                <tr><td colspan="7" class="loading-td">Loading macro event evidence...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TAB 5: AI Evidence Briefing -->
+            <section id="ai-tab" class="tab-content">
+                <div class="glass-card">
+                    <div class="card-header">
+                        <h3>AI Evidence Narrator Briefing (Constitutional Law #8 Compliant)</h3>
+                        <button id="generate-ai-btn" class="btn-primary">⚡ Generate Live AI Briefing</button>
+                    </div>
+                    <div id="ai-narrative-container" class="markdown-body">
+                        <div class="placeholder-box">
+                            <span class="placeholder-icon">🤖</span>
+                            <p>Click "Generate Live AI Briefing" to retrieve precomputed endpoints and render a zero-hallucination natural language research report.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

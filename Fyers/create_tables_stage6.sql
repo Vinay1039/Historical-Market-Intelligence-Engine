@@ -1,0 +1,30 @@
+-- Oracle DDL Script for HMIE v1.4.0 (Stage 6: Quantitative Strategy Lab)
+
+CREATE TABLE STAGING.STRATEGY_PERFORMANCE (
+    STRATEGY_ID            NUMBER(6,0) PRIMARY KEY,
+    STRATEGY_CODE          VARCHAR2(50) NOT NULL,
+    STRATEGY_NAME          VARCHAR2(100) NOT NULL,
+    BENCHMARK              VARCHAR2(50) DEFAULT 'NIFTY_EQUAL',
+    START_DATE             DATE NOT NULL,
+    END_DATE               DATE NOT NULL,
+    TOTAL_RETURN_PCT       NUMBER(8,2),
+    CAGR_PCT               NUMBER(6,2),
+    MAX_DRAWDOWN_PCT       NUMBER(6,2),
+    WIN_RATE_PCT           NUMBER(6,2),
+    SHARPE_RATIO           NUMBER(6,2),
+    PROFIT_FACTOR          NUMBER(6,2),
+    TOTAL_TRADES           NUMBER(6,0)
+);
+
+CREATE TABLE STAGING.STRATEGY_TRADES (
+    TRADE_ID               NUMBER(8,0) PRIMARY KEY,
+    STRATEGY_CODE          VARCHAR2(50) NOT NULL,
+    SYMBOL_OR_CODE         VARCHAR2(50) NOT NULL,
+    ENTRY_DATE             DATE NOT NULL,
+    EXIT_DATE              DATE NOT NULL,
+    HOLDING_DAYS           NUMBER(6,0),
+    ENTRY_PRICE            NUMBER(10,2),
+    EXIT_PRICE             NUMBER(10,2),
+    RETURN_PCT             NUMBER(6,2),
+    WIN_FLAG               NUMBER(1,0)
+);
