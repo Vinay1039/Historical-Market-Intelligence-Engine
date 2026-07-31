@@ -55,7 +55,7 @@ class TestAnalyticsOperations(unittest.TestCase):
         query = "What are top 5 total average return stocks in Nifty50 from year 2015 to 2025 on August 15"
         res = self.engine.query_evidence(query)
         self.assertEqual(res['mode'], "DATA_EXPLORER")
-        self.assertIn("Top 5 NIFTY50 Companies", res['plain_english_answer'])
+        self.assertIn("Top 5 Companies Table", res['plain_english_answer'])
         self.assertIn("ICICI Bank", res['plain_english_answer'])
         print("[PASS] RANK_STOCKS Operation Output Structure")
 
@@ -64,7 +64,7 @@ class TestAnalyticsOperations(unittest.TestCase):
         query = "What is the total average return of sectors from year 2015 to 2025 on August 15"
         res = self.engine.query_evidence(query)
         self.assertEqual(res['mode'], "DATA_EXPLORER")
-        self.assertIn("| Sector | Mean Return | Std Dev (σ) | Win Rate | Count >+1% | Count <-1% | Min Return (Year) | Max Return (Year) |", res['plain_english_answer'])
+        self.assertIn("| Sector | Average Return | Std Dev (σ) | Win Rate | Gains >+1% | Losses <-1% | Worst Year | Best Year |", res['plain_english_answer'])
         print("[PASS] STATISTICS Operation Markdown Table Formatting")
 
     def test_boundary_guardrail_unsupported_hypothesis(self):
