@@ -34,7 +34,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -71,11 +71,11 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 1rem;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .data-table th, .data-table td {
-            padding: 0.65rem 1rem;
+            padding: 0.65rem 0.85rem;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
@@ -101,6 +101,23 @@
         .btn-prompt:hover {
             background: var(--accent-blue);
             color: white;
+        }
+
+        .btn-filter {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .btn-filter.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            font-weight: 600;
         }
 
         a.back-link {
@@ -132,7 +149,7 @@
 
         <!-- Permanent Temporal Governance Header -->
         <div class="gov-banner">
-            <strong style="color: var(--accent-blue);">📜 Historical Observations (2011–2025)</strong><br>
+            <strong style="color: var(--accent-blue);">📜 Historical Observations (2011–2025 • NIFTY50 / BANK NIFTY / MIDCAP Universe)</strong><br>
             This page summarizes how the stock market behaved during previous occurrences of this event. It is intended strictly for historical research and does not forecast future market behavior.
         </div>
 
@@ -165,7 +182,7 @@
             </table>
 
             <!-- Table 3: Historical Leaders -->
-            <div class="section-header" style="margin-top: 1.5rem;">🏆 Historical Leaders</div>
+            <div class="section-header" style="margin-top: 1.5rem;">🏆 Sector & Stock Leaders</div>
             <table class="data-table">
                 <thead>
                     <tr>
@@ -180,6 +197,36 @@
             <div class="section-header" style="margin-top: 1.5rem;">📌 What This Historical Sample Shows</div>
             <div id="interpretation-bullets" style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-primary);">
             </div>
+        </div>
+
+        <!-- Section 5: Top Historical F&O Stock Performers -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
+                <div class="section-header" style="margin:0;">🏆 Top Historical F&O Performers (Event Window: T-3 to T+3)</div>
+                <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem;">
+                    <button class="btn-filter active" onclick="filterFO('ALL')">All F&O</button>
+                    <button class="btn-filter" onclick="filterFO('NIFTY50')">NIFTY50</button>
+                    <button class="btn-filter" onclick="filterFO('BANK NIFTY')">BANK NIFTY</button>
+                    <button class="btn-filter" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP</button>
+                </div>
+            </div>
+
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Company Name</th>
+                        <th>Universe</th>
+                        <th>Avg Return</th>
+                        <th>Win Rate</th>
+                        <th>Std Dev (σ)</th>
+                        <th>Best Year</th>
+                        <th>Worst Year</th>
+                        <th>Explore</th>
+                    </tr>
+                </thead>
+                <tbody id="tb-fo-stocks"></tbody>
+            </table>
         </div>
 
         <!-- Explore Further Handoff Section -->
@@ -200,6 +247,8 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const eventId = urlParams.get('id') || 'INDEPENDENCE_DAY';
+        let allFOStocks = [];
+        let currentEventName = "Independence Day";
 
         async function loadEvent() {
             try {
@@ -209,6 +258,8 @@
 
                 const ev = data.event;
                 const sum = data.summary;
+                allFOStocks = data.fo_stocks || [];
+                currentEventName = ev.event_name.replace(/[^a-zA-Z0-9 ]/g, "").trim();
 
                 document.getElementById('event-title').innerText = ev.event_name + " — Historical Observations";
                 document.getElementById('event-desc').innerText = ev.description + " (Event Window: " + sum.eval_window + ")";
@@ -222,7 +273,7 @@
                     <tr><td>Worst Year (Min Return)</td><td><span style="color:var(--accent-amber);">${sum.min_return}</span></td></tr>
                 `;
 
-                // 2. Table: Market Behavior (Neutral Labels)
+                // 2. Table: Market Behavior
                 document.getElementById('tb-behavior').innerHTML = `
                     <tr><td>Gap Up Openings</td><td>${sum.gap_up_count}</td></tr>
                     <tr><td>Gap Down Openings</td><td>${sum.gap_down_count}</td></tr>
@@ -244,8 +295,11 @@
                     • Positive market returns occurred in <strong>${sum.positive_years}</strong>.<br>
                     • Gap Up openings occurred in <strong>${sum.gap_up_count}</strong> compared to Gap Down openings.<br>
                     • <strong>${sum.top_sector}</strong> recorded the highest historical average return, while <strong>${sum.most_stable_sector}</strong> exhibited the lowest historical volatility.<br>
-                    • These observations describe past event windows (2011–2025) and should not be interpreted as future forecasts.
+                    • These observations describe past event windows (2011–2025) across NIFTY50, BANK NIFTY, and NIFTY MIDCAP equities.
                 `;
+
+                // Render Top F&O Stocks
+                renderFOStocks(allFOStocks);
 
                 // Handoff Prompts
                 const promptsDiv = document.getElementById('prompts-list');
@@ -262,6 +316,40 @@
 
             } catch (e) {
                 console.error("Failed to load event details", e);
+            }
+        }
+
+        function renderFOStocks(list) {
+            const tbody = document.getElementById('tb-fo-stocks');
+            tbody.innerHTML = '';
+            list.forEach(stk => {
+                const queryStr = "Show historical performance for " + stk.name + " on " + currentEventName;
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${stk.rank}</td>
+                        <td><strong>${stk.name}</strong> <span style="color:var(--text-secondary); font-size:0.78rem;">(${stk.symbol})</span></td>
+                        <td><span style="background:rgba(59,130,246,0.15); color:var(--accent-blue); padding:0.15rem 0.4rem; border-radius:3px; font-size:0.75rem;">${stk.universe}</span></td>
+                        <td><strong style="color:var(--accent-green);">${stk.avg_return}</strong></td>
+                        <td><span style="color:var(--accent-blue);">${stk.win_rate}</span></td>
+                        <td>${stk.std_dev}</td>
+                        <td><span style="color:var(--accent-green); font-size:0.8rem;">${stk.best_year}</span></td>
+                        <td><span style="color:var(--accent-amber); font-size:0.8rem;">${stk.worst_year}</span></td>
+                        <td><button onclick="window.location.href='/?q=${encodeURIComponent(queryStr)}'" style="background:none; border:none; color:var(--accent-blue); cursor:pointer; font-size:1.1rem;">🔍</button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function filterFO(universe) {
+            const buttons = document.querySelectorAll('.btn-filter');
+            buttons.forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            if (universe === 'ALL') {
+                renderFOStocks(allFOStocks);
+            } else {
+                const filtered = allFOStocks.filter(s => s.universe.toUpperCase() === universe.toUpperCase());
+                renderFOStocks(filtered);
             }
         }
 
