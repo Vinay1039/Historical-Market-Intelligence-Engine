@@ -103,7 +103,13 @@
 
                 <!-- Level 1: Simple Answer -->
                 <div class="answer-box">
-                    <div class="answer-title">✅ HMIE Answer</div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="answer-title">✅ HMIE Answer</div>
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button onclick="window.print()" style="background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 4px; cursor: pointer;">📥 Print / Save PDF</button>
+                            <button onclick="exportTableToCSV()" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.3rem 0.6rem; font-size: 0.75rem; border-radius: 4px; cursor: pointer;">📊 Download CSV</button>
+                        </div>
+                    </div>
                     <div id="simple-answer" class="answer-text"></div>
                     <div id="conf-badge" class="badge-confidence conf-high">Confidence: High</div>
                 </div>
@@ -259,6 +265,31 @@
 
             tbody.innerHTML = "";
             rows.forEach(r => tbody.appendChild(r));
+        }
+
+        function exportTableToCSV() {
+            const table = document.getElementById("sortable-table");
+            if (!table) {
+                alert("No table data available to export.");
+                return;
+            }
+            let csv = [];
+            const rows = table.querySelectorAll("tr");
+            rows.forEach(r => {
+                const cols = r.querySelectorAll("th, td");
+                let rowData = [];
+                cols.forEach(c => {
+                    let text = c.innerText.replace("⇗⇖", "").trim();
+                    rowData.push('"' + text.replace(/"/g, '""') + '"');
+                });
+                csv.push(rowData.join(","));
+            });
+            const csvBlob = new Blob([csv.join("\n")], { type: "text/csv" });
+            const url = URL.createObjectURL(csvBlob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "HMIE_Historical_Report.csv";
+            a.click();
         }
     </script>
 </body>

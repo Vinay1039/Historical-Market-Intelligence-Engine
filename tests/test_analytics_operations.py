@@ -64,7 +64,7 @@ class TestAnalyticsOperations(unittest.TestCase):
         query = "What is the total average return of sectors from year 2015 to 2025 on August 15"
         res = self.engine.query_evidence(query)
         self.assertEqual(res['mode'], "DATA_EXPLORER")
-        self.assertIn("| Sector | Average Return | Std Dev (σ) | Win Rate | Gains >+1% | Losses <-1% | Worst Year | Best Year |", res['plain_english_answer'])
+        self.assertIn("| Sector | Average Return | Success Rate | Big Gain Years (>+1%) | Loss Years (<-1%) | Worst Year | Best Year |", res['plain_english_answer'])
         print("[PASS] STATISTICS Operation Markdown Table Formatting")
 
     def test_boundary_guardrail_unsupported_hypothesis(self):
