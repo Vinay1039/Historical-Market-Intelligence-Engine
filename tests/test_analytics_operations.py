@@ -55,7 +55,7 @@ class TestAnalyticsOperations(unittest.TestCase):
         query = "What are top 5 total average return stocks in Nifty50 from year 2015 to 2025 on August 15"
         res = self.engine.query_evidence(query)
         self.assertEqual(res['mode'], "DATA_EXPLORER")
-        self.assertIn("Top 5 NIFTY50 Stocks", res['plain_english_answer'])
+        self.assertIn("Top 5 NIFTY50 Companies", res['plain_english_answer'])
         self.assertIn("ICICI Bank", res['plain_english_answer'])
         print("[PASS] RANK_STOCKS Operation Output Structure")
 

@@ -37,7 +37,7 @@ class HMIEResearchEngine:
             "RETURN ON DATE", "INDICES", "WHAT ABOUT", "ALL STOCKS",
             "EVERY STOCKS", "MIDCAP", "SMALLCAP", "TOP 5", "TOP 10",
             "WIN RATE", "DO FMCG", "TOP STOCKS", "TOP", "RANK", "HIGHEST RETURN",
-            "EVERY HOLI", "HOLI FROM"
+            "EVERY HOLI", "HOLI FROM", "INDEPENDENCE", "REPUBLIC"
         ]
 
         is_data_query = any(dk in q_upper for dk in data_keywords)
