@@ -192,17 +192,52 @@
                 });
                 const data = await res.json();
 
-                // 1. Simple Answer
-                document.getElementById('simple-answer').innerText = data.plain_english_answer;
+                // 1. Plain English Answer & Sortable Table Parser
+                let rawAnswer = data.plain_english_answer || "No findings recorded.";
+                const simpleAnsElem = document.getElementById('simple-answer');
+                if (rawAnswer.includes("|")) {
+                    const lines = rawAnswer.split("\n");
+                    let tableHTML = `<table id="sortable-table" style="width:100%; border-collapse:collapse; margin-top:1rem; font-size:0.88rem;">`;
+                    let inTable = false;
+                    let headers = [];
+
+                    lines.forEach((line, idx) => {
+                        if (line.includes("|") && !line.includes(":---")) {
+                            const cells = line.split("|").filter(c => c.trim() !== "").map(c => c.trim());
+                            if (!inTable) {
+                                inTable = true;
+                                headers = cells;
+                                tableHTML += `<thead><tr style="background:var(--bg-card); border-bottom:2px solid var(--border-color);">`;
+                                cells.forEach((h, colIdx) => {
+                                    tableHTML += `<th onclick="sortTable(${colIdx})" style="padding:0.6rem; text-align:left; cursor:pointer; user-select:none; color:var(--accent-blue);">${h} ⇗⇖</th>`;
+                                });
+                                tableHTML += `</tr></thead><tbody>`;
+                            } else {
+                                tableHTML += `<tr style="border-bottom:1px solid var(--border-color);">`;
+                                cells.forEach(c => {
+                                    tableHTML += `<td style="padding:0.5rem 0.6rem;">${c}</td>`;
+                                });
+                                tableHTML += `</tr>`;
+                            }
+                        } else if (!line.includes("|")) {
+                            if (inTable) {
+                                inTable = false;
+                                tableHTML += `</tbody></table>`;
+                            }
+                            tableHTML += `<div>${line}</div>`;
+                        }
+                    });
+                    if (inTable) tableHTML += `</tbody></table>`;
+                    simpleAnsElem.innerHTML = tableHTML;
+                } else {
+                    simpleAnsElem.innerText = rawAnswer;
+                }
 
                 // 2. Confidence Badge
                 const badge = document.getElementById('conf-badge');
-                badge.innerText = `Confidence: ${data.confidence_text}`;
-                if (data.confidence_badge === 'High') {
-                    badge.className = 'badge-confidence conf-high';
-                } else {
-                    badge.className = 'badge-confidence conf-mod';
-                }
+                const confText = data.confidence_text || (data.dual_indicators ? data.dual_indicators.evidence_quality : 'High Quality');
+                badge.innerText = `Confidence: ${confText}`;
+                badge.className = 'badge-confidence conf-high';
 
                 // 3. Why Text
                 document.getElementById('why-text').innerText = data.why_explanation;
@@ -233,6 +268,31 @@
             } catch (err) {
                 document.getElementById('simple-answer').innerText = "Unable to connect to HMIE backend server.";
             }
+        }
+        let sortAsc = false;
+        function sortTable(colIdx) {
+            const table = document.getElementById("sortable-table");
+            if (!table) return;
+            const tbody = table.querySelector("tbody");
+            const rows = Array.from(tbody.querySelectorAll("tr"));
+
+            sortAsc = !sortAsc;
+
+            rows.sort((a, b) => {
+                const cellA = a.children[colIdx].innerText.replace('%', '').trim();
+                const cellB = b.children[colIdx].innerText.replace('%', '').trim();
+
+                const numA = parseFloat(cellA);
+                const numB = parseFloat(cellB);
+
+                if (!isNaN(numA) && !isNaN(numB)) {
+                    return sortAsc ? numA - numB : numB - numA;
+                }
+                return sortAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            });
+
+            tbody.innerHTML = "";
+            rows.forEach(r => tbody.appendChild(r));
         }
     </script>
 </body>
