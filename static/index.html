@@ -80,11 +80,25 @@
 
     <div class="container">
 
+        <!-- Section 1: Guided Discovery — Historical Research Opportunities -->
+        <div style="margin-bottom: 2rem;">
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--accent-blue); margin-bottom: 0.75rem;">
+                📅 Historical Research Opportunities (Upcoming Event Windows)
+            </div>
+            <div id="events-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;">
+                <!-- Populated via GET /api/v1/events -->
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+                    <div style="font-weight: 600;">🇮🇳 Independence Day</div>
+                    <div style="font-size: 0.8rem; color: var(--accent-blue); margin: 0.25rem 0;">15 days away • 15 Events (2011–2025)</div>
+                    <a href="/event.html?id=INDEPENDENCE_DAY" style="display: inline-block; margin-top: 0.5rem; color: var(--accent-green); font-size: 0.82rem; text-decoration: none; font-weight: 600;">Explore Historical Behavior →</a>
+                </div>
+            </div>
+        </div>
 
-
+        <!-- Section 2: Ask HMIE Search Engine -->
         <div class="card">
             <div class="card-header">
-                <span>❓ Ask a Market Research Question</span>
+                <span>❓ Ask HMIE a Historical Question</span>
                 <div style="display: flex; gap: 0.5rem; font-size: 0.8rem;">
                     <span style="color: var(--text-secondary);">Domains:</span>
                     <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: var(--accent-blue);">Momentum</span>
@@ -148,6 +162,39 @@
     </footer>
 
     <script>
+        async function fetchEvents() {
+            try {
+                const res = await fetch('/api/v1/events');
+                const data = await res.json();
+                if (data.status === 'SUCCESS' && data.events.length > 0) {
+                    const grid = document.getElementById('events-grid');
+                    grid.innerHTML = '';
+                    data.events.forEach(ev => {
+                        grid.innerHTML += `
+                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
+                                <div style="font-weight: 600;">${ev.event_name}</div>
+                                <div style="font-size: 0.8rem; color: var(--accent-blue); margin: 0.25rem 0;">${ev.days_away} days away • Date: ${ev.event_date}</div>
+                                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.5rem;">${ev.description}</div>
+                                <a href="/event.html?id=${ev.event_id}" style="display: inline-block; color: var(--accent-green); font-size: 0.82rem; text-decoration: none; font-weight: 600;">Explore Historical Behavior →</a>
+                            </div>
+                        `;
+                    });
+                }
+            } catch (e) {
+                console.error("Failed to load events", e);
+            }
+        }
+
+        window.onload = function() {
+            fetchEvents();
+            const urlParams = new URLSearchParams(window.location.search);
+            const qParam = urlParams.get('q');
+            if (qParam) {
+                document.getElementById('query-input').value = qParam;
+                askHMIE();
+            }
+        };
+
         async function askHMIE() {
             const q = document.getElementById('query-input').value.trim();
             if (!q) return;
