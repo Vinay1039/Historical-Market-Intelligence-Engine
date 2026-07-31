@@ -35,7 +35,7 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 950px;
             margin: 2rem auto;
             padding: 0 1rem;
         }
@@ -60,7 +60,7 @@
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
@@ -199,6 +199,22 @@
                     <div class="metric-box">
                         <div class="metric-label">Loss Years (<-1%)</div>
                         <div class="metric-val" style="color: var(--accent-red);">${sum.losses_lt_1pct}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Gap Up Openings</div>
+                        <div class="metric-val" style="color: var(--accent-green);">${sum.gap_up_count}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Gap Down Openings</div>
+                        <div class="metric-val" style="color: var(--accent-red);">${sum.gap_down_count}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Prev Range >1% (High Volatility)</div>
+                        <div class="metric-val" style="color: var(--accent-amber);">${sum.prev_range_gt_1pct}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Prev Range <1% (Low Volatility)</div>
+                        <div class="metric-val" style="color: var(--accent-blue);">${sum.prev_range_lt_1pct}</div>
                     </div>
                     <div class="metric-box">
                         <div class="metric-label">Best Year (Max Return)</div>

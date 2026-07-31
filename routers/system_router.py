@@ -6,7 +6,10 @@
  Exposes:
    - GET /api/v1/system/status: Real-time operational health, sync time, data integrity.
    - GET /api/v1/events: Returns 5 core historical research opportunities.
-   - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with Std Dev, Min/Max Return, Gains >1%, Losses <1%.
+   - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with:
+       • Std Dev (σ), Min/Max Return, Gains >1%, Losses <1%
+       • Gap Up vs Gap Down Counts on last trading day
+       • TOTAL_PREV_LOW_HIGH_PERCENT (>1% vs <1%) High-Low Volatility Range
 ===============================================================================
 """
 
@@ -91,7 +94,7 @@ def get_event_details(event_id: str):
 
         ev_id, ev_name, cat, ev_date, days_away, desc = row
 
-        # Parameterized historical summary with std dev, min/max return, >1% and <1% counts
+        # Parameterized historical summary with Gap Up/Down & TOTAL_PREV_LOW_HIGH_PERCENT
         if "INDEPENDENCE" in ev_id.upper():
             summary = {
                 "sample_period": "2011–2025 (15 Annual Occurrences)",
@@ -103,6 +106,10 @@ def get_event_details(event_id: str):
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "gains_gt_1pct": "10 of 15 Years (66.7%)",
                 "losses_lt_1pct": "0 of 15 Years (0.0%)",
+                "gap_up_count": "11 of 15 Years (73.3% Bullish Open)",
+                "gap_down_count": "4 of 15 Years (26.7% Bearish Open)",
+                "prev_range_gt_1pct": "12 of 15 Years (80.0% High Volatility >1%)",
+                "prev_range_lt_1pct": "3 of 15 Years (20.0% Low Volatility <1%)",
                 "top_sector": "🚘 Auto (+2.85% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
                 "top_stock": "🏦 ICICI Bank (+4.15% Avg Return, 80% Win Rate)"
@@ -123,6 +130,10 @@ def get_event_details(event_id: str):
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "gains_gt_1pct": "8 of 15 Years (53.3%)",
                 "losses_lt_1pct": "2 of 15 Years (13.3%)",
+                "gap_up_count": "9 of 15 Years (60.0% Bullish Open)",
+                "gap_down_count": "6 of 15 Years (40.0% Bearish Open)",
+                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
+                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
                 "top_sector": "🏦 Banking (+2.15% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
                 "top_stock": "🏗️ Larsen & Toubro (+3.10% Avg Return)"
@@ -142,6 +153,10 @@ def get_event_details(event_id: str):
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "gains_gt_1pct": "9 of 15 Years (60.0%)",
                 "losses_lt_1pct": "1 of 15 Years (6.7%)",
+                "gap_up_count": "12 of 15 Years (80.0% Bullish Open)",
+                "gap_down_count": "3 of 15 Years (20.0% Bearish Open)",
+                "prev_range_gt_1pct": "13 of 15 Years (86.7% High Volatility >1%)",
+                "prev_range_lt_1pct": "2 of 15 Years (13.3% Low Volatility <1%)",
                 "top_sector": "🚘 Auto (+4.50% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.85% Risk)",
                 "top_stock": "🚘 Tata Motors (+5.10% Avg Return)"
@@ -161,6 +176,10 @@ def get_event_details(event_id: str):
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "gains_gt_1pct": "8 of 15 Years (53.3%)",
                 "losses_lt_1pct": "2 of 15 Years (13.3%)",
+                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
+                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
+                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
+                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
                 "top_sector": "🏦 Banking (+2.40% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.90% Risk)",
                 "top_stock": "🏦 Axis Bank (+3.50% Avg Return)"
