@@ -202,12 +202,13 @@
         <!-- Section 5: Top Historical F&O Stock Performers -->
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
-                <div class="section-header" style="margin:0;">🏆 Top Historical F&O Performers (Event Window: T-3 to T+3)</div>
-                <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem;">
-                    <button class="btn-filter active" onclick="filterFO('ALL')">All F&O</button>
+                <div class="section-header" style="margin:0;">🏆 Top 5 Historical F&O Performers per Index</div>
+                <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem; flex-wrap: wrap;">
+                    <button class="btn-filter active" onclick="filterFO('ALL')">All F&O (Top 20)</button>
                     <button class="btn-filter" onclick="filterFO('NIFTY50')">NIFTY50</button>
                     <button class="btn-filter" onclick="filterFO('BANK NIFTY')">BANK NIFTY</button>
                     <button class="btn-filter" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP</button>
+                    <button class="btn-filter" onclick="filterFO('NIFTY AUTO')">NIFTY AUTO</button>
                 </div>
             </div>
 
