@@ -69,14 +69,12 @@
     </header>
 
     <div class="status-bar">
-        <div style="display: flex; gap: 1.5rem; align-items: center;">
-            <span><strong style="color: var(--accent-green);">● System Status:</strong> Ready</span>
-            <span><strong>Dataset Version:</strong> <code>v2.0.0</code></span>
-            <span><strong>Governed Studies:</strong> 20 Executions</span>
-            <span><strong>Sample Size:</strong> <code style="color: var(--accent-blue);">N = 15 Events (2011–2025)</code></span>
-        </div>
-        <div>
-            <span><strong>System Trust Score:</strong> <span style="color: var(--accent-green); font-weight: 600;">100% Reliable (0% Hallucinations)</span></span>
+        <div style="display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap;">
+            <span><strong style="color: var(--accent-green);">● System Status:</strong> <span id="sys-status">Ready</span></span>
+            <span><strong>Last Sync:</strong> <code id="sys-sync-time" style="color: var(--accent-blue);">31 Jul 2026 15:48 IST</code></span>
+            <span><strong>Symbols Updated:</strong> <code id="sys-symbols" style="color: var(--accent-green);">856 / 856</code></span>
+            <span><strong>Data Integrity:</strong> <span id="sys-integrity" style="color: var(--accent-green); font-weight: 600;">PASS (0 Anomalies)</span></span>
+            <span><strong>Dataset Version:</strong> <code id="sys-version">v2.0.1</code></span>
         </div>
     </div>
 
