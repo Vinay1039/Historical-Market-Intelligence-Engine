@@ -1,10 +1,9 @@
 """
 ===============================================================================
- HMIE v3.2 — Class B Historical Analytics Engine (Stock-Specific Thematic Tables)
+ HMIE v3.2 — Class B Historical Analytics Engine (Clean Clean Table Formatting)
  core/analytics_engine.py
 
- Formats stock-specific queries into 3 thematic tables (Market Performance,
- Market Behavior, Stock Details) with neutral observational labels for all F&O stocks.
+ Clean table cells without raw markdown asterisks.
 ===============================================================================
 """
 
@@ -46,7 +45,7 @@ class HistoricalAnalyticsEngine:
 
         if matched_stock:
             s = matched_stock
-            answer_lead = f"Over the last 15 years (2011–2025), **{s['name']} ({s['symbol']})** recorded an **average return of {s['avg']}** around Independence Day, with a **{s['win']}**.\n\n### 💡 Key Takeaways (In Simple Terms)\n• **Stock Trend**: {s['desc']}\n• **Best Year**: Delivered a peak return of {s['best']}.\n\n### 📈 Market Performance\n\n| Metric | Historical Observation |\n| :--- | :--- |\n| Average Return | **{s['avg']}** |\n| Winning Years (Positive) | **{s['win']}** |\n| Standard Deviation (σ) | **{s['std']}** |\n| Best Year (Max Return) | **{s['best']}** |\n| Worst Year (Min Return) | **{s['worst']}** |\n\n### ⚡ Market Behavior\n\n| Metric | Historical Observation |\n| :--- | :--- |\n| Gap Up Openings | {s['gap_up']} |\n| Gap Down Openings | {s['gap_dn']} |\n| Previous Day Range >1% | {s['rng_gt']} |\n| Previous Day Range <1% | {s['rng_lt']} |\n| Gains >+1% Count | {s['gain_gt']} |\n| Losses <-1% Count | {s['loss_lt']} |\n\n### 🚘 Stock Details\n\n| Attribute | Description |\n| :--- | :--- |\n| Company Name | {s['name']} ({s['symbol']}) |\n| Universe | {s['universe']} |"
+            answer_lead = f"Over the last 15 years (2011–2025), **{s['name']} ({s['symbol']})** recorded an **average return of {s['avg']}** around Independence Day, with a **{s['win']}**.\n\n### 💡 Key Takeaways (In Simple Terms)\n• **Stock Trend**: {s['desc']}\n• **Best Year**: Delivered a peak return of {s['best']}.\n\n### 📈 Market Performance\n\n| Metric | Historical Observation |\n| :--- | :--- |\n| Average Return | {s['avg']} |\n| Winning Years (Positive) | {s['win']} |\n| Standard Deviation (σ) | {s['std']} |\n| Best Year (Max Return) | {s['best']} |\n| Worst Year (Min Return) | {s['worst']} |\n\n### ⚡ Market Behavior\n\n| Metric | Historical Observation |\n| :--- | :--- |\n| Gap Up Openings | {s['gap_up']} |\n| Gap Down Openings | {s['gap_dn']} |\n| Previous Day Range >1% | {s['rng_gt']} |\n| Previous Day Range <1% | {s['rng_lt']} |\n| Gains >+1% Count | {s['gain_gt']} |\n| Losses <-1% Count | {s['loss_lt']} |\n\n### 🚘 Stock Details\n\n| Attribute | Description |\n| :--- | :--- |\n| Company Name | {s['name']} ({s['symbol']}) |\n| Universe | {s['universe']} |"
             why_text = f"{s['name']} ({s['avg']}) direct historical calculation across 15 annual event windows (2011–2025)."
             badge = f"Historical Analysis (Stock: {s['symbol']})"
 
@@ -61,7 +60,7 @@ class HistoricalAnalyticsEngine:
             badge = "Historical Analysis (Most Consistent Companies)"
 
         elif "TOP 5" in q_upper or ("TOP" in q_upper and "STOCKS" in q_upper):
-            answer_lead = "Looking at the last 15 years (2011–2025), **ICICI Bank** (+4.15% average return) and **Tata Motors** (+3.85%) have been the top-performing companies around Independence Day, followed by Axis Bank (+3.40%), Larsen & Toubro (+3.10%), and Mahindra & Mahindra (+2.95%).\n\n### 💡 Key Takeaways (In Simple Terms)\n• **Banking & Cars Lead**: 4 out of the top 5 companies belong to Banking and Auto sectors.\n• **Reliable Performance**: All top 5 companies made positive returns in 11 to 12 of the 15 analyzed years.\n\n### 📊 Top 5 Companies Table\n\n| Rank | Company Name | Sector | Average Return | Success Rate | Big Gain Years (>+1%) | Worst Year | Best Year |\n| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: |\n| 🥇 | ICICI Bank | Banking | +4.15% | 80.0% (12 of 15) | 11 of 15 Years | -1.10% (2019) | +8.45% (2020) |\n| 🥈 | Tata Motors | Auto | +3.85% | 80.0% (12 of 15) | 11 of 15 Years | -1.40% (2019) | +7.85% (2020) |\n| 🥉 | Axis Bank | Banking | 73.3% (11 of 15) | +3.40% | 10 of 15 Years | -1.60% (2019) | +6.90% (2022) |\n| 4. | Larsen & Toubro | Infra | 73.3% (11 of 15) | +3.10% | 10 of 15 Years | -0.90% (2019) | +5.40% (2021) |\n| 5. | Mahindra & Mahindra | Auto | +2.95% | 73.3% (11 of 15) | 9 of 15 Years | -1.15% (2019) | +5.10% (2024) |"
+            answer_lead = "Looking at the last 15 years (2011–2025), **ICICI Bank** (+4.15% average return) and **Tata Motors** (+3.85%) have been the top-performing companies around Independence Day, followed by Axis Bank (+3.40%), Larsen & Toubro (+3.10%), and Mahindra & Mahindra (+2.95%).\n\n### 💡 Key Takeaways (In Simple Terms)\n• **Banking & Cars Lead**: 4 out of the top 5 companies belong to Banking and Auto sectors.\n• **Reliable Performance**: All top 5 companies made positive returns in 11 to 12 of the 15 analyzed years.\n\n### 📊 Top 5 Companies Table\n\n| Rank | Company Name | Sector | Average Return | Success Rate | Big Gain Years (>+1%) | Worst Year | Best Year |\n| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: |\n| 🥇 | ICICI Bank | Banking | +4.15% | 80.0% (12 of 15) | 11 of 15 Years | -1.10% (2019) | +8.45% (2020) |\n| 🥈 | Tata Motors | Auto | +3.85% | 80.0% (12 of 15) | 11 of 15 Years | -1.40% (2019) | +7.85% (2020) |\n| 🥉 | Axis Bank | Banking | 73.3% (11 of 15) | +3.40% | 10 of 15 Years | -1.60% (2019) | +6.90% (2022) |\n| 4. | Larsen & Toubro | Infra | +3.10% | 73.3% (11 of 15) | 10 of 15 Years | -0.90% (2019) | +5.40% (2021) |\n| 5. | Mahindra & Mahindra | Auto | +2.95% | 73.3% (11 of 15) | 9 of 15 Years | -1.15% (2019) | +5.10% (2024) |"
             why_text = "ICICI Bank (+4.15%) and Tata Motors (+3.85%) gave the highest average returns among NIFTY50 companies during the August 15 period."
             badge = "Historical Analysis (Top 5 Companies)"
 
