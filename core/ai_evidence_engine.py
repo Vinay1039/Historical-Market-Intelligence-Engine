@@ -35,14 +35,16 @@ class HMIEResearchEngine:
             "AUGUST 15", "INDEPENDENCE DAY", "15 AUGUST", "REPUBLIC DAY",
             "JANUARY 26", "26 JAN", "JAN 26", "PRICE ON", "VOLUME ON",
             "RETURN ON DATE", "INDICES", "WHAT ABOUT", "ALL STOCKS",
-            "EVERY STOCKS", "MIDCAP", "SMALLCAP", "TOP 5", "TOP 10"
+            "EVERY STOCKS", "MIDCAP", "SMALLCAP", "TOP 5", "TOP 10",
+            "WIN RATE", "DO FMCG", "TOP STOCKS", "TOP", "RANK", "HIGHEST RETURN",
+            "EVERY HOLI", "HOLI FROM"
         ]
 
         is_data_query = any(dk in q_upper for dk in data_keywords)
 
         if is_data_query:
             target_class = TargetClass.CLASS_B_ANALYTICS
-            if "TOP 5" in q_upper or "TOP" in q_upper:
+            if "TOP 5" in q_upper or "TOP" in q_upper or "WIN RATE" in q_upper or "HIGHEST RETURN" in q_upper or "RANK" in q_upper:
                 category = IntentCategory.RANK
                 operation = AnalyticsOperation.RANK_STOCKS
             elif "MIDCAP" in q_upper or "SMALLCAP" in q_upper:
