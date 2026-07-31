@@ -211,43 +211,53 @@
                 });
                 const data = await res.json();
 
-                // 1. Plain English Answer & Sortable Table Parser
+                // 1. Multi-Table Markdown Parser
                 let rawAnswer = data.plain_english_answer || "No findings recorded.";
                 const simpleAnsElem = document.getElementById('simple-answer');
                 if (rawAnswer.includes("|")) {
                     const lines = rawAnswer.split("\n");
-                    let tableHTML = `<table id="sortable-table" style="width:100%; border-collapse:collapse; margin-top:1rem; font-size:0.88rem;">`;
+                    let outHTML = "";
                     let inTable = false;
-                    let headers = [];
+                    let tableCount = 0;
 
-                    lines.forEach((line, idx) => {
-                        if (line.includes("|") && !line.includes(":---")) {
-                            const cells = line.split("|").filter(c => c.trim() !== "").map(c => c.trim());
+                    lines.forEach((line) => {
+                        const trimmed = line.trim();
+                        if (trimmed.startsWith("|") && trimmed.endsWith("|")) {
+                            if (trimmed.includes(":---")) return; // Skip delimiter row
+
+                            const cells = trimmed.split("|").filter((c, i, a) => i > 0 && i < a.length - 1).map(c => c.trim());
                             if (!inTable) {
                                 inTable = true;
-                                headers = cells;
-                                tableHTML += `<thead><tr style="background:var(--bg-card); border-bottom:2px solid var(--border-color);">`;
+                                tableCount++;
+                                outHTML += `<table id="sortable-table-${tableCount}" style="width:100%; border-collapse:collapse; margin-top:0.75rem; margin-bottom:1.25rem; font-size:0.88rem;">`;
+                                outHTML += `<thead><tr style="background:var(--bg-card); border-bottom:2px solid var(--border-color);">`;
                                 cells.forEach((h, colIdx) => {
-                                    tableHTML += `<th onclick="sortTable(${colIdx})" style="padding:0.6rem; text-align:left; cursor:pointer; user-select:none; color:var(--accent-blue);">${h} ⇗⇖</th>`;
+                                    outHTML += `<th onclick="sortTable(${tableCount}, ${colIdx})" style="padding:0.6rem; text-align:left; cursor:pointer; user-select:none; color:var(--accent-blue);">${h} ⇗⇖</th>`;
                                 });
-                                tableHTML += `</tr></thead><tbody>`;
+                                outHTML += `</tr></thead><tbody>`;
                             } else {
-                                tableHTML += `<tr style="border-bottom:1px solid var(--border-color);">`;
+                                outHTML += `<tr style="border-bottom:1px solid var(--border-color);">`;
                                 cells.forEach(c => {
-                                    tableHTML += `<td style="padding:0.5rem 0.6rem;">${c}</td>`;
+                                    outHTML += `<td style="padding:0.55rem 0.65rem;">${c}</td>`;
                                 });
-                                tableHTML += `</tr>`;
+                                outHTML += `</tr>`;
                             }
-                        } else if (!line.includes("|")) {
+                        } else {
                             if (inTable) {
                                 inTable = false;
-                                tableHTML += `</tbody></table>`;
+                                outHTML += `</tbody></table>`;
                             }
-                            tableHTML += `<div>${line}</div>`;
+                            if (trimmed.startsWith("### ")) {
+                                outHTML += `<h3 style="margin-top:1.25rem; margin-bottom:0.5rem; color:var(--accent-blue); font-size:1.05rem;">${trimmed.replace("### ", "")}</h3>`;
+                            } else if (trimmed.startsWith("• ")) {
+                                outHTML += `<div style="margin-left:0.5rem; margin-bottom:0.25rem;">${trimmed}</div>`;
+                            } else if (trimmed !== "") {
+                                outHTML += `<div style="margin-bottom:0.5rem;">${trimmed}</div>`;
+                            }
                         }
                     });
-                    if (inTable) tableHTML += `</tbody></table>`;
-                    simpleAnsElem.innerHTML = tableHTML;
+                    if (inTable) outHTML += `</tbody></table>`;
+                    simpleAnsElem.innerHTML = outHTML;
                 } else {
                     simpleAnsElem.innerText = rawAnswer;
                 }
@@ -289,8 +299,8 @@
             }
         }
         let sortAsc = false;
-        function sortTable(colIdx) {
-            const table = document.getElementById("sortable-table");
+        function sortTable(tableNum, colIdx) {
+            const table = document.getElementById("sortable-table-" + tableNum) || document.getElementById("sortable-table");
             if (!table) return;
             const tbody = table.querySelector("tbody");
             const rows = Array.from(tbody.querySelectorAll("tr"));
@@ -298,8 +308,8 @@
             sortAsc = !sortAsc;
 
             rows.sort((a, b) => {
-                const cellA = a.children[colIdx].innerText.replace('%', '').trim();
-                const cellB = b.children[colIdx].innerText.replace('%', '').trim();
+                const cellA = a.children[colIdx] ? a.children[colIdx].innerText.replace('%', '').trim() : '';
+                const cellB = b.children[colIdx] ? b.children[colIdx].innerText.replace('%', '').trim() : '';
 
                 const numA = parseFloat(cellA);
                 const numB = parseFloat(cellB);
@@ -315,21 +325,24 @@
         }
 
         function exportTableToCSV() {
-            const table = document.getElementById("sortable-table");
-            if (!table) {
+            const tables = document.querySelectorAll("table");
+            if (!tables || tables.length === 0) {
                 alert("No table data available to export.");
                 return;
             }
             let csv = [];
-            const rows = table.querySelectorAll("tr");
-            rows.forEach(r => {
-                const cols = r.querySelectorAll("th, td");
-                let rowData = [];
-                cols.forEach(c => {
-                    let text = c.innerText.replace("⇗⇖", "").trim();
-                    rowData.push('"' + text.replace(/"/g, '""') + '"');
+            tables.forEach(table => {
+                const rows = table.querySelectorAll("tr");
+                rows.forEach(r => {
+                    const cols = r.querySelectorAll("th, td");
+                    let rowData = [];
+                    cols.forEach(c => {
+                        let text = c.innerText.replace("⇗⇖", "").trim();
+                        rowData.push('"' + text.replace(/"/g, '""') + '"');
+                    });
+                    if (rowData.length > 0) csv.push(rowData.join(","));
                 });
-                csv.push(rowData.join(","));
+                csv.push(""); // Blank line between tables
             });
             const csvBlob = new Blob([csv.join("\n")], { type: "text/csv" });
             const url = URL.createObjectURL(csvBlob);
