@@ -14,6 +14,7 @@
             --accent-blue: #3b82f6;
             --accent-green: #10b981;
             --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
         }
 
         body {
@@ -59,7 +60,7 @@
 
         .summary-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 1rem;
             margin-top: 1rem;
         }
@@ -78,7 +79,7 @@
         }
 
         .metric-val {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--accent-green);
         }
@@ -177,27 +178,43 @@
                 grid.innerHTML = `
                     <div class="metric-box">
                         <div class="metric-label">Sample Period</div>
-                        <div class="metric-val" style="color: var(--text-primary); font-size:0.95rem;">${sum.sample_period}</div>
+                        <div class="metric-val" style="color: var(--text-primary); font-size:0.92rem;">${sum.sample_period}</div>
                     </div>
                     <div class="metric-box">
                         <div class="metric-label">Average Return</div>
                         <div class="metric-val">${sum.average_return}</div>
                     </div>
                     <div class="metric-box">
-                        <div class="metric-label">Success Rate</div>
+                        <div class="metric-label">Std Deviation (σ)</div>
+                        <div class="metric-val" style="color: var(--accent-amber);">${sum.std_dev}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Winning Years (Positive)</div>
                         <div class="metric-val" style="color: var(--accent-blue);">${sum.positive_years}</div>
                     </div>
                     <div class="metric-box">
+                        <div class="metric-label">Big Gain Years (>+1%)</div>
+                        <div class="metric-val" style="color: var(--accent-green);">${sum.gains_gt_1pct}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Loss Years (<-1%)</div>
+                        <div class="metric-val" style="color: var(--accent-red);">${sum.losses_lt_1pct}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Best Year (Max Return)</div>
+                        <div class="metric-val" style="color: var(--accent-green);">${sum.max_return}</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Worst Year (Min Return)</div>
+                        <div class="metric-val" style="color: var(--accent-red);">${sum.min_return}</div>
+                    </div>
+                    <div class="metric-box">
                         <div class="metric-label">Top Performing Sector</div>
-                        <div class="metric-val" style="color: var(--accent-amber); font-size:0.95rem;">${sum.top_sector}</div>
+                        <div class="metric-val" style="color: var(--accent-amber); font-size:0.92rem;">${sum.top_sector}</div>
                     </div>
                     <div class="metric-box">
                         <div class="metric-label">Most Stable Sector</div>
-                        <div class="metric-val" style="color: var(--accent-green); font-size:0.95rem;">${sum.most_stable_sector}</div>
-                    </div>
-                    <div class="metric-box">
-                        <div class="metric-label">Top Stock Leader</div>
-                        <div class="metric-val" style="color: var(--accent-blue); font-size:0.95rem;">${sum.top_stock}</div>
+                        <div class="metric-val" style="color: var(--accent-green); font-size:0.92rem;">${sum.most_stable_sector}</div>
                     </div>
                 `;
 
