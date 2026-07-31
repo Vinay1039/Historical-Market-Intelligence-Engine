@@ -305,12 +305,45 @@ def query_research_engine(req: AIQueryRequest):
     Parses intent/entities, traverses canonical evidence graph, ranks evidence,
     and returns traceable answers with study IDs, execution IDs, and hashes.
     """
+    import time, datetime
+    start_time = time.time()
     from core.ai_evidence_engine import HMIEResearchEngine, close_engine
     engine = HMIEResearchEngine()
+    result = None
+    status = "SUCCESS"
     try:
-        return engine.query_evidence(req.query)
+        result = engine.query_evidence(req.query)
+        return result
+    except Exception as e:
+        status = "SYSTEM_ERROR"
+        raise e
     finally:
+        elapsed_ms = round((time.time() - start_time) * 1000, 2)
         close_engine(engine)
+
+        # Silent, Non-Blocking Operational Telemetry Logging
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            query_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S IST")
+            intent = result.get("intent", "UNKNOWN") if result else "ERROR"
+            mode = result.get("mode", "UNKNOWN") if result else "ERROR"
+            
+            # Infer event source
+            q_text = req.query.strip()
+            source = "SEARCH_BOX"
+            if any(k in q_text for k in ["Compare Independence Day", "Which Auto stocks performed best on Independence"]):
+                source = "EXPLORE_BUTTON"
+
+            cursor.execute("""
+                INSERT INTO STAGING.QUERY_LOGS (QUERY_ID, QUERY_TIME, QUERY_TEXT, INTENT, ENGINE_MODE, RESPONSE_STATUS, RESPONSE_MS, EVENT_SOURCE)
+                VALUES (STAGING.QUERY_LOGS_SEQ.NEXTVAL, :1, :2, :3, :4, :5, :6, :7)
+            """, (query_time, q_text[:1000], intent, mode, status, elapsed_ms, source))
+            conn.commit()
+            cursor.close()
+            conn.close()
+        except Exception:
+            pass  # Logging must never block user research
 
 @router.get("/research/study/{study_id}")
 def get_study_details(study_id: str):

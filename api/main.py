@@ -38,7 +38,7 @@ app.include_router(history_router.router, prefix="/api/v1", tags=["Raw History"]
 app.include_router(technical_router.router, prefix="/api/v1", tags=["Technical & Dashboard"])
 app.include_router(market_structure_router.router, prefix="/api/v1", tags=["Market Structure"])
 app.include_router(evidence_router.router, prefix="/api/v1", tags=["Evidence Engine"])
-app.include_router(strategy_router.router)
+app.include_router(strategy_router.router, prefix="/api/v1", tags=["Strategy & Research"])
 app.include_router(system_router.router)
 
 from fastapi.staticfiles import StaticFiles
