@@ -51,6 +51,10 @@ from fastapi.responses import FileResponse
 def serve_dashboard():
     return FileResponse(str(STATIC_DIR / "index.html"))
 
+@app.get("/event.html", tags=["Dashboard"])
+def serve_event_page():
+    return FileResponse(str(STATIC_DIR / "event.html"))
+
 @app.get("/api/v1/health", tags=["Health"])
 def health_check():
     return {
