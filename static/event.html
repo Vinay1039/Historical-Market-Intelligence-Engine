@@ -161,7 +161,7 @@
             <h1 id="event-title" style="margin-top: 0; font-size: 1.6rem;">Loading Event...</h1>
             <p id="event-desc" style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;"></p>
 
-            <!-- Table 1: Last Trading Session -->
+            <!-- Table 1: Last Trading Session Performance -->
             <div class="section-header">📊 Table 1: Last Trading Session Performance (Single Event Session / Day)</div>
             <table class="data-table">
                 <thead>
@@ -171,6 +171,18 @@
                     </tr>
                 </thead>
                 <tbody id="tb-session"></tbody>
+            </table>
+
+            <!-- Table 1B: Last Trading Session Market Behavior -->
+            <div class="section-header" style="margin-top: 1rem;">⚡ Last Trading Session Market Behavior</div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Historical Observation</th>
+                    </tr>
+                </thead>
+                <tbody id="tb-sessionbehavior"></tbody>
             </table>
 
             <!-- Side-by-Side Comparison Block 1: Pre-Event vs Post-Event Performance -->
@@ -332,13 +344,23 @@
                 const preev = sum.pre_event || { average_return: "+1.25%", positive_years: "12 of 15 Years (80.0% Win Rate)", std_dev: "0.75%", max_return: "+2.90% (2021)", min_return: "-0.40% (2019)", gap_up: "12 of 15 (80.0%)", gap_dn: "3 of 15 (20.0%)", range_gt: "12 of 15 (80.0%)", range_lt: "3 of 15 (20.0%)", gains_gt: "10 of 15 (66.7%)", losses_lt: "0 of 15 (0.0%)" };
                 const postev = sum.post_event || { average_return: "+0.93%", positive_years: "11 of 15 Years (73.3% Win Rate)", std_dev: "0.68%", max_return: "+2.45% (2021)", min_return: "-0.45% (2019)", gap_up: "11 of 15 (73.3%)", gap_dn: "4 of 15 (26.7%)", range_gt: "11 of 15 (73.3%)", range_lt: "4 of 15 (26.7%)", gains_gt: "9 of 15 (60.0%)", losses_lt: "1 of 15 (6.7%)" };
 
-                // 1. Table 1: Last Trading Session
+                // 1. Table 1: Last Trading Session Performance
                 document.getElementById('tb-session').innerHTML = `
                     <tr><td>Single-Day Average Return</td><td><strong style="color:var(--accent-green);">${sday.average_return}</strong></td></tr>
                     <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">${sday.positive_years}</strong></td></tr>
                     <tr><td>Standard Deviation (σ)</td><td>${sday.std_dev}</td></tr>
                     <tr><td>Best Session (Max Return)</td><td><span style="color:var(--accent-green);">${sday.max_return}</span></td></tr>
                     <tr><td>Worst Session (Min Return)</td><td><span style="color:var(--accent-amber);">${sday.min_return}</span></td></tr>
+                `;
+
+                // 1B. Table 1B: Last Trading Session Market Behavior
+                document.getElementById('tb-sessionbehavior').innerHTML = `
+                    <tr><td>Gap Up Openings</td><td>${sum.gap_up_count}</td></tr>
+                    <tr><td>Gap Down Openings</td><td>${sum.gap_down_count}</td></tr>
+                    <tr><td>Previous Day Range >1%</td><td>${sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>Previous Day Range <1%</td><td>${sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Gains >+1% Count</td><td>${sum.gains_gt_1pct}</td></tr>
+                    <tr><td>Losses <-1% Count</td><td>${sum.losses_lt_1pct}</td></tr>
                 `;
 
                 // 2. Table 2: Pre-Event Window (Clean label without T-3 to T-1)
