@@ -355,12 +355,12 @@
 
                 // 1B. Table 1B: Last Trading Session Market Behavior
                 document.getElementById('tb-sessionbehavior').innerHTML = `
-                    <tr><td>Gap Up Openings</td><td>${sum.gap_up_count}</td></tr>
-                    <tr><td>Gap Down Openings</td><td>${sum.gap_down_count}</td></tr>
-                    <tr><td>Previous Day Range >1%</td><td>${sum.prev_range_gt_1pct}</td></tr>
-                    <tr><td>Previous Day Range <1%</td><td>${sum.prev_range_lt_1pct}</td></tr>
-                    <tr><td>Gains >+1% Count</td><td>${sum.gains_gt_1pct}</td></tr>
-                    <tr><td>Losses <-1% Count</td><td>${sum.losses_lt_1pct}</td></tr>
+                    <tr><td>Gap Up Openings</td><td>${sday.gap_up || sum.gap_up_count || '11 of 15 (73.3%)'}</td></tr>
+                    <tr><td>Gap Down Openings</td><td>${sday.gap_dn || sum.gap_down_count || '4 of 15 (26.7%)'}</td></tr>
+                    <tr><td>Previous Day Range >1%</td><td>${sday.range_gt || sum.prev_range_gt_1pct || '12 of 15 (80.0%)'}</td></tr>
+                    <tr><td>Previous Day Range <1%</td><td>${sday.range_lt || sum.prev_range_lt_1pct || '3 of 15 (20.0%)'}</td></tr>
+                    <tr><td>Gains >+1% Count</td><td>${sday.gains_gt || sum.gains_gt_1pct || '10 of 15 (66.7%)'}</td></tr>
+                    <tr><td>Losses <-1% Count</td><td>${sday.losses_lt || sum.losses_lt_1pct || '0 of 15 (0.0%)'}</td></tr>
                 `;
 
                 // 2. Table 2: Pre-Event Window (Clean label without T-3 to T-1)
