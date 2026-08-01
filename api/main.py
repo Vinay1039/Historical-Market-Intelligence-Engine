@@ -55,6 +55,10 @@ def serve_dashboard():
 def serve_event_page():
     return FileResponse(str(STATIC_DIR / "event.html"))
 
+@app.get("/festivals.html", tags=["Dashboard"])
+def serve_festivals_page():
+    return FileResponse(str(STATIC_DIR / "festivals.html"))
+
 @app.get("/api/v1/health", tags=["Health"])
 def health_check():
     return {

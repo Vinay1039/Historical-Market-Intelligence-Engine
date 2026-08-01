@@ -62,10 +62,11 @@
 </head>
 <body>
 
-    <header>
+    <header style="display: flex; justify-content: space-between; align-items: center;">
         <div class="logo">
             HMIE 2.3.1 <span>Plain English Market Assistant</span>
         </div>
+        <a href="/festivals.html" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.4rem 0.85rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none;">📅 Master Festival Intelligence Hub →</a>
     </header>
 
     <div class="status-bar">
@@ -191,8 +192,7 @@
                                     <div style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">${ev.event_name}</div>
                                     <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); font-size: 0.7rem;">${ev.category}</span>
                                 </div>
-                                <div style="font-size: 0.8rem; color: var(--accent-blue); margin: 0.35rem 0; font-weight: 500;">📅 ${ev.event_date} • ${ev.days_away} days away</div>
-                                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.4;">${ev.description}</div>
+                                <div style="font-size: 0.8rem; color: var(--accent-blue); margin: 0.35rem 0 0.75rem 0; font-weight: 500;">📅 ${ev.event_date} • ${ev.days_away} days away</div>
                                 <a href="/event.html?id=${ev.event_id}" style="display: inline-block; color: var(--accent-green); font-size: 0.82rem; text-decoration: none; font-weight: 600;">Explore Historical Behavior →</a>
                             </div>
                         `;
