@@ -7,7 +7,10 @@
    - GET /api/v1/system/status: Real-time operational health, sync time, data integrity.
    - GET /api/v1/events?category=FESTIVAL_HOLIDAY&limit=4&max_days=120: Returns filtered upcoming festival events.
    - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with:
-       • 3 Timeframe Performance & Behavior Tables: (1) Last Session, (2) Pre-Event (T-3 to T-1), (3) Post-Event (T+1 to T+3)
+       • 3 Timeframe Performance & Behavior Tables with Intraday Range % (Avg, Max, Min):
+           (1) Last Session Performance & Behavior Side-by-Side
+           (2) Pre-Event (T-3 to T-1) Performance & Behavior Side-by-Side
+           (3) Post-Event (T+1 to T+3) Performance & Behavior Side-by-Side
        • Sector Leaders, What This Sample Shows
        • Top 5 F&O Stocks Leaderboard per Index (NIFTY50, BANK NIFTY, NIFTY MIDCAP, NIFTY AUTO)
 ===============================================================================
@@ -154,15 +157,18 @@ def get_event_details(event_id: str):
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": {
                     "average_return": "+0.58%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.62%", "max_return": "+1.60% (2021)", "min_return": "-0.70% (2018)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.42%", "max_range": "3.10% (2021)", "min_range": "0.55% (2017)"
                 },
                 "pre_event": {
                     "average_return": "+1.10%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.78%", "max_return": "+2.65% (2021)", "min_return": "-0.60% (2018)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.55%", "max_range": "3.45% (2021)", "min_range": "0.62% (2017)"
                 },
                 "post_event": {
                     "average_return": "+0.82%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.70%", "max_return": "+2.20% (2021)", "min_return": "-0.55% (2018)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.48%", "max_range": "3.25% (2021)", "min_range": "0.58% (2017)"
                 },
                 "top_sector": "🚘 Auto (+2.65% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.90% Risk)",
@@ -183,15 +189,18 @@ def get_event_details(event_id: str):
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": {
                     "average_return": "+0.38%", "positive_years": "9 of 15 Years (60.0% Win Rate)", "std_dev": "0.58%", "max_return": "+1.40% (2020)", "min_return": "-0.80% (2015)",
-                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.35%", "max_range": "2.90% (2020)", "min_range": "0.50% (2016)"
                 },
                 "pre_event": {
                     "average_return": "+0.75%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.72%", "max_return": "+2.20% (2020)", "min_return": "-0.90% (2015)",
-                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.45%", "max_range": "3.10% (2020)", "min_range": "0.58% (2016)"
                 },
                 "post_event": {
                     "average_return": "+0.70%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.65%", "max_return": "+1.90% (2020)", "min_return": "-0.75% (2015)",
-                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.40%", "max_range": "2.95% (2020)", "min_range": "0.52% (2016)"
                 },
                 "top_sector": "🏦 Banking (+2.10% Average Return)",
                 "most_stable_sector": "💻 IT (σ 0.85% Risk)",
@@ -211,15 +220,18 @@ def get_event_details(event_id: str):
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": {
                     "average_return": "+0.62%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.65%", "max_return": "+1.75% (2021)", "min_return": "-0.55% (2019)",
-                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.48%", "max_range": "3.20% (2021)", "min_range": "0.58% (2017)"
                 },
                 "pre_event": {
                     "average_return": "+1.18%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.80%", "max_return": "+2.80% (2021)", "min_return": "-0.50% (2019)",
-                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.60%", "max_range": "3.55% (2021)", "min_range": "0.65% (2017)"
                 },
                 "post_event": {
                     "average_return": "+0.87%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.72%", "max_return": "+2.35% (2021)", "min_return": "-0.55% (2019)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.52%", "max_range": "3.35% (2021)", "min_range": "0.60% (2017)"
                 },
                 "top_sector": "🚘 Auto (+3.10% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.88% Risk)",
@@ -239,15 +251,18 @@ def get_event_details(event_id: str):
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": {
                     "average_return": "+0.48%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.40%", "max_return": "+1.35% (2020)", "min_return": "-0.40% (2018)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)",
+                    "avg_range": "1.25%", "max_range": "2.70% (2020)", "min_range": "0.45% (2019)"
                 },
                 "pre_event": {
                     "average_return": "+0.88%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.62%", "max_return": "+2.10% (2020)", "min_return": "-0.50% (2018)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)",
+                    "avg_range": "1.38%", "max_range": "2.95% (2020)", "min_range": "0.52% (2019)"
                 },
                 "post_event": {
                     "average_return": "+0.77%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.58%", "max_return": "+1.85% (2020)", "min_return": "-0.45% (2018)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)",
+                    "avg_range": "1.32%", "max_range": "2.80% (2020)", "min_range": "0.48% (2019)"
                 },
                 "top_sector": "💻 IT (+2.25% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.75% Risk)",
@@ -267,15 +282,18 @@ def get_event_details(event_id: str):
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": {
                     "average_return": "+0.52%", "positive_years": "9 of 15 Years (60.0% Win Rate)", "std_dev": "0.70%", "max_return": "+1.65% (2021)", "min_return": "-0.95% (2020)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.45%", "max_range": "3.30% (2021)", "min_range": "0.55% (2018)"
                 },
                 "pre_event": {
                     "average_return": "+0.95%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.85%", "max_return": "+2.50% (2021)", "min_return": "-0.85% (2020)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.58%", "max_range": "3.65% (2021)", "min_range": "0.62% (2018)"
                 },
                 "post_event": {
                     "average_return": "+0.80%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.78%", "max_return": "+2.25% (2021)", "min_return": "-0.75% (2020)",
-                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.50%", "max_range": "3.45% (2021)", "min_range": "0.58% (2018)"
                 },
                 "top_sector": "🏦 Banking (+2.30% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
@@ -295,15 +313,18 @@ def get_event_details(event_id: str):
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": {
                     "average_return": "+0.68%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.60%", "max_return": "+1.95% (2021)", "min_return": "-0.65% (2019)",
-                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "0 of 15 (0.0%)"
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "0 of 15 (0.0%)",
+                    "avg_range": "1.52%", "max_range": "3.40% (2021)", "min_range": "0.60% (2018)"
                 },
                 "pre_event": {
                     "average_return": "+1.25%", "positive_years": "12 of 15 Years (80.0% Win Rate)", "std_dev": "0.75%", "max_return": "+2.90% (2021)", "min_return": "-0.40% (2019)",
-                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "0 of 15 (0.0%)"
+                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "0 of 15 (0.0%)",
+                    "avg_range": "1.65%", "max_range": "3.75% (2021)", "min_range": "0.68% (2018)"
                 },
                 "post_event": {
                     "average_return": "+0.93%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.68%", "max_return": "+2.45% (2021)", "min_return": "-0.45% (2019)",
-                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.58%", "max_range": "3.50% (2021)", "min_range": "0.62% (2018)"
                 },
                 "top_sector": "🚘 Auto (+2.85% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
@@ -325,15 +346,18 @@ def get_event_details(event_id: str):
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": {
                     "average_return": "+0.42%", "positive_years": "9 of 15 Years (60.0% Win Rate)", "std_dev": "0.75%", "max_return": "+1.50% (2024)", "min_return": "-1.10% (2016)",
-                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.45%", "max_range": "3.25% (2024)", "min_range": "0.55% (2017)"
                 },
                 "pre_event": {
                     "average_return": "+0.82%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.90%", "max_return": "+2.40% (2024)", "min_return": "-1.25% (2016)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.60%", "max_range": "3.60% (2024)", "min_range": "0.65% (2017)"
                 },
                 "post_event": {
                     "average_return": "+0.71%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.82%", "max_return": "+2.10% (2024)", "min_return": "-1.15% (2016)",
-                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.52%", "max_range": "3.40% (2024)", "min_range": "0.60% (2017)"
                 },
                 "top_sector": "🏦 Banking (+2.15% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
@@ -354,15 +378,18 @@ def get_event_details(event_id: str):
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": {
                     "average_return": "+0.85%", "positive_years": "12 of 15 Years (80.0% Win Rate)", "std_dev": "0.45%", "max_return": "+2.15% (2020)", "min_return": "-0.45% (2019)",
-                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "13 of 15 (86.7%)", "range_lt": "2 of 15 (13.3%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "13 of 15 (86.7%)", "range_lt": "2 of 15 (13.3%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.20%", "max_range": "2.85% (2020)", "min_range": "0.40% (2018)"
                 },
                 "pre_event": {
                     "average_return": "+0.98%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.70%", "max_return": "+2.75% (2020)", "min_return": "-0.55% (2019)",
-                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "13 of 15 (86.7%)", "range_lt": "2 of 15 (13.3%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "13 of 15 (86.7%)", "range_lt": "2 of 15 (13.3%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.45%", "max_range": "3.20% (2020)", "min_range": "0.55% (2018)"
                 },
                 "post_event": {
                     "average_return": "+0.82%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.65%", "max_return": "+2.45% (2020)", "min_return": "-0.50% (2019)",
-                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "1 of 15 (6.7%)"
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "1 of 15 (6.7%)",
+                    "avg_range": "1.38%", "max_range": "3.05% (2020)", "min_range": "0.50% (2018)"
                 },
                 "top_sector": "🚘 Auto (+4.50% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.85% Risk)",
@@ -383,15 +410,18 @@ def get_event_details(event_id: str):
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": {
                     "average_return": "+0.60%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.65%", "max_return": "+1.80% (2021)", "min_return": "-0.80% (2016)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.40%", "max_range": "3.15% (2021)", "min_range": "0.52% (2016)"
                 },
                 "pre_event": {
                     "average_return": "+1.05%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.82%", "max_return": "+2.60% (2021)", "min_return": "-0.95% (2016)",
-                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.55%", "max_range": "3.50% (2021)", "min_range": "0.60% (2016)"
                 },
                 "post_event": {
                     "average_return": "+0.85%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.75%", "max_return": "+2.30% (2021)", "min_return": "-0.85% (2016)",
-                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "2 of 15 (13.3%)"
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "2 of 15 (13.3%)",
+                    "avg_range": "1.48%", "max_range": "3.30% (2021)", "min_range": "0.55% (2016)"
                 },
                 "top_sector": "🏦 Banking (+2.40% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.90% Risk)",
