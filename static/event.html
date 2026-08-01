@@ -358,9 +358,9 @@
                     <tr><td>Standard Deviation (σ)</td><td>${sday.std_dev}</td></tr>
                     <tr><td>Best Session (Max Return)</td><td><span style="color:var(--accent-green);">${sday.max_return}</span></td></tr>
                     <tr><td>Worst Session (Min Return)</td><td><span style="color:var(--accent-amber);">${sday.min_return}</span></td></tr>
-                    <tr><td>Avg Intraday High-Low Range</td><td><strong>${sday.avg_range || '1.52%'}</strong></td></tr>
-                    <tr><td>Max Intraday Range %</td><td><span style="color:var(--accent-green);">${sday.max_range || '3.40% (2021)'}</span></td></tr>
-                    <tr><td>Min Intraday Range %</td><td><span style="color:var(--accent-amber);">${sday.min_range || '0.60% (2018)'}</span></td></tr>
+                    <tr><td>Avg of Prev Low to High %</td><td><strong>${sday.avg_range || '1.52%'}</strong></td></tr>
+                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${sday.max_range || '3.40% (2021)'}</span></td></tr>
+                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${sday.min_range || '0.60% (2018)'}</span></td></tr>
                 `;
 
                 // 1B. Table 1B: Last Trading Session Market Behavior
@@ -380,9 +380,9 @@
                     <tr><td>Standard Deviation (σ)</td><td>${preev.std_dev}</td></tr>
                     <tr><td>Best Pre-Event Run-Up (Max)</td><td><span style="color:var(--accent-green);">${preev.max_return}</span></td></tr>
                     <tr><td>Worst Pre-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${preev.min_return}</span></td></tr>
-                    <tr><td>Avg Intraday High-Low Range</td><td><strong>${preev.avg_range || '1.65%'}</strong></td></tr>
-                    <tr><td>Max Intraday Range %</td><td><span style="color:var(--accent-green);">${preev.max_range || '3.75% (2021)'}</span></td></tr>
-                    <tr><td>Min Intraday Range %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.68% (2018)'}</span></td></tr>
+                    <tr><td>Avg of Prev Low to High %</td><td><strong>${preev.avg_range || '1.65%'}</strong></td></tr>
+                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '3.75% (2021)'}</span></td></tr>
+                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.68% (2018)'}</span></td></tr>
                 `;
 
                 // 3. Table 3: Post-Event Window Performance
@@ -392,9 +392,9 @@
                     <tr><td>Standard Deviation (σ)</td><td>${postev.std_dev}</td></tr>
                     <tr><td>Best Post-Event Rally (Max)</td><td><span style="color:var(--accent-green);">${postev.max_return}</span></td></tr>
                     <tr><td>Worst Post-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${postev.min_return}</span></td></tr>
-                    <tr><td>Avg Intraday High-Low Range</td><td><strong>${postev.avg_range || '1.58%'}</strong></td></tr>
-                    <tr><td>Max Intraday Range %</td><td><span style="color:var(--accent-green);">${postev.max_range || '3.50% (2021)'}</span></td></tr>
-                    <tr><td>Min Intraday Range %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.62% (2018)'}</span></td></tr>
+                    <tr><td>Avg of Prev Low to High %</td><td><strong>${postev.avg_range || '1.58%'}</strong></td></tr>
+                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '3.50% (2021)'}</span></td></tr>
+                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.62% (2018)'}</span></td></tr>
                 `;
 
                 // 4. Table 4: Pre-Event Behavior
