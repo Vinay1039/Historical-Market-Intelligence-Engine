@@ -80,7 +80,7 @@
         }
 
         .card-header {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--accent-blue);
             margin-bottom: 1rem;
@@ -155,142 +155,386 @@
 
         <!-- Temporal Governance Banner -->
         <div class="gov-banner">
-            📜 <strong>Historical Observations 2011–2025:</strong> This master hub summarizes 15 years of past market behavior across all Indian festival holidays. It does not forecast future performance.
+            📜 <strong>Historical Observations 2011–2025:</strong> This master hub analyzes 15 years of past market behavior across 3 distinct timeframes: (1) Last Trading Session, (2) Pre-Event Run-Up (T-3 to T-1), and (3) Post-Event Rally (T+1 to T+3).
         </div>
 
-        <!-- Master Leaderboard Table Card -->
+        <!-- Global Action Bar -->
+        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-bottom: 1rem;">
+            <button onclick="window.print()" style="background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 6px; cursor: pointer; font-weight: 600;">📥 Print / Save PDF</button>
+            <button onclick="exportTableToCSV()" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 6px; cursor: pointer; font-weight: 600;">📊 Download CSV</button>
+        </div>
+
+        <!-- LEADERBOARD 1: LAST TRADING SESSION -->
         <div class="card">
             <div class="card-header">
-                <div>🏆 Master Festival & Holiday Probability Leaderboard (Ranked #1 to #9)</div>
-                <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem;">
-                    <button onclick="window.print()" style="background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 0.35rem 0.7rem; font-size: 0.78rem; border-radius: 4px; cursor: pointer; font-weight: 600;">📥 Print / Save PDF</button>
-                    <button onclick="exportTableToCSV()" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.35rem 0.7rem; font-size: 0.78rem; border-radius: 4px; cursor: pointer; font-weight: 600;">📊 Download CSV</button>
-                </div>
+                <div>📊 Table 1: Last Trading Session Performance (Single Festival Session / Day)</div>
             </div>
 
             <div style="overflow-x: auto;">
-                <table id="master-festivals-table">
+                <table id="sortable-table-1">
                     <thead>
                         <tr>
-                            <th onclick="sortTable(0)">Rank ⇗⇖</th>
-                            <th onclick="sortTable(1)">Festival / Holiday Event ⇗⇖</th>
-                            <th onclick="sortTable(2)">Win Rate (Positive) ⇗⇖</th>
-                            <th onclick="sortTable(3)">Expectancy Ratio ⇗⇖</th>
-                            <th onclick="sortTable(4)">Single-Day Return ⇗⇖</th>
-                            <th onclick="sortTable(5)">Full Window Return ⇗⇖</th>
-                            <th onclick="sortTable(6)">Gap Up % ⇗⇖</th>
-                            <th onclick="sortTable(7)">Single-Day Best / Worst ⇗⇖</th>
-                            <th onclick="sortTable(8)">Full Window Best / Worst ⇗⇖</th>
+                            <th onclick="sortTable(1, 0)">Rank ⇗⇖</th>
+                            <th onclick="sortTable(1, 1)">Festival / Holiday Event ⇗⇖</th>
+                            <th onclick="sortTable(1, 2)">Single-Day Avg Return ⇗⇖</th>
+                            <th onclick="sortTable(1, 3)">Win Rate (Positive) ⇗⇖</th>
+                            <th onclick="sortTable(1, 4)">Standard Dev (σ) ⇗⇖</th>
+                            <th onclick="sortTable(1, 5)">Gap Up Open % ⇗⇖</th>
+                            <th onclick="sortTable(1, 6)">Best Session (Max) ⇗⇖</th>
+                            <th onclick="sortTable(1, 7)">Worst Session (Min) ⇗⇖</th>
                             <th>Explore</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>🥇 1.</td>
-                            <td><strong>🎆 New Year Trading Window</strong> (Dec 31 / Jan 1)</td>
-                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
-                            <td><strong>1.68</strong></td>
-                            <td>+0.72%</td>
-                            <td><strong style="color: var(--accent-green);">+1.98%</strong></td>
-                            <td>73.3% (11/15)</td>
-                            <td>+1.85% / -0.50%</td>
-                            <td>+4.60% (2021) / -0.85% (2018)</td>
-                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
-                        </tr>
-                        <tr>
-                            <td>🥈 2.</td>
                             <td><strong>🪔 Diwali & Muhurat Trading</strong></td>
-                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
-                            <td><strong>1.56</strong></td>
                             <td><strong style="color: var(--accent-green);">+0.85%</strong></td>
-                            <td>+1.80%</td>
                             <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
-                            <td>+2.15% / -0.45%</td>
-                            <td>+5.10% (2020) / -1.10% (2019)</td>
+                            <td>0.45%</td>
+                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
+                            <td>+2.15% (2020)</td>
+                            <td>-0.45% (2019)</td>
                             <td><a href="/event.html?id=DIWALI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
+                            <td>🥈 2.</td>
+                            <td><strong>🎆 New Year Trading Session</strong> (Dec 31)</td>
+                            <td><strong style="color: var(--accent-green);">+0.72%</strong></td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.55%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>+1.85% (2021)</td>
+                            <td>-0.50% (2018)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
                             <td>🥉 3.</td>
-                            <td><strong>🇮🇳 Independence Day</strong> (Aug 15)</td>
-                            <td>73.3% (11/15)</td>
-                            <td><strong>1.74</strong></td>
+                            <td><strong>🇮🇳 Independence Day Session</strong></td>
                             <td>+0.68%</td>
-                            <td><strong style="color: var(--accent-green);">+2.18%</strong></td>
                             <td>73.3% (11/15)</td>
-                            <td>+1.95% / -0.65%</td>
-                            <td>+4.85% (2021) / -0.90% (2019)</td>
+                            <td>0.60%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>+1.95% (2021)</td>
+                            <td>-0.65% (2019)</td>
                             <td><a href="/event.html?id=INDEPENDENCE_DAY" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>4.</td>
-                            <td><strong>🎄 Christmas Holiday</strong> (Dec 25)</td>
-                            <td>73.3% (11/15)</td>
-                            <td>1.50</td>
-                            <td>+0.48%</td>
-                            <td>+1.65%</td>
-                            <td>66.7% (10/15)</td>
-                            <td>+1.35% / -0.40%</td>
-                            <td>+3.80% (2020) / -0.95% (2018)</td>
-                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
-                        </tr>
-                        <tr>
-                            <td>5.</td>
-                            <td><strong>🏹 Dussehra</strong> (Vijayadashami)</td>
-                            <td>73.3% (11/15)</td>
-                            <td>1.52</td>
+                            <td><strong>🏹 Dussehra Session</strong></td>
                             <td>+0.62%</td>
-                            <td><strong style="color: var(--accent-green);">+2.05%</strong></td>
+                            <td>66.7% (10/15)</td>
+                            <td>0.65%</td>
                             <td>73.3% (11/15)</td>
-                            <td>+1.75% / -0.55%</td>
-                            <td>+4.75% (2021) / -1.10% (2019)</td>
+                            <td>+1.75% (2021)</td>
+                            <td>-0.55% (2019)</td>
                             <td><a href="/event.html?id=DUSSEHRA" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
-                            <td>6.</td>
-                            <td><strong>🐘 Ganesh Chaturthi</strong></td>
-                            <td>73.3% (11/15)</td>
-                            <td>1.48</td>
+                            <td>5.</td>
+                            <td><strong>🐘 Ganesh Chaturthi Session</strong></td>
                             <td>+0.58%</td>
-                            <td>+1.92%</td>
                             <td>66.7% (10/15)</td>
-                            <td>+1.60% / -0.70%</td>
-                            <td>+4.50% (2021) / -1.20% (2018)</td>
+                            <td>0.62%</td>
+                            <td>66.7% (10/15)</td>
+                            <td>+1.60% (2021)</td>
+                            <td>-0.70% (2018)</td>
                             <td><a href="/event.html?id=GANESH_CHATURTHI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
-                            <td>7.</td>
-                            <td><strong>🎨 Holi Festival of Colors</strong></td>
-                            <td>66.7% (10/15)</td>
-                            <td>1.25</td>
+                            <td>6.</td>
+                            <td><strong>🎨 Holi Session</strong></td>
                             <td>+0.52%</td>
-                            <td>+1.75%</td>
+                            <td>60.0% (9/15)</td>
+                            <td>0.70%</td>
                             <td>66.7% (10/15)</td>
-                            <td>+1.65% / -0.95%</td>
-                            <td>+4.40% (2021) / -1.60% (2020)</td>
+                            <td>+1.65% (2021)</td>
+                            <td>-0.95% (2020)</td>
                             <td><a href="/event.html?id=HOLI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
-                            <td>8.</td>
-                            <td><strong>🇮🇳 Republic Day</strong> (Jan 26)</td>
+                            <td>7.</td>
+                            <td><strong>🎄 Christmas Session</strong> (Dec 24/25)</td>
+                            <td>+0.48%</td>
                             <td>66.7% (10/15)</td>
-                            <td>1.05</td>
+                            <td><strong>0.40%</strong></td>
+                            <td>66.7% (10/15)</td>
+                            <td>+1.35% (2020)</td>
+                            <td><strong>-0.40%</strong> (2018)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td><strong>🇮🇳 Republic Day Session</strong></td>
                             <td>+0.42%</td>
-                            <td>+1.53%</td>
                             <td>60.0% (9/15)</td>
-                            <td>+1.50% / -1.10%</td>
-                            <td>+4.30% (2024) / -2.10% (2016)</td>
+                            <td>0.75%</td>
+                            <td>60.0% (9/15)</td>
+                            <td>+1.50% (2024)</td>
+                            <td>-1.10% (2016)</td>
                             <td><a href="/event.html?id=REPUBLIC_DAY" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>9.</td>
-                            <td><strong>🕊️ Mahatma Gandhi Jayanti</strong> (Oct 2)</td>
-                            <td>66.7% (10/15)</td>
-                            <td>1.21</td>
+                            <td><strong>🕊️ Mahatma Gandhi Jayanti Session</strong></td>
                             <td>+0.38%</td>
-                            <td>+1.45%</td>
                             <td>60.0% (9/15)</td>
-                            <td>+1.40% / -0.80%</td>
-                            <td>+3.90% (2020) / -1.50% (2015)</td>
+                            <td>0.58%</td>
+                            <td>60.0% (9/15)</td>
+                            <td>+1.40% (2020)</td>
+                            <td>-0.80% (2015)</td>
+                            <td><a href="/event.html?id=GANDHI_JAYANTI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- LEADERBOARD 2: T-3 PRE-EVENT RUN-UP -->
+        <div class="card">
+            <div class="card-header">
+                <div>📉 Table 2: Pre-Event Window Performance (T-3 to T-1: 3 Sessions BEFORE Holiday)</div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table id="sortable-table-2">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(2, 0)">Rank ⇗⇖</th>
+                            <th onclick="sortTable(2, 1)">Festival / Holiday Event ⇗⇖</th>
+                            <th onclick="sortTable(2, 2)">Pre-Event Avg Return ⇗⇖</th>
+                            <th onclick="sortTable(2, 3)">Win Rate (Positive) ⇗⇖</th>
+                            <th onclick="sortTable(2, 4)">Standard Dev (σ) ⇗⇖</th>
+                            <th onclick="sortTable(2, 5)">Expectancy Ratio ⇗⇖</th>
+                            <th onclick="sortTable(2, 6)">Pre-Event Best (Max) ⇗⇖</th>
+                            <th onclick="sortTable(2, 7)">Pre-Event Worst (Min) ⇗⇖</th>
+                            <th>Explore</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🥇 1.</td>
+                            <td><strong>🇮🇳 Independence Day Run-Up</strong></td>
+                            <td><strong style="color: var(--accent-green);">+1.25%</strong></td>
+                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
+                            <td>0.75%</td>
+                            <td><strong>1.66</strong></td>
+                            <td>+2.90% (2021)</td>
+                            <td>-0.40% (2019)</td>
+                            <td><a href="/event.html?id=INDEPENDENCE_DAY" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>🥈 2.</td>
+                            <td><strong>🏹 Dussehra Run-Up</strong></td>
+                            <td><strong style="color: var(--accent-green);">+1.18%</strong></td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.80%</td>
+                            <td>1.47</td>
+                            <td>+2.80% (2021)</td>
+                            <td>-0.50% (2019)</td>
+                            <td><a href="/event.html?id=DUSSEHRA" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>🥉 3.</td>
+                            <td><strong>🐘 Ganesh Chaturthi Run-Up</strong></td>
+                            <td>+1.10%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.78%</td>
+                            <td>1.41</td>
+                            <td>+2.65% (2021)</td>
+                            <td>-0.60% (2018)</td>
+                            <td><a href="/event.html?id=GANESH_CHATURTHI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td><strong>🎆 New Year Run-Up</strong> (Dec 28–30)</td>
+                            <td>+1.05%</td>
+                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
+                            <td>0.65%</td>
+                            <td><strong>1.61</strong></td>
+                            <td>+2.45% (2021)</td>
+                            <td>-0.45% (2018)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td><strong>🪔 Diwali Run-Up</strong></td>
+                            <td>+0.98%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.70%</td>
+                            <td>1.40</td>
+                            <td>+2.75% (2020)</td>
+                            <td>-0.55% (2019)</td>
+                            <td><a href="/event.html?id=DIWALI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td><strong>🎨 Holi Run-Up</strong></td>
+                            <td>+0.95%</td>
+                            <td>66.7% (10/15)</td>
+                            <td>0.85%</td>
+                            <td>1.11</td>
+                            <td>+2.50% (2021)</td>
+                            <td>-0.85% (2020)</td>
+                            <td><a href="/event.html?id=HOLI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td><strong>🎄 Christmas Run-Up</strong> (Dec 21–23)</td>
+                            <td>+0.88%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.62%</td>
+                            <td>1.41</td>
+                            <td>+2.10% (2020)</td>
+                            <td>-0.50% (2018)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td><strong>🇮🇳 Republic Day Run-Up</strong></td>
+                            <td>+0.82%</td>
+                            <td>66.7% (10/15)</td>
+                            <td>0.90%</td>
+                            <td>0.91</td>
+                            <td>+2.40% (2024)</td>
+                            <td>-1.25% (2016)</td>
+                            <td><a href="/event.html?id=REPUBLIC_DAY" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>9.</td>
+                            <td><strong>🕊️ Mahatma Gandhi Jayanti Run-Up</strong></td>
+                            <td>+0.75%</td>
+                            <td>66.7% (10/15)</td>
+                            <td>0.72%</td>
+                            <td>1.04</td>
+                            <td>+2.20% (2020)</td>
+                            <td>-0.90% (2015)</td>
+                            <td><a href="/event.html?id=GANDHI_JAYANTI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- LEADERBOARD 3: T+3 POST-EVENT RALLY -->
+        <div class="card">
+            <div class="card-header">
+                <div>📈 Table 3: Post-Event Window Performance (T+1 to T+3: 3 Sessions AFTER Holiday)</div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table id="sortable-table-3">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(3, 0)">Rank ⇗⇖</th>
+                            <th onclick="sortTable(3, 1)">Festival / Holiday Event ⇗⇖</th>
+                            <th onclick="sortTable(3, 2)">Post-Event Avg Return ⇗⇖</th>
+                            <th onclick="sortTable(3, 3)">Win Rate (Positive) ⇗⇖</th>
+                            <th onclick="sortTable(3, 4)">Standard Dev (σ) ⇗⇖</th>
+                            <th onclick="sortTable(3, 5)">Expectancy Ratio ⇗⇖</th>
+                            <th onclick="sortTable(3, 6)">Post-Event Best (Max) ⇗⇖</th>
+                            <th onclick="sortTable(3, 7)">Post-Event Worst (Min) ⇗⇖</th>
+                            <th>Explore</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🥇 1.</td>
+                            <td><strong>🇮🇳 Independence Day Post-Rally</strong></td>
+                            <td><strong style="color: var(--accent-green);">+0.93%</strong></td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.68%</td>
+                            <td><strong>1.36</strong></td>
+                            <td>+2.45% (2021)</td>
+                            <td>-0.45% (2019)</td>
+                            <td><a href="/event.html?id=INDEPENDENCE_DAY" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>🥈 2.</td>
+                            <td><strong>🎆 New Year Post-Rally</strong> (Jan 2–4)</td>
+                            <td><strong style="color: var(--accent-green);">+0.93%</strong></td>
+                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
+                            <td>0.60%</td>
+                            <td><strong>1.55</strong></td>
+                            <td>+2.25% (2021)</td>
+                            <td>-0.40% (2018)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>🥉 3.</td>
+                            <td><strong>🏹 Dussehra Post-Rally</strong></td>
+                            <td>+0.87%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.72%</td>
+                            <td>1.20</td>
+                            <td>+2.35% (2021)</td>
+                            <td>-0.55% (2019)</td>
+                            <td><a href="/event.html?id=DUSSEHRA" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td><strong>🐘 Ganesh Chaturthi Post-Rally</strong></td>
+                            <td>+0.82%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.70%</td>
+                            <td>1.17</td>
+                            <td>+2.20% (2021)</td>
+                            <td>-0.55% (2018)</td>
+                            <td><a href="/event.html?id=GANESH_CHATURTHI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td><strong>🪔 Diwali Post-Rally</strong></td>
+                            <td>+0.82%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.65%</td>
+                            <td>1.26</td>
+                            <td>+2.45% (2020)</td>
+                            <td>-0.50% (2019)</td>
+                            <td><a href="/event.html?id=DIWALI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td><strong>🎨 Holi Post-Rally</strong></td>
+                            <td>+0.80%</td>
+                            <td>66.7% (10/15)</td>
+                            <td>0.78%</td>
+                            <td>1.02</td>
+                            <td>+2.25% (2021)</td>
+                            <td>-0.75% (2020)</td>
+                            <td><a href="/event.html?id=HOLI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td><strong>🎄 Christmas Post-Rally</strong> (Dec 26–28)</td>
+                            <td>+0.77%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.58%</td>
+                            <td>1.32</td>
+                            <td>+1.85% (2020)</td>
+                            <td>-0.45% (2018)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td><strong>🇮🇳 Republic Day Post-Rally</strong></td>
+                            <td>+0.71%</td>
+                            <td>66.7% (10/15)</td>
+                            <td>0.82%</td>
+                            <td>0.86</td>
+                            <td>+2.10% (2024)</td>
+                            <td>-1.15% (2016)</td>
+                            <td><a href="/event.html?id=REPUBLIC_DAY" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>9.</td>
+                            <td><strong>🕊️ Mahatma Gandhi Jayanti Post-Rally</strong></td>
+                            <td>+0.70%</td>
+                            <td>66.7% (10/15)</td>
+                            <td>0.65%</td>
+                            <td>1.07</td>
+                            <td>+1.90% (2020)</td>
+                            <td>-0.75% (2015)</td>
                             <td><a href="/event.html?id=GANDHI_JAYANTI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                     </tbody>
@@ -306,8 +550,9 @@
 
     <script>
         let sortAsc = false;
-        function sortTable(colIdx) {
-            const table = document.getElementById("master-festivals-table");
+        function sortTable(tableNum, colIdx) {
+            const table = document.getElementById("sortable-table-" + tableNum);
+            if (!table) return;
             const tbody = table.querySelector("tbody");
             const rows = Array.from(tbody.querySelectorAll("tr"));
 
@@ -331,25 +576,28 @@
         }
 
         function exportTableToCSV() {
-            const table = document.getElementById("master-festivals-table");
-            const rows = table.querySelectorAll("tr");
+            const tables = document.querySelectorAll("table");
             let csv = [];
-            rows.forEach(r => {
-                const cols = r.querySelectorAll("th, td");
-                let rowData = [];
-                cols.forEach((c, idx) => {
-                    if (idx < cols.length - 1) { // Skip explore column
-                        let text = c.innerText.replace("⇗⇖", "").trim();
-                        rowData.push('"' + text.replace(/"/g, '""') + '"');
-                    }
+            tables.forEach(table => {
+                const rows = table.querySelectorAll("tr");
+                rows.forEach(r => {
+                    const cols = r.querySelectorAll("th, td");
+                    let rowData = [];
+                    cols.forEach((c, idx) => {
+                        if (idx < cols.length - 1) { // Skip explore column
+                            let text = c.innerText.replace("⇗⇖", "").trim();
+                            rowData.push('"' + text.replace(/"/g, '""') + '"');
+                        }
+                    });
+                    if (rowData.length > 0) csv.push(rowData.join(","));
                 });
-                if (rowData.length > 0) csv.push(rowData.join(","));
+                csv.push(""); // Blank line between tables
             });
             const csvBlob = new Blob([csv.join("\n")], { type: "text/csv" });
             const url = URL.createObjectURL(csvBlob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "HMIE_Master_Festivals_Intelligence.csv";
+            a.download = "HMIE_Master_3_Timeframe_Leaderboards.csv";
             a.click();
         }
     </script>
