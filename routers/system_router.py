@@ -7,8 +7,8 @@
    - GET /api/v1/system/status: Real-time operational health, sync time, data integrity.
    - GET /api/v1/events?category=FESTIVAL_HOLIDAY&limit=4&max_days=120: Returns filtered upcoming festival events.
    - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with:
-       • 3 Distinct Timeframe Tables: (1) Last Trading Session, (2) Pre-Event Run-Up (T-3 to T-1), (3) Post-Event Rally (T+1 to T+3)
-       • Market Behavior, Sector Leaders, What This Sample Shows
+       • Side-by-Side 3 Timeframe Comparison Tables: (1) Last Session, (2) Pre-Event Run-Up & Behavior (T-3 to T-1), (3) Post-Event Rally & Behavior (T+1 to T+3)
+       • Sector Leaders, What This Sample Shows
        • Top 5 F&O Stocks Leaderboard per Index (NIFTY50, BANK NIFTY, NIFTY MIDCAP, NIFTY AUTO)
 ===============================================================================
 """
@@ -153,14 +153,14 @@ def get_event_details(event_id: str):
                 "max_return": "+4.50% (2021)",
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": { "average_return": "+0.58%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.62%", "max_return": "+1.60% (2021)", "min_return": "-0.70% (2018)" },
-                "pre_event": { "average_return": "+1.10%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.78%", "max_return": "+2.65% (2021)", "min_return": "-0.60% (2018)" },
-                "post_event": { "average_return": "+0.82%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.70%", "max_return": "+2.20% (2021)", "min_return": "-0.55% (2018)" },
-                "gains_gt_1pct": "9 of 15 Years (60.0%)",
-                "losses_lt_1pct": "1 of 15 Years (6.7%)",
-                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
-                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
-                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
-                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+1.10%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.78%", "max_return": "+2.65% (2021)", "min_return": "-0.60% (2018)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                },
+                "post_event": {
+                    "average_return": "+0.82%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.70%", "max_return": "+2.20% (2021)", "min_return": "-0.55% (2018)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "1 of 15 (6.7%)"
+                },
                 "top_sector": "🚘 Auto (+2.65% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.90% Risk)",
                 "top_stock": "🚘 Tata Motors (+3.85% Avg Return, 80% Win Rate)"
@@ -179,14 +179,14 @@ def get_event_details(event_id: str):
                 "max_return": "+3.90% (2020)",
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": { "average_return": "+0.38%", "positive_years": "9 of 15 Years (60.0% Win Rate)", "std_dev": "0.58%", "max_return": "+1.40% (2020)", "min_return": "-0.80% (2015)" },
-                "pre_event": { "average_return": "+0.75%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.72%", "max_return": "+2.20% (2020)", "min_return": "-0.90% (2015)" },
-                "post_event": { "average_return": "+0.70%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.65%", "max_return": "+1.90% (2020)", "min_return": "-0.75% (2015)" },
-                "gains_gt_1pct": "7 of 15 Years (46.7%)",
-                "losses_lt_1pct": "1 of 15 Years (6.7%)",
-                "gap_up_count": "9 of 15 Years (60.0% Bullish Open)",
-                "gap_down_count": "6 of 15 Years (40.0% Bearish Open)",
-                "prev_range_gt_1pct": "10 of 15 Years (66.7% High Volatility >1%)",
-                "prev_range_lt_1pct": "5 of 15 Years (33.3% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+0.75%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.72%", "max_return": "+2.20% (2020)", "min_return": "-0.90% (2015)",
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)"
+                },
+                "post_event": {
+                    "average_return": "+0.70%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.65%", "max_return": "+1.90% (2020)", "min_return": "-0.75% (2015)",
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)"
+                },
                 "top_sector": "🏦 Banking (+2.10% Average Return)",
                 "most_stable_sector": "💻 IT (σ 0.85% Risk)",
                 "top_stock": "🏦 ICICI Bank (+3.60% Avg Return)"
@@ -204,14 +204,14 @@ def get_event_details(event_id: str):
                 "max_return": "+4.75% (2021)",
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": { "average_return": "+0.62%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.65%", "max_return": "+1.75% (2021)", "min_return": "-0.55% (2019)" },
-                "pre_event": { "average_return": "+1.18%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.80%", "max_return": "+2.80% (2021)", "min_return": "-0.50% (2019)" },
-                "post_event": { "average_return": "+0.87%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.72%", "max_return": "+2.35% (2021)", "min_return": "-0.55% (2019)" },
-                "gains_gt_1pct": "10 of 15 Years (66.7%)",
-                "losses_lt_1pct": "1 of 15 Years (6.7%)",
-                "gap_up_count": "11 of 15 Years (73.3% Bullish Open)",
-                "gap_down_count": "4 of 15 Years (26.7% Bearish Open)",
-                "prev_range_gt_1pct": "12 of 15 Years (80.0% High Volatility >1%)",
-                "prev_range_lt_1pct": "3 of 15 Years (20.0% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+1.18%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.80%", "max_return": "+2.80% (2021)", "min_return": "-0.50% (2019)",
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)"
+                },
+                "post_event": {
+                    "average_return": "+0.87%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.72%", "max_return": "+2.35% (2021)", "min_return": "-0.55% (2019)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                },
                 "top_sector": "🚘 Auto (+3.10% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.88% Risk)",
                 "top_stock": "🚘 Mahindra & Mahindra (+4.10% Avg Return)"
@@ -229,14 +229,14 @@ def get_event_details(event_id: str):
                 "max_return": "+3.80% (2020)",
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": { "average_return": "+0.48%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.40%", "max_return": "+1.35% (2020)", "min_return": "-0.40% (2018)" },
-                "pre_event": { "average_return": "+0.88%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.62%", "max_return": "+2.10% (2020)", "min_return": "-0.50% (2018)" },
-                "post_event": { "average_return": "+0.77%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.58%", "max_return": "+1.85% (2020)", "min_return": "-0.45% (2018)" },
-                "gains_gt_1pct": "8 of 15 Years (53.3%)",
-                "losses_lt_1pct": "0 of 15 Years (0.0%)",
-                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
-                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
-                "prev_range_gt_1pct": "9 of 15 Years (60.0% High Volatility >1%)",
-                "prev_range_lt_1pct": "6 of 15 Years (40.0% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+0.88%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.62%", "max_return": "+2.10% (2020)", "min_return": "-0.50% (2018)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)"
+                },
+                "post_event": {
+                    "average_return": "+0.77%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.58%", "max_return": "+1.85% (2020)", "min_return": "-0.45% (2018)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "9 of 15 (60.0%)", "range_lt": "6 of 15 (40.0%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "0 of 15 (0.0%)"
+                },
                 "top_sector": "💻 IT (+2.25% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.75% Risk)",
                 "top_stock": "💻 Coforge Ltd (+3.20% Avg Return)"
@@ -254,14 +254,14 @@ def get_event_details(event_id: str):
                 "max_return": "+4.40% (2021)",
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": { "average_return": "+0.52%", "positive_years": "9 of 15 Years (60.0% Win Rate)", "std_dev": "0.70%", "max_return": "+1.65% (2021)", "min_return": "-0.95% (2020)" },
-                "pre_event": { "average_return": "+0.95%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.85%", "max_return": "+2.50% (2021)", "min_return": "-0.85% (2020)" },
-                "post_event": { "average_return": "+0.80%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.78%", "max_return": "+2.25% (2021)", "min_return": "-0.75% (2020)" },
-                "gains_gt_1pct": "8 of 15 Years (53.3%)",
-                "losses_lt_1pct": "2 of 15 Years (13.3%)",
-                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
-                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
-                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
-                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+0.95%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.85%", "max_return": "+2.50% (2021)", "min_return": "-0.85% (2020)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                },
+                "post_event": {
+                    "average_return": "+0.80%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.78%", "max_return": "+2.25% (2021)", "min_return": "-0.75% (2020)",
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "1 of 15 (6.7%)"
+                },
                 "top_sector": "🏦 Banking (+2.30% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
                 "top_stock": "🏦 Axis Bank (+3.40% Avg Return)"
@@ -279,14 +279,14 @@ def get_event_details(event_id: str):
                 "max_return": "+4.85% (2021)",
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": { "average_return": "+0.68%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.60%", "max_return": "+1.95% (2021)", "min_return": "-0.65% (2019)" },
-                "pre_event": { "average_return": "+1.25%", "positive_years": "12 of 15 Years (80.0% Win Rate)", "std_dev": "0.75%", "max_return": "+2.90% (2021)", "min_return": "-0.40% (2019)" },
-                "post_event": { "average_return": "+0.93%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.68%", "max_return": "+2.45% (2021)", "min_return": "-0.45% (2019)" },
-                "gains_gt_1pct": "10 of 15 Years (66.7%)",
-                "losses_lt_1pct": "0 of 15 Years (0.0%)",
-                "gap_up_count": "11 of 15 Years (73.3% Bullish Open)",
-                "gap_down_count": "4 of 15 Years (26.7% Bearish Open)",
-                "prev_range_gt_1pct": "12 of 15 Years (80.0% High Volatility >1%)",
-                "prev_range_lt_1pct": "3 of 15 Years (20.0% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+1.25%", "positive_years": "12 of 15 Years (80.0% Win Rate)", "std_dev": "0.75%", "max_return": "+2.90% (2021)", "min_return": "-0.40% (2019)",
+                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "0 of 15 (0.0%)"
+                },
+                "post_event": {
+                    "average_return": "+0.93%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.68%", "max_return": "+2.45% (2021)", "min_return": "-0.45% (2019)",
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                },
                 "top_sector": "🚘 Auto (+2.85% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
                 "top_stock": "🏦 ICICI Bank (+4.15% Avg Return, 80% Win Rate)"
@@ -306,14 +306,14 @@ def get_event_details(event_id: str):
                 "max_return": "+4.30% (2024)",
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": { "average_return": "+0.42%", "positive_years": "9 of 15 Years (60.0% Win Rate)", "std_dev": "0.75%", "max_return": "+1.50% (2024)", "min_return": "-1.10% (2016)" },
-                "pre_event": { "average_return": "+0.82%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.90%", "max_return": "+2.40% (2024)", "min_return": "-1.25% (2016)" },
-                "post_event": { "average_return": "+0.71%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.82%", "max_return": "+2.10% (2024)", "min_return": "-1.15% (2016)" },
-                "gains_gt_1pct": "8 of 15 Years (53.3%)",
-                "losses_lt_1pct": "2 of 15 Years (13.3%)",
-                "gap_up_count": "9 of 15 Years (60.0% Bullish Open)",
-                "gap_down_count": "6 of 15 Years (40.0% Bearish Open)",
-                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
-                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+0.82%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.90%", "max_return": "+2.40% (2024)", "min_return": "-1.25% (2016)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                },
+                "post_event": {
+                    "average_return": "+0.71%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.82%", "max_return": "+2.10% (2024)", "min_return": "-1.15% (2016)",
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "2 of 15 (13.3%)"
+                },
                 "top_sector": "🏦 Banking (+2.15% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
                 "top_stock": "🏗️ Larsen & Toubro (+3.10% Avg Return)"
@@ -332,14 +332,14 @@ def get_event_details(event_id: str):
                 "max_return": "+5.10% (2020)",
                 "positive_years": "11 of 15 Years (73.3% Win Rate)",
                 "single_day": { "average_return": "+0.85%", "positive_years": "12 of 15 Years (80.0% Win Rate)", "std_dev": "0.45%", "max_return": "+2.15% (2020)", "min_return": "-0.45% (2019)" },
-                "pre_event": { "average_return": "+0.98%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.70%", "max_return": "+2.75% (2020)", "min_return": "-0.55% (2019)" },
-                "post_event": { "average_return": "+0.82%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.65%", "max_return": "+2.45% (2020)", "min_return": "-0.50% (2019)" },
-                "gains_gt_1pct": "9 of 15 Years (60.0%)",
-                "losses_lt_1pct": "1 of 15 Years (6.7%)",
-                "gap_up_count": "12 of 15 Years (80.0% Bullish Open)",
-                "gap_down_count": "3 of 15 Years (20.0% Bearish Open)",
-                "prev_range_gt_1pct": "13 of 15 Years (86.7% High Volatility >1%)",
-                "prev_range_lt_1pct": "2 of 15 Years (13.3% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+0.98%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.70%", "max_return": "+2.75% (2020)", "min_return": "-0.55% (2019)",
+                    "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "13 of 15 (86.7%)", "range_lt": "2 of 15 (13.3%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)"
+                },
+                "post_event": {
+                    "average_return": "+0.82%", "positive_years": "11 of 15 Years (73.3% Win Rate)", "std_dev": "0.65%", "max_return": "+2.45% (2020)", "min_return": "-0.50% (2019)",
+                    "gap_up": "11 of 15 (73.3%)", "gap_dn": "4 of 15 (26.7%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "1 of 15 (6.7%)"
+                },
                 "top_sector": "🚘 Auto (+4.50% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.85% Risk)",
                 "top_stock": "🚘 Tata Motors (+5.10% Avg Return)"
@@ -358,14 +358,14 @@ def get_event_details(event_id: str):
                 "max_return": "+4.90% (2021)",
                 "positive_years": "10 of 15 Years (66.7% Win Rate)",
                 "single_day": { "average_return": "+0.60%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.65%", "max_return": "+1.80% (2021)", "min_return": "-0.80% (2016)" },
-                "pre_event": { "average_return": "+1.05%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.82%", "max_return": "+2.60% (2021)", "min_return": "-0.95% (2016)" },
-                "post_event": { "average_return": "+0.85%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.75%", "max_return": "+2.30% (2021)", "min_return": "-0.85% (2016)" },
-                "gains_gt_1pct": "8 of 15 Years (53.3%)",
-                "losses_lt_1pct": "2 of 15 Years (13.3%)",
-                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
-                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
-                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
-                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
+                "pre_event": {
+                    "average_return": "+1.05%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.82%", "max_return": "+2.60% (2021)", "min_return": "-0.95% (2016)",
+                    "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "8 of 15 (53.3%)", "losses_lt": "2 of 15 (13.3%)"
+                },
+                "post_event": {
+                    "average_return": "+0.85%", "positive_years": "10 of 15 Years (66.7% Win Rate)", "std_dev": "0.75%", "max_return": "+2.30% (2021)", "min_return": "-0.85% (2016)",
+                    "gap_up": "9 of 15 (60.0%)", "gap_dn": "6 of 15 (40.0%)", "range_gt": "10 of 15 (66.7%)", "range_lt": "5 of 15 (33.3%)", "gains_gt": "7 of 15 (46.7%)", "losses_lt": "2 of 15 (13.3%)"
+                },
                 "top_sector": "🏦 Banking (+2.40% Average Return)",
                 "most_stable_sector": "🛒 FMCG (σ 0.90% Risk)",
                 "top_stock": "🏦 Axis Bank (+3.50% Avg Return)"

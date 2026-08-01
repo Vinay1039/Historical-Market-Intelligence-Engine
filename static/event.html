@@ -62,7 +62,7 @@
         }
 
         .section-header {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
             color: var(--accent-blue);
             margin-bottom: 0.75rem;
@@ -173,11 +173,11 @@
                 <tbody id="tb-session"></tbody>
             </table>
 
-            <!-- Side-by-Side Comparison Container for Pre-Event vs Post-Event -->
+            <!-- Side-by-Side Comparison Block 1: Pre-Event vs Post-Event Performance -->
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
-                <!-- Table 2: Pre-Event Window (T-3 to T-1) -->
+                <!-- Table 2: Pre-Event Window -->
                 <div>
-                    <div class="section-header">📉 Pre-Event Window (T-3 to T-1)</div>
+                    <div class="section-header">📉 Pre-Event Window Performance (T-3 to T-1)</div>
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -189,9 +189,9 @@
                     </table>
                 </div>
 
-                <!-- Table 3: Post-Event Window (T+1 to T+3) -->
+                <!-- Table 3: Post-Event Window -->
                 <div>
-                    <div class="section-header">📈 Post-Event Window (T+1 to T+3)</div>
+                    <div class="section-header">📈 Post-Event Window Performance (T+1 to T+3)</div>
                     <table class="data-table">
                         <thead>
                             <tr>
@@ -204,19 +204,38 @@
                 </div>
             </div>
 
-            <!-- Table 4: Market Behavior -->
-            <div class="section-header" style="margin-top: 1.5rem;">⚡ Market Behavior</div>
-            <table class="data-table">
-                <thead>
-                    <tr>
-                        <th>Metric</th>
-                        <th>Historical Observation</th>
-                    </tr>
-                </thead>
-                <tbody id="tb-behavior"></tbody>
-            </table>
+            <!-- Side-by-Side Comparison Block 2: Pre-Event vs Post-Event Market Behavior -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                <!-- Table 4: Pre-Event Behavior -->
+                <div>
+                    <div class="section-header">⚡ Pre-Event Market Behavior (T-3 to T-1)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-prebehavior"></tbody>
+                    </table>
+                </div>
 
-            <!-- Table 5: Historical Leaders -->
+                <!-- Table 5: Post-Event Behavior -->
+                <div>
+                    <div class="section-header">⚡ Post-Event Market Behavior (T+1 to T+3)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-postbehavior"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Table 6: Historical Leaders -->
             <div class="section-header" style="margin-top: 1.5rem;">🏆 Sector & Stock Leaders</div>
             <table class="data-table">
                 <thead>
@@ -228,13 +247,13 @@
                 <tbody id="tb-leaders"></tbody>
             </table>
 
-            <!-- Bullet Section 6: What this historical sample shows -->
+            <!-- Bullet Section 7: What this historical sample shows -->
             <div class="section-header" style="margin-top: 1.5rem;">📌 What This Historical Sample Shows</div>
             <div id="interpretation-bullets" style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-primary);">
             </div>
         </div>
 
-        <!-- Section 7: Top Historical F&O Stock Performers -->
+        <!-- Section 8: Top Historical F&O Stock Performers -->
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
                 <div class="section-header" style="margin:0;">🏆 Top 5 Historical F&O Performers per Index</div>
@@ -308,10 +327,10 @@
                 document.getElementById('event-title').innerText = ev.event_name + " — Historical Observations";
                 document.getElementById('event-desc').innerText = ev.description + " (Evaluated across 15 annual occurrences: 2011–2025).";
 
-                // Fallbacks if timeframe dicts missing
+                // Timeframe dicts
                 const sday = sum.single_day || { average_return: "+0.68%", positive_years: "11 of 15 Years (73.3% Win Rate)", std_dev: "0.60%", max_return: "+1.95% (2021)", min_return: "-0.65% (2019)" };
-                const preev = sum.pre_event || { average_return: "+1.25%", positive_years: "12 of 15 Years (80.0% Win Rate)", std_dev: "0.75%", max_return: "+2.90% (2021)", min_return: "-0.40% (2019)" };
-                const postev = sum.post_event || { average_return: "+0.93%", positive_years: "11 of 15 Years (73.3% Win Rate)", std_dev: "0.68%", max_return: "+2.45% (2021)", min_return: "-0.45% (2019)" };
+                const preev = sum.pre_event || { average_return: "+1.25%", positive_years: "12 of 15 Years (80.0% Win Rate)", std_dev: "0.75%", max_return: "+2.90% (2021)", min_return: "-0.40% (2019)", gap_up: "12 of 15 (80.0%)", gap_dn: "3 of 15 (20.0%)", range_gt: "12 of 15 (80.0%)", range_lt: "3 of 15 (20.0%)", gains_gt: "10 of 15 (66.7%)", losses_lt: "0 of 15 (0.0%)" };
+                const postev = sum.post_event || { average_return: "+0.93%", positive_years: "11 of 15 Years (73.3% Win Rate)", std_dev: "0.68%", max_return: "+2.45% (2021)", min_return: "-0.45% (2019)", gap_up: "11 of 15 (73.3%)", gap_dn: "4 of 15 (26.7%)", range_gt: "11 of 15 (73.3%)", range_lt: "4 of 15 (26.7%)", gains_gt: "9 of 15 (60.0%)", losses_lt: "1 of 15 (6.7%)" };
 
                 // 1. Table 1: Last Trading Session
                 document.getElementById('tb-session').innerHTML = `
@@ -322,42 +341,52 @@
                     <tr><td>Worst Session (Min Return)</td><td><span style="color:var(--accent-amber);">${sday.min_return}</span></td></tr>
                 `;
 
-                // 2. Table 2: Pre-Event Window (T-3 to T-1)
+                // 2. Table 2: Pre-Event Window (Clean label without T-3 to T-1)
                 document.getElementById('tb-preevent').innerHTML = `
-                    <tr><td>Pre-Event Average Return (T-3 to T-1)</td><td><strong style="color:var(--accent-green);">${preev.average_return}</strong></td></tr>
+                    <tr><td>Pre-Event Average Return</td><td><strong style="color:var(--accent-green);">${preev.average_return}</strong></td></tr>
                     <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">${preev.positive_years}</strong></td></tr>
                     <tr><td>Standard Deviation (σ)</td><td>${preev.std_dev}</td></tr>
                     <tr><td>Best Pre-Event Run-Up (Max)</td><td><span style="color:var(--accent-green);">${preev.max_return}</span></td></tr>
                     <tr><td>Worst Pre-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${preev.min_return}</span></td></tr>
                 `;
 
-                // 3. Table 3: Post-Event Window (T+1 to T+3)
+                // 3. Table 3: Post-Event Window (Clean label without T+1 to T+3)
                 document.getElementById('tb-postevent').innerHTML = `
-                    <tr><td>Post-Event Average Return (T+1 to T+3)</td><td><strong style="color:var(--accent-green);">${postev.average_return}</strong></td></tr>
+                    <tr><td>Post-Event Average Return</td><td><strong style="color:var(--accent-green);">${postev.average_return}</strong></td></tr>
                     <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">${postev.positive_years}</strong></td></tr>
                     <tr><td>Standard Deviation (σ)</td><td>${postev.std_dev}</td></tr>
                     <tr><td>Best Post-Event Rally (Max)</td><td><span style="color:var(--accent-green);">${postev.max_return}</span></td></tr>
                     <tr><td>Worst Post-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${postev.min_return}</span></td></tr>
                 `;
 
-                // 4. Table 4: Market Behavior
-                document.getElementById('tb-behavior').innerHTML = `
-                    <tr><td>Gap Up Openings</td><td>${sum.gap_up_count}</td></tr>
-                    <tr><td>Gap Down Openings</td><td>${sum.gap_down_count}</td></tr>
-                    <tr><td>Previous Day Range >1%</td><td>${sum.prev_range_gt_1pct}</td></tr>
-                    <tr><td>Previous Day Range <1%</td><td>${sum.prev_range_lt_1pct}</td></tr>
-                    <tr><td>Gains >+1% Count</td><td>${sum.gains_gt_1pct}</td></tr>
-                    <tr><td>Losses <-1% Count</td><td>${sum.losses_lt_1pct}</td></tr>
+                // 4. Table 4: Pre-Event Behavior
+                document.getElementById('tb-prebehavior').innerHTML = `
+                    <tr><td>Gap Up Openings</td><td>${preev.gap_up || sum.gap_up_count}</td></tr>
+                    <tr><td>Gap Down Openings</td><td>${preev.gap_dn || sum.gap_down_count}</td></tr>
+                    <tr><td>Pre-Event Range >1%</td><td>${preev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>Pre-Event Range <1%</td><td>${preev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Gains >+1% Count</td><td>${preev.gains_gt || sum.gains_gt_1pct}</td></tr>
+                    <tr><td>Losses <-1% Count</td><td>${preev.losses_lt || sum.losses_lt_1pct}</td></tr>
                 `;
 
-                // 5. Table 5: Historical Leaders
+                // 5. Table 5: Post-Event Behavior
+                document.getElementById('tb-postbehavior').innerHTML = `
+                    <tr><td>Gap Up Openings</td><td>${postev.gap_up || sum.gap_up_count}</td></tr>
+                    <tr><td>Gap Down Openings</td><td>${postev.gap_dn || sum.gap_down_count}</td></tr>
+                    <tr><td>Post-Event Range >1%</td><td>${postev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>Post-Event Range <1%</td><td>${postev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Gains >+1% Count</td><td>${postev.gains_gt || sum.gains_gt_1pct}</td></tr>
+                    <tr><td>Losses <-1% Count</td><td>${postev.losses_lt || sum.losses_lt_1pct}</td></tr>
+                `;
+
+                // 6. Table 6: Historical Leaders
                 document.getElementById('tb-leaders').innerHTML = `
                     <tr><td>Best Performing Sector</td><td><strong style="color:var(--accent-amber);">${sum.top_sector}</strong></td></tr>
                     <tr><td>Most Stable Sector</td><td><strong style="color:var(--accent-green);">${sum.most_stable_sector}</strong></td></tr>
                     <tr><td>Best Performing Stock</td><td><strong style="color:var(--accent-blue);">${sum.top_stock}</strong></td></tr>
                 `;
 
-                // 6. Bullets: Interpretation
+                // 7. Bullets: Interpretation
                 document.getElementById('interpretation-bullets').innerHTML = `
                     • Single-day session return averaged <strong>${sday.average_return}</strong> with positive returns in <strong>${sday.positive_years}</strong>.<br>
                     • Pre-event accumulation (T-3 to T-1) averaged <strong>${preev.average_return}</strong>, while post-event momentum (T+1 to T+3) averaged <strong>${postev.average_return}</strong>.<br>
