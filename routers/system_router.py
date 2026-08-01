@@ -5,7 +5,7 @@
 
  Exposes:
    - GET /api/v1/system/status: Real-time operational health, sync time, data integrity.
-   - GET /api/v1/events?category=FESTIVAL_HOLIDAY: Returns filtered festival/holiday events.
+   - GET /api/v1/events?category=FESTIVAL_HOLIDAY&limit=4&max_days=120: Returns filtered upcoming festival events.
    - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with:
        • Std Dev (σ), Min/Max Return, Gains >1%, Losses <1%
        • Gap Up vs Gap Down Counts on last trading day
@@ -59,26 +59,40 @@ def get_system_status():
 
 
 @router.get("/events")
-def get_historical_events(category: Optional[str] = Query(None, description="Optional category filter: FESTIVAL_HOLIDAY or POLICY_EVENT")):
-    """Returns historical research opportunities from STAGING.MARKET_CALENDAR, filtered by category."""
+def get_historical_events(
+    category: Optional[str] = Query(None, description="Optional category filter: FESTIVAL_HOLIDAY or POLICY_EVENT"),
+    limit: Optional[int] = Query(None, description="Max number of events to return"),
+    max_days: Optional[int] = Query(None, description="Max days away limit (e.g. 120 for 4 months)")
+):
+    """Returns historical research opportunities from STAGING.MARKET_CALENDAR, filtered by category, limit, and max days."""
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        if category and category.upper() != "ALL":
-            cursor.execute("SELECT EVENT_ID, EVENT_NAME, CATEGORY, EVENT_DATE, DAYS_AWAY, DESCRIPTION FROM STAGING.MARKET_CALENDAR WHERE UPPER(CATEGORY) = UPPER(:1) ORDER BY DAYS_AWAY ASC", (category,))
-        else:
-            cursor.execute("SELECT EVENT_ID, EVENT_NAME, CATEGORY, EVENT_DATE, DAYS_AWAY, DESCRIPTION FROM STAGING.MARKET_CALENDAR ORDER BY DAYS_AWAY ASC")
+        cursor.execute("SELECT EVENT_ID, EVENT_NAME, CATEGORY, EVENT_DATE, DAYS_AWAY, DESCRIPTION FROM STAGING.MARKET_CALENDAR ORDER BY DAYS_AWAY ASC")
         rows = cursor.fetchall()
         events = []
         for r in rows:
+            ev_id, ev_name, ev_cat, ev_date, days_away, desc = r[0], r[1], r[2], r[3], r[4], r[5]
+
+            if category and category.upper() != "ALL":
+                if category.upper() not in ev_cat.upper():
+                    continue
+
+            if max_days is not None and days_away > max_days:
+                continue
+
             events.append({
-                "event_id": r[0],
-                "event_name": r[1],
-                "category": r[2],
-                "event_date": r[3],
-                "days_away": r[4],
-                "description": r[5]
+                "event_id": ev_id,
+                "event_name": ev_name,
+                "category": ev_cat,
+                "event_date": ev_date,
+                "days_away": days_away,
+                "description": desc
             })
+
+            if limit is not None and len(events) >= limit:
+                break
+
         return {"status": "SUCCESS", "events": events}
     finally:
         cursor.close()

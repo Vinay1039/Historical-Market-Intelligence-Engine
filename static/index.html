@@ -80,11 +80,16 @@
 
     <div class="container">
 
-        <!-- Section 1: Guided Discovery — Festival & Holiday Trading Intelligence Hub -->
+        <!-- Section 1: Guided Discovery — Top 4 Upcoming Festivals (Next 4 Months) -->
         <div style="margin-bottom: 2rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
-                <div style="font-weight: 700; font-size: 1.25rem; color: var(--accent-blue);">
-                    🎉 Festival & Holiday Trading Intelligence Hub
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 0.5rem;">
+                <div>
+                    <div style="font-weight: 700; font-size: 1.25rem; color: var(--accent-blue);">
+                        🎉 Top 4 Upcoming Festivals (Next 4 Months)
+                    </div>
+                    <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">
+                        Showing the next 4 upcoming festival opportunities occurring within 120 days from today.
+                    </div>
                 </div>
                 <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem;">
                     <button id="btn-cat-festivals" class="btn-filter active" onclick="loadEvents('FESTIVAL_HOLIDAY')">🎉 Festival Holidays</button>
@@ -174,7 +179,7 @@
                 else if (cat === 'POLICY_EVENT') document.getElementById('btn-cat-policy').classList.add('active');
                 else document.getElementById('btn-cat-all').classList.add('active');
 
-                const res = await fetch(`/api/v1/events?category=${cat}`);
+                const res = await fetch(`/api/v1/events?category=${cat}&limit=4&max_days=120`);
                 const data = await res.json();
                 if (data.status === 'SUCCESS' && data.events.length > 0) {
                     const grid = document.getElementById('events-grid');
