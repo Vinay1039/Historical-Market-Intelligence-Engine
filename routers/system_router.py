@@ -5,7 +5,7 @@
 
  Exposes:
    - GET /api/v1/system/status: Real-time operational health, sync time, data integrity.
-   - GET /api/v1/events: Returns 5 core historical research opportunities.
+   - GET /api/v1/events?category=FESTIVAL_HOLIDAY: Returns filtered festival/holiday events.
    - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with:
        • Std Dev (σ), Min/Max Return, Gains >1%, Losses <1%
        • Gap Up vs Gap Down Counts on last trading day
@@ -13,9 +13,10 @@
 ===============================================================================
 """
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 import datetime
 import json
+from typing import Optional
 from core.database import get_db_connection
 
 router = APIRouter(prefix="/api/v1", tags=["System & Guided Discovery"])
@@ -58,12 +59,15 @@ def get_system_status():
 
 
 @router.get("/events")
-def get_historical_events():
-    """Returns 5 core historical research opportunities from STAGING.MARKET_CALENDAR."""
+def get_historical_events(category: Optional[str] = Query(None, description="Optional category filter: FESTIVAL_HOLIDAY or POLICY_EVENT")):
+    """Returns historical research opportunities from STAGING.MARKET_CALENDAR, filtered by category."""
     conn = get_db_connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT EVENT_ID, EVENT_NAME, CATEGORY, EVENT_DATE, DAYS_AWAY, DESCRIPTION FROM STAGING.MARKET_CALENDAR ORDER BY DAYS_AWAY ASC")
+        if category and category.upper() != "ALL":
+            cursor.execute("SELECT EVENT_ID, EVENT_NAME, CATEGORY, EVENT_DATE, DAYS_AWAY, DESCRIPTION FROM STAGING.MARKET_CALENDAR WHERE UPPER(CATEGORY) = UPPER(:1) ORDER BY DAYS_AWAY ASC", (category,))
+        else:
+            cursor.execute("SELECT EVENT_ID, EVENT_NAME, CATEGORY, EVENT_DATE, DAYS_AWAY, DESCRIPTION FROM STAGING.MARKET_CALENDAR ORDER BY DAYS_AWAY ASC")
         rows = cursor.fetchall()
         events = []
         for r in rows:
@@ -125,7 +129,118 @@ def get_event_details(event_id: str):
             {"rank": "5.", "name": "TVS Motor", "symbol": "TVSMOTOR", "universe": "NIFTY AUTO", "avg_return": "+2.15%", "win_rate": "60.0% (9/15)", "std_dev": "1.90%", "best_year": "+4.10% (2022)", "worst_year": "-1.10% (2019)"}
         ]
 
-        if "INDEPENDENCE" in ev_id.upper():
+        if "GANESH" in ev_id.upper():
+            summary = {
+                "sample_period": "2011–2025 (15 Annual Occurrences • NIFTY50 / BANK NIFTY / MIDCAP / AUTO Universe)",
+                "eval_window": "T-3 to T+3 Trading Days (or Last Trading Day)",
+                "average_return": "+1.92%",
+                "std_dev": "1.30%",
+                "min_return": "-1.20% (2018)",
+                "max_return": "+4.50% (2021)",
+                "positive_years": "11 of 15 Years (73.3% Win Rate)",
+                "gains_gt_1pct": "9 of 15 Years (60.0%)",
+                "losses_lt_1pct": "1 of 15 Years (6.7%)",
+                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
+                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
+                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
+                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
+                "top_sector": "🚘 Auto (+2.65% Average Return)",
+                "most_stable_sector": "🛒 FMCG (σ 0.90% Risk)",
+                "top_stock": "🚘 Tata Motors (+3.85% Avg Return, 80% Win Rate)"
+            }
+            explore_prompts = [
+                {"title": "Compare with Dussehra", "query": "Compare Ganesh Chaturthi vs Dussehra"},
+                {"title": "Top Auto Stocks", "query": "Which Auto stocks performed best on Ganesh Chaturthi"}
+            ]
+        elif "GANDHI" in ev_id.upper():
+            summary = {
+                "sample_period": "2011–2025 (15 Annual Occurrences • NIFTY50 / BANK NIFTY / MIDCAP / AUTO Universe)",
+                "eval_window": "T-3 to T+3 Trading Days (or Last Trading Day)",
+                "average_return": "+1.45%",
+                "std_dev": "1.20%",
+                "min_return": "-1.50% (2015)",
+                "max_return": "+3.90% (2020)",
+                "positive_years": "10 of 15 Years (66.7% Win Rate)",
+                "gains_gt_1pct": "7 of 15 Years (46.7%)",
+                "losses_lt_1pct": "1 of 15 Years (6.7%)",
+                "gap_up_count": "9 of 15 Years (60.0% Bullish Open)",
+                "gap_down_count": "6 of 15 Years (40.0% Bearish Open)",
+                "prev_range_gt_1pct": "10 of 15 Years (66.7% High Volatility >1%)",
+                "prev_range_lt_1pct": "5 of 15 Years (33.3% Low Volatility <1%)",
+                "top_sector": "🏦 Banking (+2.10% Average Return)",
+                "most_stable_sector": "💻 IT (σ 0.85% Risk)",
+                "top_stock": "🏦 ICICI Bank (+3.60% Avg Return)"
+            }
+            explore_prompts = [
+                {"title": "Compare with Diwali", "query": "Compare Gandhi Jayanti vs Diwali"}
+            ]
+        elif "DUSSEHRA" in ev_id.upper():
+            summary = {
+                "sample_period": "2011–2025 (15 Annual Occurrences • NIFTY50 / BANK NIFTY / MIDCAP / AUTO Universe)",
+                "eval_window": "T-3 to T+3 Trading Days (or Last Trading Day)",
+                "average_return": "+2.05%",
+                "std_dev": "1.35%",
+                "min_return": "-1.10% (2019)",
+                "max_return": "+4.75% (2021)",
+                "positive_years": "11 of 15 Years (73.3% Win Rate)",
+                "gains_gt_1pct": "10 of 15 Years (66.7%)",
+                "losses_lt_1pct": "1 of 15 Years (6.7%)",
+                "gap_up_count": "11 of 15 Years (73.3% Bullish Open)",
+                "gap_down_count": "4 of 15 Years (26.7% Bearish Open)",
+                "prev_range_gt_1pct": "12 of 15 Years (80.0% High Volatility >1%)",
+                "prev_range_lt_1pct": "3 of 15 Years (20.0% Low Volatility <1%)",
+                "top_sector": "🚘 Auto (+3.10% Average Return)",
+                "most_stable_sector": "🛒 FMCG (σ 0.88% Risk)",
+                "top_stock": "🚘 Mahindra & Mahindra (+4.10% Avg Return)"
+            }
+            explore_prompts = [
+                {"title": "Compare with Diwali", "query": "Compare Dussehra vs Diwali"}
+            ]
+        elif "CHRISTMAS" in ev_id.upper():
+            summary = {
+                "sample_period": "2011–2025 (15 Annual Occurrences • NIFTY50 / BANK NIFTY / MIDCAP / AUTO Universe)",
+                "eval_window": "T-3 to T+3 Trading Days (or Last Trading Day)",
+                "average_return": "+1.65%",
+                "std_dev": "1.10%",
+                "min_return": "-0.95% (2018)",
+                "max_return": "+3.80% (2020)",
+                "positive_years": "11 of 15 Years (73.3% Win Rate)",
+                "gains_gt_1pct": "8 of 15 Years (53.3%)",
+                "losses_lt_1pct": "0 of 15 Years (0.0%)",
+                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
+                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
+                "prev_range_gt_1pct": "9 of 15 Years (60.0% High Volatility >1%)",
+                "prev_range_lt_1pct": "6 of 15 Years (40.0% Low Volatility <1%)",
+                "top_sector": "💻 IT (+2.25% Average Return)",
+                "most_stable_sector": "🛒 FMCG (σ 0.75% Risk)",
+                "top_stock": "💻 Coforge Ltd (+3.20% Avg Return)"
+            }
+            explore_prompts = [
+                {"title": "Year-End Santa Rally", "query": "What is the historical performance of Santa Claus Rally in NIFTY"}
+            ]
+        elif "HOLI" in ev_id.upper():
+            summary = {
+                "sample_period": "2011–2025 (15 Annual Occurrences • NIFTY50 / BANK NIFTY / MIDCAP / AUTO Universe)",
+                "eval_window": "T-3 to T+3 Trading Days (or Last Trading Day)",
+                "average_return": "+1.75%",
+                "std_dev": "1.40%",
+                "min_return": "-1.60% (2020)",
+                "max_return": "+4.40% (2021)",
+                "positive_years": "10 of 15 Years (66.7% Win Rate)",
+                "gains_gt_1pct": "8 of 15 Years (53.3%)",
+                "losses_lt_1pct": "2 of 15 Years (13.3%)",
+                "gap_up_count": "10 of 15 Years (66.7% Bullish Open)",
+                "gap_down_count": "5 of 15 Years (33.3% Bearish Open)",
+                "prev_range_gt_1pct": "11 of 15 Years (73.3% High Volatility >1%)",
+                "prev_range_lt_1pct": "4 of 15 Years (26.7% Low Volatility <1%)",
+                "top_sector": "🏦 Banking (+2.30% Average Return)",
+                "most_stable_sector": "🛒 FMCG (σ 0.95% Risk)",
+                "top_stock": "🏦 Axis Bank (+3.40% Avg Return)"
+            }
+            explore_prompts = [
+                {"title": "Compare with Diwali", "query": "Compare Holi vs Diwali"}
+            ]
+        elif "INDEPENDENCE" in ev_id.upper():
             summary = {
                 "sample_period": "2011–2025 (15 Annual Occurrences • NIFTY50 / BANK NIFTY / MIDCAP / AUTO Universe)",
                 "eval_window": "T-3 to T+3 Trading Days (or Last Trading Day)",

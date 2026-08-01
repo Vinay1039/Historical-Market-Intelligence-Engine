@@ -80,18 +80,20 @@
 
     <div class="container">
 
-        <!-- Section 1: Guided Discovery — Historical Research Opportunities -->
+        <!-- Section 1: Guided Discovery — Festival & Holiday Trading Intelligence Hub -->
         <div style="margin-bottom: 2rem;">
-            <div style="font-weight: 600; font-size: 1.1rem; color: var(--accent-blue); margin-bottom: 0.75rem;">
-                📅 Historical Research Opportunities (Upcoming Event Windows)
-            </div>
-            <div id="events-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem;">
-                <!-- Populated via GET /api/v1/events -->
-                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
-                    <div style="font-weight: 600;">🇮🇳 Independence Day</div>
-                    <div style="font-size: 0.8rem; color: var(--accent-blue); margin: 0.25rem 0;">15 days away • 15 Events (2011–2025)</div>
-                    <a href="/event.html?id=INDEPENDENCE_DAY" style="display: inline-block; margin-top: 0.5rem; color: var(--accent-green); font-size: 0.82rem; text-decoration: none; font-weight: 600;">Explore Historical Behavior →</a>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
+                <div style="font-weight: 700; font-size: 1.25rem; color: var(--accent-blue);">
+                    🎉 Festival & Holiday Trading Intelligence Hub
                 </div>
+                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                    <button id="btn-cat-festivals" class="btn-filter active" onclick="loadEvents('FESTIVAL_HOLIDAY')">🎉 Festival Holidays</button>
+                    <button id="btn-cat-policy" class="btn-filter" onclick="loadEvents('POLICY_EVENT')">🏛️ Policy & Macro Events</button>
+                    <button id="btn-cat-all" class="btn-filter" onclick="loadEvents('ALL')">⚡ All Events</button>
+                </div>
+            </div>
+            <div id="events-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem;">
+                <!-- Populated dynamically via loadEvents() -->
             </div>
         </div>
 
@@ -162,19 +164,30 @@
     </footer>
 
     <script>
-        async function fetchEvents() {
+        async function loadEvents(cat = 'FESTIVAL_HOLIDAY') {
             try {
-                const res = await fetch('/api/v1/events');
+                // Update active tab button style
+                document.getElementById('btn-cat-festivals').classList.remove('active');
+                document.getElementById('btn-cat-policy').classList.remove('active');
+                document.getElementById('btn-cat-all').classList.remove('active');
+                if (cat === 'FESTIVAL_HOLIDAY') document.getElementById('btn-cat-festivals').classList.add('active');
+                else if (cat === 'POLICY_EVENT') document.getElementById('btn-cat-policy').classList.add('active');
+                else document.getElementById('btn-cat-all').classList.add('active');
+
+                const res = await fetch(`/api/v1/events?category=${cat}`);
                 const data = await res.json();
                 if (data.status === 'SUCCESS' && data.events.length > 0) {
                     const grid = document.getElementById('events-grid');
                     grid.innerHTML = '';
                     data.events.forEach(ev => {
                         grid.innerHTML += `
-                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem;">
-                                <div style="font-weight: 600;">${ev.event_name}</div>
-                                <div style="font-size: 0.8rem; color: var(--accent-blue); margin: 0.25rem 0;">${ev.days_away} days away • Date: ${ev.event_date}</div>
-                                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.5rem;">${ev.description}</div>
+                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                                    <div style="font-weight: 700; font-size: 1rem; color: var(--text-primary);">${ev.event_name}</div>
+                                    <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: var(--accent-green); font-size: 0.7rem;">${ev.category}</span>
+                                </div>
+                                <div style="font-size: 0.8rem; color: var(--accent-blue); margin: 0.35rem 0; font-weight: 500;">📅 ${ev.event_date} • ${ev.days_away} days away</div>
+                                <div style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem; line-height: 1.4;">${ev.description}</div>
                                 <a href="/event.html?id=${ev.event_id}" style="display: inline-block; color: var(--accent-green); font-size: 0.82rem; text-decoration: none; font-weight: 600;">Explore Historical Behavior →</a>
                             </div>
                         `;
@@ -186,7 +199,7 @@
         }
 
         window.onload = function() {
-            fetchEvents();
+            loadEvents('FESTIVAL_HOLIDAY');
             const urlParams = new URLSearchParams(window.location.search);
             const qParam = urlParams.get('q');
             if (qParam) {
