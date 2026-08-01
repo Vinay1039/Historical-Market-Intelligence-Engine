@@ -358,19 +358,19 @@
                     <tr><td>Standard Deviation (σ)</td><td>${sday.std_dev}</td></tr>
                     <tr><td>Best Session (Max Return)</td><td><span style="color:var(--accent-green);">${sday.max_return}</span></td></tr>
                     <tr><td>Worst Session (Min Return)</td><td><span style="color:var(--accent-amber);">${sday.min_return}</span></td></tr>
-                    <tr><td>Avg of Prev Low to High %</td><td><strong>${sday.avg_range || '1.52%'}</strong></td></tr>
-                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${sday.max_range || '3.40% (2021)'}</span></td></tr>
-                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${sday.min_range || '0.60% (2018)'}</span></td></tr>
                 `;
 
                 // 1B. Table 1B: Last Trading Session Market Behavior
                 document.getElementById('tb-sessionbehavior').innerHTML = `
                     <tr><td>Gap Up Openings</td><td>${sday.gap_up || sum.gap_up_count || '11 of 15 (73.3%)'}</td></tr>
                     <tr><td>Gap Down Openings</td><td>${sday.gap_dn || sum.gap_down_count || '4 of 15 (26.7%)'}</td></tr>
-                    <tr><td>Previous Day Range >1%</td><td>${sday.range_gt || sum.prev_range_gt_1pct || '12 of 15 (80.0%)'}</td></tr>
-                    <tr><td>Previous Day Range <1%</td><td>${sday.range_lt || sum.prev_range_lt_1pct || '3 of 15 (20.0%)'}</td></tr>
                     <tr><td>Gains >+1% Count</td><td>${sday.gains_gt || sum.gains_gt_1pct || '10 of 15 (66.7%)'}</td></tr>
                     <tr><td>Losses <-1% Count</td><td>${sday.losses_lt || sum.losses_lt_1pct || '0 of 15 (0.0%)'}</td></tr>
+                    <tr><td>Prev Low to High % >1% Count</td><td>${sday.range_gt || sum.prev_range_gt_1pct || '12 of 15 (80.0%)'}</td></tr>
+                    <tr><td>Prev Low to High % <1% Count</td><td>${sday.range_lt || sum.prev_range_lt_1pct || '3 of 15 (20.0%)'}</td></tr>
+                    <tr><td>Avg of Prev Low to High %</td><td><strong>${sday.avg_range || '1.52%'}</strong></td></tr>
+                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${sday.max_range || '3.40% (2021)'}</span></td></tr>
+                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${sday.min_range || '0.60% (2018)'}</span></td></tr>
                 `;
 
                 // 2. Table 2: Pre-Event Window Performance
@@ -380,9 +380,6 @@
                     <tr><td>Standard Deviation (σ)</td><td>${preev.std_dev}</td></tr>
                     <tr><td>Best Pre-Event Run-Up (Max)</td><td><span style="color:var(--accent-green);">${preev.max_return}</span></td></tr>
                     <tr><td>Worst Pre-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${preev.min_return}</span></td></tr>
-                    <tr><td>Avg of Prev Low to High %</td><td><strong>${preev.avg_range || '1.65%'}</strong></td></tr>
-                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '3.75% (2021)'}</span></td></tr>
-                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.68% (2018)'}</span></td></tr>
                 `;
 
                 // 3. Table 3: Post-Event Window Performance
@@ -392,29 +389,32 @@
                     <tr><td>Standard Deviation (σ)</td><td>${postev.std_dev}</td></tr>
                     <tr><td>Best Post-Event Rally (Max)</td><td><span style="color:var(--accent-green);">${postev.max_return}</span></td></tr>
                     <tr><td>Worst Post-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${postev.min_return}</span></td></tr>
-                    <tr><td>Avg of Prev Low to High %</td><td><strong>${postev.avg_range || '1.58%'}</strong></td></tr>
-                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '3.50% (2021)'}</span></td></tr>
-                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.62% (2018)'}</span></td></tr>
                 `;
 
                 // 4. Table 4: Pre-Event Behavior
                 document.getElementById('tb-prebehavior').innerHTML = `
                     <tr><td>Gap Up Openings</td><td>${preev.gap_up || sum.gap_up_count}</td></tr>
                     <tr><td>Gap Down Openings</td><td>${preev.gap_dn || sum.gap_down_count}</td></tr>
-                    <tr><td>Pre-Event Range >1%</td><td>${preev.range_gt || sum.prev_range_gt_1pct}</td></tr>
-                    <tr><td>Pre-Event Range <1%</td><td>${preev.range_lt || sum.prev_range_lt_1pct}</td></tr>
                     <tr><td>Gains >+1% Count</td><td>${preev.gains_gt || sum.gains_gt_1pct}</td></tr>
                     <tr><td>Losses <-1% Count</td><td>${preev.losses_lt || sum.losses_lt_1pct}</td></tr>
+                    <tr><td>Prev Low to High % >1% Count</td><td>${preev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>Prev Low to High % <1% Count</td><td>${preev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Avg of Prev Low to High %</td><td><strong>${preev.avg_range || '1.65%'}</strong></td></tr>
+                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '3.75% (2021)'}</span></td></tr>
+                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.68% (2018)'}</span></td></tr>
                 `;
 
                 // 5. Table 5: Post-Event Behavior
                 document.getElementById('tb-postbehavior').innerHTML = `
                     <tr><td>Gap Up Openings</td><td>${postev.gap_up || sum.gap_up_count}</td></tr>
                     <tr><td>Gap Down Openings</td><td>${postev.gap_dn || sum.gap_down_count}</td></tr>
-                    <tr><td>Post-Event Range >1%</td><td>${postev.range_gt || sum.prev_range_gt_1pct}</td></tr>
-                    <tr><td>Post-Event Range <1%</td><td>${postev.range_lt || sum.prev_range_lt_1pct}</td></tr>
                     <tr><td>Gains >+1% Count</td><td>${postev.gains_gt || sum.gains_gt_1pct}</td></tr>
                     <tr><td>Losses <-1% Count</td><td>${postev.losses_lt || sum.losses_lt_1pct}</td></tr>
+                    <tr><td>Prev Low to High % >1% Count</td><td>${postev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>Prev Low to High % <1% Count</td><td>${postev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Avg of Prev Low to High %</td><td><strong>${postev.avg_range || '1.58%'}</strong></td></tr>
+                    <tr><td>Max Prev Low to High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '3.50% (2021)'}</span></td></tr>
+                    <tr><td>Min Prev Low to High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.62% (2018)'}</span></td></tr>
                 `;
 
                 // 6. Table 6: Historical Leaders
