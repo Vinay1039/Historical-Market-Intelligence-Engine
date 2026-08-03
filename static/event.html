@@ -265,16 +265,16 @@
 
             <!-- Sector Relative Strength Matrix Table -->
             <div class="section-header" style="margin-top: 1.5rem;">🏷️ Sector Relative Strength Matrix (T-4 to T+4 Window)</div>
-            <table class="data-table">
+            <table class="data-table" id="sortable-sectors-table">
                 <thead>
                     <tr>
-                        <th>Rank</th>
-                        <th>Sector / Index</th>
-                        <th>Pre-Event Avg Return (T-4 to T-1)</th>
-                        <th>Post-Event Avg Return (T+1 to T+4)</th>
-                        <th>Win Rate % (15 Yrs)</th>
-                        <th>Peak Volatility Session</th>
-                        <th>Historical Relative Performance</th>
+                        <th onclick="sortSectorsTable(0)" style="cursor:pointer;">Rank ⇗⇖</th>
+                        <th onclick="sortSectorsTable(1)" style="cursor:pointer;">Sector / Index ⇗⇖</th>
+                        <th onclick="sortSectorsTable(2)" style="cursor:pointer;">Pre-Event Avg Return (T-4 to T-1) ⇗⇖</th>
+                        <th onclick="sortSectorsTable(3)" style="cursor:pointer;">Post-Event Avg Return (T+1 to T+4) ⇗⇖</th>
+                        <th onclick="sortSectorsTable(4)" style="cursor:pointer;">Win Rate % (15 Yrs) ⇗⇖</th>
+                        <th onclick="sortSectorsTable(5)" style="cursor:pointer;">Peak Volatility Session ⇗⇖</th>
+                        <th onclick="sortSectorsTable(6)" style="cursor:pointer;">Historical Relative Performance ⇗⇖</th>
                     </tr>
                 </thead>
                 <tbody id="tb-sectors-matrix"></tbody>
@@ -310,17 +310,17 @@
             </div>
 
             <div style="overflow-x: auto;">
-                <table class="data-table">
+                <table class="data-table" id="sortable-fo-table">
                     <thead>
                         <tr>
-                            <th>Rank</th>
-                            <th>Company Name</th>
-                            <th>Universe</th>
-                            <th>Avg Return</th>
-                            <th>Win Rate</th>
-                            <th>Std Dev (σ)</th>
-                            <th>Best Year</th>
-                            <th>Worst Year</th>
+                            <th onclick="sortFOTable(0)" style="cursor:pointer;">Rank ⇗⇖</th>
+                            <th onclick="sortFOTable(1)" style="cursor:pointer;">Company Name ⇗⇖</th>
+                            <th onclick="sortFOTable(2)" style="cursor:pointer;">Universe ⇗⇖</th>
+                            <th onclick="sortFOTable(3)" style="cursor:pointer;">Avg Return ⇗⇖</th>
+                            <th onclick="sortFOTable(4)" style="cursor:pointer;">Win Rate ⇗⇖</th>
+                            <th onclick="sortFOTable(5)" style="cursor:pointer;">Std Dev (σ) ⇗⇖</th>
+                            <th onclick="sortFOTable(6)" style="cursor:pointer;">Best Year ⇗⇖</th>
+                            <th onclick="sortFOTable(7)" style="cursor:pointer;">Worst Year ⇗⇖</th>
                             <th>Explore Stock Data</th>
                         </tr>
                     </thead>
@@ -728,6 +728,52 @@
                     </tr>
                 `;
             });
+        }
+
+        let sectorSortAsc = true;
+        function sortSectorsTable(colIndex) {
+            const table = document.getElementById('sortable-sectors-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                let cellA = a.children[colIndex].innerText.trim();
+                let cellB = b.children[colIndex].innerText.trim();
+
+                let valA = parseFloat(cellA.replace(/[^0-9.-]+/g, ""));
+                let valB = parseFloat(cellB.replace(/[^0-9.-]+/g, ""));
+
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    return sectorSortAsc ? valA - valB : valB - valA;
+                }
+                return sectorSortAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            });
+
+            sectorSortAsc = !sectorSortAsc;
+            rows.forEach(r => tbody.appendChild(r));
+        }
+
+        let foSortAsc = true;
+        function sortFOTable(colIndex) {
+            const table = document.getElementById('sortable-fo-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                let cellA = a.children[colIndex].innerText.trim();
+                let cellB = b.children[colIndex].innerText.trim();
+
+                let valA = parseFloat(cellA.replace(/[^0-9.-]+/g, ""));
+                let valB = parseFloat(cellB.replace(/[^0-9.-]+/g, ""));
+
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    return foSortAsc ? valA - valB : valB - valA;
+                }
+                return foSortAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            });
+
+            foSortAsc = !foSortAsc;
+            rows.forEach(r => tbody.appendChild(r));
         }
 
         function filterFO(univ) {
