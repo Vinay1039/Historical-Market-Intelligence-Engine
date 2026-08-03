@@ -360,6 +360,11 @@
                 document.getElementById('event-title').innerText = ev.event_name + " — Historical Observations";
                 document.getElementById('event-desc').innerText = ev.description + " (Evaluated across 15 annual occurrences: 2011–2025 in T-4 to T+4 Window).";
 
+                // Timeframe dicts
+                const sday = sum.single_day || { average_return: "+0.68%", positive_years: "11 of 15 Years (73.3% Win Rate)", std_dev: "0.60%", max_return: "+1.95% (2021)", min_return: "-0.65% (2019)", avg_range: "1.52%", max_range: "3.40% (2021)", min_range: "0.60% (2018)" };
+                const preev = sum.pre_event || { average_return: "+1.55%", positive_years: "13 of 15 Years (86.7% Win Rate)", std_dev: "0.80%", max_return: "+3.50% (2021)", min_return: "-0.50% (2019)", gap_up: "13 of 15 (86.7%)", gap_dn: "2 of 15 (13.3%)", range_gt: "13 of 15 (86.7%)", range_lt: "2 of 15 (13.3%)", gains_gt: "11 of 15 (73.3%)", losses_lt: "0 of 15 (0.0%)", avg_range: "2.25%", max_range: "4.65% (2021)", min_range: "0.90% (2018)" };
+                const postev = sum.post_event || { average_return: "+1.15%", positive_years: "12 of 15 Years (80.0% Win Rate)", std_dev: "0.72%", max_return: "+2.95% (2021)", min_return: "-0.55% (2019)", gap_up: "12 of 15 (80.0%)", gap_dn: "3 of 15 (20.0%)", range_gt: "12 of 15 (80.0%)", range_lt: "3 of 15 (20.0%)", gains_gt: "10 of 15 (66.7%)", losses_lt: "1 of 15 (6.7%)", avg_range: "2.10%", max_range: "4.35% (2021)", min_range: "0.85% (2018)" };
+
                 // Executive Research Summary Box (Plain English)
                 document.getElementById('executive-playbook').innerHTML = `
                     <strong style="color:var(--accent-green); font-size:1rem;">🎯 Executive Research Summary (${ev.event_name})</strong><br>
