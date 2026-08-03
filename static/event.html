@@ -366,11 +366,11 @@
                     <tr><td>Gap Down Openings</td><td>${sday.gap_dn || sum.gap_down_count || '4 of 15 (26.7%)'}</td></tr>
                     <tr><td>Gains >+1% Count</td><td>${sday.gains_gt || sum.gains_gt_1pct || '10 of 15 (66.7%)'}</td></tr>
                     <tr><td>Losses <-1% Count</td><td>${sday.losses_lt || sum.losses_lt_1pct || '0 of 15 (0.0%)'}</td></tr>
-                    <tr><td>Session High-Low % >1% Count</td><td>${sday.range_gt || sum.prev_range_gt_1pct || '12 of 15 (80.0%)'}</td></tr>
-                    <tr><td>Session High-Low % <1% Count</td><td>${sday.range_lt || sum.prev_range_lt_1pct || '3 of 15 (20.0%)'}</td></tr>
-                    <tr><td>Avg Session High-Low %</td><td><strong>${sday.avg_range || '1.52%'}</strong></td></tr>
-                    <tr><td>Max Session High-Low %</td><td><span style="color:var(--accent-green);">${sday.max_range || '3.40% (2021)'}</span></td></tr>
-                    <tr><td>Min Session High-Low %</td><td><span style="color:var(--accent-amber);">${sday.min_range || '0.60% (2018)'}</span></td></tr>
+                    <tr><td>Low-to-High % >1% Count</td><td>${sday.range_gt || sum.prev_range_gt_1pct || '12 of 15 (80.0%)'}</td></tr>
+                    <tr><td>Low-to-High % <1% Count</td><td>${sday.range_lt || sum.prev_range_lt_1pct || '3 of 15 (20.0%)'}</td></tr>
+                    <tr><td>Avg Low-to-High %</td><td><strong>${sday.avg_range || '1.52%'}</strong></td></tr>
+                    <tr><td>Max Low-to-High %</td><td><span style="color:var(--accent-green);">${sday.max_range || '3.40% (2021)'}</span></td></tr>
+                    <tr><td>Min Low-to-High %</td><td><span style="color:var(--accent-amber);">${sday.min_range || '0.60% (2018)'}</span></td></tr>
                 `;
 
                 // 2. Table 2: Pre-Event Window Performance (T-4 to T-1)
@@ -397,11 +397,11 @@
                     <tr><td>Gap Down Openings</td><td>${preev.gap_dn || sum.gap_down_count}</td></tr>
                     <tr><td>Gains >+1% Count</td><td>${preev.gains_gt || sum.gains_gt_1pct}</td></tr>
                     <tr><td>Losses <-1% Count</td><td>${preev.losses_lt || sum.losses_lt_1pct}</td></tr>
-                    <tr><td>Window Low-to-High % >1% Count</td><td>${preev.range_gt || sum.prev_range_gt_1pct}</td></tr>
-                    <tr><td>Window Low-to-High % <1% Count</td><td>${preev.range_lt || sum.prev_range_lt_1pct}</td></tr>
-                    <tr><td>Avg Pre-Event Window Low-to-High %</td><td><strong>${preev.avg_range || '2.25%'}</strong></td></tr>
-                    <tr><td>Max Pre-Event Window Low-to-High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '4.65% (2021)'}</span></td></tr>
-                    <tr><td>Min Pre-Event Window Low-to-High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.90% (2018)'}</span></td></tr>
+                    <tr><td>4d Low-to-High % >1% Count</td><td>${preev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>4d Low-to-High % <1% Count</td><td>${preev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Avg 4d Low-to-High %</td><td><strong>${preev.avg_range || '2.25%'}</strong></td></tr>
+                    <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '4.65% (2021)'}</span></td></tr>
+                    <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.90% (2018)'}</span></td></tr>
                 `;
 
                 // 5. Table 5: Post-Event Behavior (T+1 to T+4)
@@ -410,11 +410,11 @@
                     <tr><td>Gap Down Openings</td><td>${postev.gap_dn || sum.gap_down_count}</td></tr>
                     <tr><td>Gains >+1% Count</td><td>${postev.gains_gt || sum.gains_gt_1pct}</td></tr>
                     <tr><td>Losses <-1% Count</td><td>${postev.losses_lt || sum.losses_lt_1pct}</td></tr>
-                    <tr><td>Window Low-to-High % >1% Count</td><td>${postev.range_gt || sum.prev_range_gt_1pct}</td></tr>
-                    <tr><td>Window Low-to-High % <1% Count</td><td>${postev.range_lt || sum.prev_range_lt_1pct}</td></tr>
-                    <tr><td>Avg Post-Event Window Low-to-High %</td><td><strong>${postev.avg_range || '2.10%'}</strong></td></tr>
-                    <tr><td>Max Post-Event Window Low-to-High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '4.35% (2021)'}</span></td></tr>
-                    <tr><td>Min Post-Event Window Low-to-High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.85% (2018)'}</span></td></tr>
+                    <tr><td>4d Low-to-High % >1% Count</td><td>${postev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>4d Low-to-High % <1% Count</td><td>${postev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Avg 4d Low-to-High %</td><td><strong>${postev.avg_range || '2.10%'}</strong></td></tr>
+                    <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '4.35% (2021)'}</span></td></tr>
+                    <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.85% (2018)'}</span></td></tr>
                 `;
 
                 // 6. Table 6: Historical Leaders
