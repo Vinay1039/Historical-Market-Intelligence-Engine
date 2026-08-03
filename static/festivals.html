@@ -160,9 +160,23 @@
         </div>
 
         <!-- Global Action Bar -->
-        <div style="display: flex; justify-content: flex-end; gap: 0.5rem; margin-bottom: 1rem;">
-            <button onclick="window.print()" style="background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 6px; cursor: pointer; font-weight: 600;">📥 Print / Save PDF</button>
-            <button onclick="exportTableToCSV()" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 6px; cursor: pointer; font-weight: 600;">📊 Download CSV</button>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+            <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                <a href="/compare.html" class="btn-action" style="padding: 0.45rem 0.9rem; font-size: 0.88rem; text-decoration: none; font-weight: 600; background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); border-radius: 6px;">⚔️ Launch Compare Anything Tool</a>
+            </div>
+            <div style="display: flex; gap: 0.5rem;">
+                <button onclick="window.print()" style="background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border: 1px solid var(--accent-blue); padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 6px; cursor: pointer; font-weight: 600;">📥 Print / Save PDF</button>
+                <button onclick="exportTableToCSV()" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 6px; cursor: pointer; font-weight: 600;">📊 Download CSV</button>
+            </div>
+        </div>
+
+        <!-- HMIE 2.5 Module 2: Thematic Research Collections Bar -->
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; background: rgba(15, 23, 42, 0.6); padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color);">
+            <span style="font-size: 0.88rem; color: var(--text-secondary); align-self: center; font-weight: 600; margin-right: 0.5rem;">Thematic Research Collections:</span>
+            <button class="btn-action" style="background: var(--accent-blue); color: #fff;" onclick="filterCollection('ALL')">All 22 Master Events</button>
+            <button class="btn-action" onclick="filterCollection('CULTURAL')">🪔 Cultural & Festivals (11)</button>
+            <button class="btn-action" onclick="filterCollection('MACRO')">🏛️ Macro & Policy Events (5)</button>
+            <button class="btn-action" onclick="filterCollection('NATIONAL')">🇮🇳 National Trading Holidays (6)</button>
         </div>
 
         <!-- LEADERBOARD 1: LAST TRADING SESSION (DAY 0) -->
@@ -1357,6 +1371,87 @@
                             <td>0.70% (2016)</td>
                             <td><strong style="color: var(--accent-amber);">T+1</strong> (2.30%)</td>
                             <td><a href="/event.html?id=NEW_YEAR_EVE" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- MODULE 3: MASTER CROSS-EVENT INTELLIGENCE HUB TABLE -->
+        <div class="card" style="margin-top: 2rem; border-top: 3px solid var(--accent-purple);">
+            <div class="card-header">
+                <div style="color: var(--accent-purple);">📊 Table 4: Master Cross-Event Intelligence Hub (Single Master Comparative Matrix)</div>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table id="sortable-table-4">
+                    <thead>
+                        <tr>
+                            <th onclick="sortTable(4, 0)">Rank ⇗⇖</th>
+                            <th onclick="sortTable(4, 1)">Event Name ⇗⇖</th>
+                            <th onclick="sortTable(4, 2)">Category ⇗⇖</th>
+                            <th onclick="sortTable(4, 3)">Single Day Return ⇗⇖</th>
+                            <th onclick="sortTable(4, 4)">Pre-Event Return ⇗⇖</th>
+                            <th onclick="sortTable(4, 5)">Post-Event Return ⇗⇖</th>
+                            <th onclick="sortTable(4, 6)">Win Rate % ⇗⇖</th>
+                            <th onclick="sortTable(4, 7)">Top Performing Sector ⇗⇖</th>
+                            <th onclick="sortTable(4, 8)">Top Stock Champion ⇗⇖</th>
+                            <th onclick="sortTable(4, 9)">Peak Volatility Session ⇗⇖</th>
+                            <th>Explore</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb-cross-event-body">
+                        <tr>
+                            <td>🥇 1.</td>
+                            <td><strong>🪔 Diwali & Laxmi Pujan</strong></td>
+                            <td><span style="color:var(--accent-amber);">CULTURAL</span></td>
+                            <td><strong style="color:var(--accent-green);">+0.85%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+1.65%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+1.25%</strong></td>
+                            <td><strong>86.7%</strong></td>
+                            <td>🚘 NIFTY AUTO (+3.10%)</td>
+                            <td>🚘 Tata Motors (+4.15%)</td>
+                            <td>⚡ T-2 (Pre-Event)</td>
+                            <td><a href="/event.html?id=DIWALI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>🥈 2.</td>
+                            <td><strong>🇮🇳 Independence Day Rally</strong></td>
+                            <td><span style="color:var(--accent-blue);">NATIONAL</span></td>
+                            <td><strong style="color:var(--accent-green);">+0.62%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+1.38%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+1.08%</strong></td>
+                            <td><strong>80.0%</strong></td>
+                            <td>🏦 BANK NIFTY (+2.80%)</td>
+                            <td>🏛️ ICICI Bank (+3.95%)</td>
+                            <td>⚡ T-2 (Pre-Event)</td>
+                            <td><a href="/event.html?id=INDEPENDENCE_DAY" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>🥉 3.</td>
+                            <td><strong>🎨 Holi Festival Rally</strong></td>
+                            <td><span style="color:var(--accent-amber);">CULTURAL</span></td>
+                            <td><strong style="color:var(--accent-green);">+0.55%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+1.25%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+0.95%</strong></td>
+                            <td><strong>73.3%</strong></td>
+                            <td>🚘 NIFTY AUTO (+2.65%)</td>
+                            <td>⚡ Polycab (+3.65%)</td>
+                            <td>⚡ T-1 (Pre-Event)</td>
+                            <td><a href="/event.html?id=HOLI" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td><strong>🇮🇳 Republic Day Rally</strong></td>
+                            <td><span style="color:var(--accent-blue);">NATIONAL</span></td>
+                            <td><strong style="color:var(--accent-green);">+0.48%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+1.10%</strong></td>
+                            <td><strong style="color:var(--accent-green);">+0.85%</strong></td>
+                            <td><strong>73.3%</strong></td>
+                            <td>🛒 NIFTY FMCG (+1.95%)</td>
+                            <td>🔷 Reliance (+2.80%)</td>
+                            <td>⚡ T-2 (Pre-Event)</td>
+                            <td><a href="/event.html?id=REPUBLIC_DAY" class="btn-action">🔍 Explore</a></td>
                         </tr>
                     </tbody>
                 </table>

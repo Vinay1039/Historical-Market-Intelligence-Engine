@@ -31,7 +31,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from routers import metadata_router, history_router, technical_router, market_structure_router, evidence_router, strategy_router, system_router
+from routers import metadata_router, history_router, technical_router, market_structure_router, evidence_router, strategy_router, system_router, compare_router
 
 app.include_router(metadata_router.router, prefix="/api/v1", tags=["Metadata"])
 app.include_router(history_router.router, prefix="/api/v1", tags=["Raw History"])
@@ -40,6 +40,7 @@ app.include_router(market_structure_router.router, prefix="/api/v1", tags=["Mark
 app.include_router(evidence_router.router, prefix="/api/v1", tags=["Evidence Engine"])
 app.include_router(strategy_router.router, prefix="/api/v1", tags=["Strategy & Research"])
 app.include_router(system_router.router)
+app.include_router(compare_router.router)
 
 from fastapi.staticfiles import StaticFiles
 STATIC_DIR = BASE_DIR / "static"
@@ -58,6 +59,10 @@ def serve_event_page():
 @app.get("/festivals.html", tags=["Dashboard"])
 def serve_festivals_page():
     return FileResponse(str(STATIC_DIR / "festivals.html"))
+
+@app.get("/compare.html", tags=["Dashboard"])
+def serve_compare_page():
+    return FileResponse(str(STATIC_DIR / "compare.html"))
 
 @app.get("/festive_stocks.html", tags=["Dashboard"])
 def serve_festive_stocks_page():
