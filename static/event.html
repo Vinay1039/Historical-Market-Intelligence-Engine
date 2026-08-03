@@ -782,18 +782,6 @@
             rows.forEach(r => tbody.appendChild(r));
         }
 
-        function filterFO(univ) {
-            document.querySelectorAll('.btn-filter').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            if (univ === 'ALL') {
-                renderFOStocks(allFOStocks);
-            } else {
-                const filtered = allFOStocks.filter(s => s.universe === univ);
-                renderFOStocks(filtered);
-            }
-        }
-
         function openStockModal(symbol, name) {
             document.getElementById('modal-stock-title').innerText = `${name} (${symbol}) — ${currentEventName} Festival Intelligence`;
             document.getElementById('modal-stock-desc').innerText = `15-Year Historical Performance & Market Behavior for ${name} across T-4 to T+4 Window during ${currentEventName}.`;
