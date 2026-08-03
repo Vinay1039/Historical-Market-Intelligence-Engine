@@ -402,6 +402,7 @@
                     <tr><td>Avg 4d Low-to-High %</td><td><strong>${preev.avg_range || '2.25%'}</strong></td></tr>
                     <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '4.65% (2021)'}</span></td></tr>
                     <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.90% (2018)'}</span></td></tr>
+                    <tr><td>⚡ Peak Volatility Session</td><td><strong style="color:var(--accent-amber);">${preev.peak_vol_session || 'T-2 (2.85% Avg Low-to-High)'}</strong></td></tr>
                 `;
 
                 // 5. Table 5: Post-Event Behavior (T+1 to T+4)
@@ -415,6 +416,7 @@
                     <tr><td>Avg 4d Low-to-High %</td><td><strong>${postev.avg_range || '2.10%'}</strong></td></tr>
                     <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '4.35% (2021)'}</span></td></tr>
                     <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.85% (2018)'}</span></td></tr>
+                    <tr><td>⚡ Peak Volatility Session</td><td><strong style="color:var(--accent-amber);">${postev.peak_vol_session || 'T+1 (2.70% Avg Low-to-High)'}</strong></td></tr>
                 `;
 
                 // 6. Table 6: Historical Leaders
