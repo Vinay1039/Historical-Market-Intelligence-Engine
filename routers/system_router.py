@@ -11,7 +11,7 @@
            (1) Last Session Performance & Behavior Side-by-Side (Day 0)
            (2) Pre-Event Window (T-4 to T-1: 4 Sessions BEFORE) Performance & Behavior Side-by-Side
            (3) Post-Event Window (T+1 to T+4: 4 Sessions AFTER) Performance & Behavior Side-by-Side
-       • Full Daily Breakdown of Avg Low-to-High % for T-4, T-3, T-2, T-1 and T+1, T+2, T+3, T+4 with Peak Volatility Session highlighted.
+       • Full Daily Breakdown of Avg Low-to-High % with Gap Up & Gap Down Counts for Peak Volatility Session.
        • Sector Leaders, What This Sample Shows
        • Top 5 F&O Stocks Leaderboard per Index (NIFTY50, BANK NIFTY, NIFTY MIDCAP, NIFTY AUTO)
 ===============================================================================
@@ -168,7 +168,7 @@ def get_event_details(event_id: str):
                     "daily_ranges": [
                         {"day": "T-4", "avg_range": "1.55%"},
                         {"day": "T-3", "avg_range": "1.75%"},
-                        {"day": "⚡ T-2 (Peak Volatility)", "avg_range": "2.65%", "is_peak": True},
+                        {"day": "⚡ T-2 (Peak Volatility)", "avg_range": "2.65%", "is_peak": True, "gap_counts": "12 of 15 Gap Up (80.0%) | 3 of 15 Gap Down (20.0%)"},
                         {"day": "T-1", "avg_range": "1.95%"}
                     ]
                 },
@@ -177,7 +177,7 @@ def get_event_details(event_id: str):
                     "gap_up": "10 of 15 (66.7%)", "gap_dn": "5 of 15 (33.3%)", "range_gt": "11 of 15 (73.3%)", "range_lt": "4 of 15 (26.7%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)",
                     "avg_range": "1.95%", "max_range": "3.90% (2021)", "min_range": "0.80% (2017)",
                     "daily_ranges": [
-                        {"day": "⚡ T+1 (Peak Volatility)", "avg_range": "2.45%", "is_peak": True},
+                        {"day": "⚡ T+1 (Peak Volatility)", "avg_range": "2.45%", "is_peak": True, "gap_counts": "11 of 15 Gap Up (73.3%) | 4 of 15 Gap Down (26.7%)"},
                         {"day": "T+2", "avg_range": "1.85%"},
                         {"day": "T+3", "avg_range": "1.65%"},
                         {"day": "T+4", "avg_range": "1.50%"}
@@ -212,7 +212,7 @@ def get_event_details(event_id: str):
                     "daily_ranges": [
                         {"day": "T-4", "avg_range": "1.65%"},
                         {"day": "T-3", "avg_range": "1.85%"},
-                        {"day": "⚡ T-2 (Peak Volatility)", "avg_range": "2.85%", "is_peak": True},
+                        {"day": "⚡ T-2 (Peak Volatility)", "avg_range": "2.85%", "is_peak": True, "gap_counts": "13 of 15 Gap Up (86.7%) | 2 of 15 Gap Down (13.3%)"},
                         {"day": "T-1", "avg_range": "2.10%"}
                     ]
                 },
@@ -221,7 +221,7 @@ def get_event_details(event_id: str):
                     "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "10 of 15 (66.7%)", "losses_lt": "1 of 15 (6.7%)",
                     "avg_range": "2.10%", "max_range": "4.35% (2021)", "min_range": "0.85% (2018)",
                     "daily_ranges": [
-                        {"day": "⚡ T+1 (Peak Volatility)", "avg_range": "2.70%", "is_peak": True},
+                        {"day": "⚡ T+1 (Peak Volatility)", "avg_range": "2.70%", "is_peak": True, "gap_counts": "12 of 15 Gap Up (80.0%) | 3 of 15 Gap Down (20.0%)"},
                         {"day": "T+2", "avg_range": "1.95%"},
                         {"day": "T+3", "avg_range": "1.75%"},
                         {"day": "T+4", "avg_range": "1.60%"}
@@ -258,7 +258,7 @@ def get_event_details(event_id: str):
                         {"day": "T-4", "avg_range": "1.50%"},
                         {"day": "T-3", "avg_range": "1.70%"},
                         {"day": "T-2", "avg_range": "2.10%"},
-                        {"day": "⚡ T-1 (Peak Volatility)", "avg_range": "2.50%", "is_peak": True}
+                        {"day": "⚡ T-1 (Peak Volatility)", "avg_range": "2.50%", "is_peak": True, "gap_counts": "13 of 15 Gap Up (86.7%) | 2 of 15 Gap Down (13.3%)"}
                     ]
                 },
                 "post_event": {
@@ -266,7 +266,7 @@ def get_event_details(event_id: str):
                     "gap_up": "12 of 15 (80.0%)", "gap_dn": "3 of 15 (20.0%)", "range_gt": "12 of 15 (80.0%)", "range_lt": "3 of 15 (20.0%)", "gains_gt": "9 of 15 (60.0%)", "losses_lt": "1 of 15 (6.7%)",
                     "avg_range": "1.85%", "max_range": "3.65% (2020)", "min_range": "0.70% (2018)",
                     "daily_ranges": [
-                        {"day": "⚡ T+1 (Peak Volatility)", "avg_range": "2.35%", "is_peak": True},
+                        {"day": "⚡ T+1 (Peak Volatility)", "avg_range": "2.35%", "is_peak": True, "gap_counts": "12 of 15 Gap Up (80.0%) | 3 of 15 Gap Down (20.0%)"},
                         {"day": "T+2", "avg_range": "1.80%"},
                         {"day": "T+3", "avg_range": "1.65%"},
                         {"day": "T+4", "avg_range": "1.50%"}
