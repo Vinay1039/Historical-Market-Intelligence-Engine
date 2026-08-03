@@ -286,10 +286,10 @@
             </div>
         </div>
 
-        <!-- Section 8: Master F&O Champions & Underperformed Laggards -->
+        <!-- Section 8: Master Liquid F&O Champions & Underperformed Laggards -->
         <div class="card" style="margin-top: 1.5rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
-                <div class="section-header" style="margin:0;" id="fo-section-title">⭐ Master Top 25 F&O Stock Champions (T-4 to T+4 Window)</div>
+                <div class="section-header" style="margin:0;" id="fo-section-title">⭐ Master High-Liquidity F&O Stock Champions (T-4 to T+4 Window)</div>
                 
                 <!-- Group Toggle: Champions vs Underperformed -->
                 <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
@@ -298,15 +298,14 @@
                 </div>
             </div>
 
-            <!-- Index Universe Sub-Filters with Stock Count Badges -->
+            <!-- Index Universe Sub-Filters (High F&O Liquidity & Index Pillars) -->
             <div style="display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; background: rgba(15, 23, 42, 0.4); padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color);">
-                <span style="font-size: 0.85rem; color: var(--text-secondary); align-self: center; font-weight: 600; margin-right: 0.4rem;">Filter Index Universe:</span>
-                <button class="btn-filter active" id="btn-fo-all" onclick="filterFO('ALL')">All F&O</button>
+                <span style="font-size: 0.85rem; color: var(--text-secondary); align-self: center; font-weight: 600; margin-right: 0.4rem;">Filter Liquid Universe:</span>
+                <button class="btn-filter active" id="btn-fo-all" onclick="filterFO('ALL')">All F&O Heavyweights</button>
                 <button class="btn-filter" id="btn-fo-nifty50" onclick="filterFO('NIFTY50')">NIFTY50 (4)</button>
                 <button class="btn-filter" id="btn-fo-banknifty" onclick="filterFO('BANK NIFTY')">BANK NIFTY (4)</button>
                 <button class="btn-filter" id="btn-fo-midcap" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP (4)</button>
                 <button class="btn-filter" id="btn-fo-auto" onclick="filterFO('NIFTY AUTO')">NIFTY AUTO (3)</button>
-                <button class="btn-filter" id="btn-fo-pharma" onclick="filterFO('NIFTY PHARMA')">NIFTY PHARMA (2)</button>
             </div>
 
             <div style="overflow-x: auto;">

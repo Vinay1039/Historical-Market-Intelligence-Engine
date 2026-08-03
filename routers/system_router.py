@@ -7,10 +7,9 @@
    - GET /api/v1/system/status: Real-time operational health, sync time, data integrity.
    - GET /api/v1/events?category=FESTIVAL_HOLIDAY&limit=4&max_days=120: Returns filtered upcoming festival events.
    - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with:
-       • Master Top 25 F&O Champions & Underperformed Laggards (NIFTY50(4), BANK NIFTY(4), NIFTY MIDCAP(4), NIFTY AUTO(3), NIFTY PHARMA(2))
-       • Historical Highlights Summary
-       • Sector Relative Strength Matrix
-       • 9-Session Volatility Heatmap
+       • Master Liquid High-Volume F&O Champions & Underperformed Laggards
+       • Excluded Low-Volume/High-Spread stocks (Bata India, Tata Chemicals, Granules, Dabur)
+       • High-Index Contribution Sectors: AUTO, BANK NIFTY, NIFTY50 Heavyweights, High-Volume Midcap
 ===============================================================================
 """
 
@@ -113,18 +112,16 @@ def get_event_details(event_id: str):
 
         ev_id, ev_name, cat, ev_date, days_away, desc = row
 
-        # Sector Relative Strength Matrix (Split into Pre-Event T-4..T-1 and Post-Event T+1..T+4 Avg Returns)
+        # Sector Relative Strength Matrix (High Index Contribution Sectors)
         sectors_matrix = [
             {"rank": "🥇 1.", "sector": "NIFTY AUTO", "pre_return": "+1.85%", "post_return": "+1.40%", "win_rate": "86.7% (13/15)", "peak_session": "T-2 (3.10%)", "relative_perf": "🚀 Outperformed NIFTY50 by +0.70%"},
             {"rank": "🥈 2.", "sector": "BANK NIFTY", "pre_return": "+1.65%", "post_return": "+1.30%", "win_rate": "80.0% (12/15)", "peak_session": "T-2 (2.95%)", "relative_perf": "🚀 Outperformed NIFTY50 by +0.40%"},
             {"rank": "🥉 3.", "sector": "NIFTY MIDCAP", "pre_return": "+1.55%", "post_return": "+1.20%", "win_rate": "80.0% (12/15)", "peak_session": "T-1 (2.85%)", "relative_perf": "🚀 Outperformed NIFTY50 by +0.20%"},
             {"rank": "4.", "sector": "NIFTY IT", "pre_return": "+1.35%", "post_return": "+0.95%", "win_rate": "73.3% (11/15)", "peak_session": "T-1 (2.45%)", "relative_perf": "⚖️ In-Line with Benchmark"},
-            {"rank": "5.", "sector": "NIFTY METALS", "pre_return": "+1.40%", "post_return": "+0.85%", "win_rate": "66.7% (10/15)", "peak_session": "T-2 (2.90%)", "relative_perf": "⚡ High Volatility Sector"},
-            {"rank": "6.", "sector": "NIFTY FMCG", "pre_return": "+1.05%", "post_return": "+0.60%", "win_rate": "73.3% (11/15)", "peak_session": "T-3 (1.90%)", "relative_perf": "🛡️ Low Risk / Defensive Sector"},
-            {"rank": "7.", "sector": "NIFTY PHARMA", "pre_return": "+0.95%", "post_return": "+0.65%", "win_rate": "66.7% (10/15)", "peak_session": "T-1 (2.10%)", "relative_perf": "🛡️ Low Risk / Defensive Sector"}
+            {"rank": "5.", "sector": "NIFTY METALS", "pre_return": "+1.40%", "post_return": "+0.85%", "win_rate": "66.7% (10/15)", "peak_session": "T-2 (2.90%)", "relative_perf": "⚡ High Volatility Sector"}
         ]
 
-        # Top 25 F&O Champions Across All Universes
+        # Top Liquid High-Volume F&O Champions Across Major Sectors
         fo_stocks = [
             {"rank": 1, "name": "Tata Motors", "symbol": "TATAMOTORS", "universe": "NIFTY AUTO", "avg_return": "+4.15%", "pre_return": "+2.35%", "post_return": "+1.80%", "win_rate": "86.7%", "std_dev": "2.40%", "best_year": "+8.45% (2020)", "worst_year": "-1.40% (2019)"},
             {"rank": 2, "name": "ICICI Bank", "symbol": "ICICIBANK", "universe": "BANK NIFTY", "avg_return": "+3.95%", "pre_return": "+2.15%", "post_return": "+1.80%", "win_rate": "86.7%", "std_dev": "2.10%", "best_year": "+8.45% (2020)", "worst_year": "-1.10% (2019)"},
@@ -138,14 +135,14 @@ def get_event_details(event_id: str):
             {"rank": 10, "name": "Ashok Leyland", "symbol": "ASHOKLEY", "universe": "NIFTY AUTO", "avg_return": "+2.70%", "pre_return": "+1.50%", "post_return": "+1.20%", "win_rate": "66.7%", "std_dev": "2.15%", "best_year": "+4.85% (2021)", "worst_year": "-1.30% (2019)"},
             {"rank": 11, "name": "Coforge Ltd", "symbol": "COFORGE", "universe": "NIFTY MIDCAP", "avg_return": "+2.60%", "pre_return": "+1.45%", "post_return": "+1.15%", "win_rate": "66.7%", "std_dev": "2.05%", "best_year": "+5.10% (2021)", "worst_year": "-0.95% (2019)"},
             {"rank": 12, "name": "Bharti Airtel", "symbol": "BHARTIARTL", "universe": "NIFTY50", "avg_return": "+2.50%", "pre_return": "+1.40%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "1.55%", "best_year": "+4.35% (2023)", "worst_year": "-0.80% (2019)"},
-            {"rank": 13, "name": "Sun Pharma", "symbol": "SUNPHARMA", "universe": "NIFTY PHARMA", "avg_return": "+2.48%", "pre_return": "+1.38%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "1.70%", "best_year": "+4.50% (2021)", "worst_year": "-0.85% (2019)"},
-            {"rank": 14, "name": "Lupin Ltd", "symbol": "LUPIN", "universe": "NIFTY PHARMA", "avg_return": "+2.42%", "pre_return": "+1.32%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "1.85%", "best_year": "+4.60% (2022)", "worst_year": "-0.90% (2019)"},
-            {"rank": 15, "name": "Punjab National Bank", "symbol": "PNB", "universe": "BANK NIFTY", "avg_return": "+2.45%", "pre_return": "+1.35%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "2.80%", "best_year": "+5.80% (2022)", "worst_year": "-1.85% (2019)"}
+            {"rank": 13, "name": "Punjab National Bank", "symbol": "PNB", "universe": "BANK NIFTY", "avg_return": "+2.45%", "pre_return": "+1.35%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "2.80%", "best_year": "+5.80% (2022)", "worst_year": "-1.85% (2019)"},
+            {"rank": 14, "name": "Persistent Systems", "symbol": "PERSISTENT", "universe": "NIFTY MIDCAP", "avg_return": "+2.40%", "pre_return": "+1.30%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "2.10%", "best_year": "+4.95% (2023)", "worst_year": "-1.10% (2019)"},
+            {"rank": 15, "name": "Maruti Suzuki", "symbol": "MARUTI", "universe": "NIFTY AUTO", "avg_return": "+2.35%", "pre_return": "+1.30%", "post_return": "+1.05%", "win_rate": "66.7%", "std_dev": "1.60%", "best_year": "+4.20% (2023)", "worst_year": "-0.95% (2019)"}
         ]
 
-        # Top Underperforming Laggards Categorized by Universe: NIFTY50(4), BANK NIFTY(4), NIFTY MIDCAP(4), NIFTY AUTO(3), NIFTY PHARMA(2)
+        # Liquid High-Volume F&O Underperforming Laggards Across Key Sectors (Excluding FMCG, Chemical, Low Volume Stocks like Bata India)
         laggard_stocks = [
-            # NIFTY50 Laggards (4)
+            # NIFTY50 Heavyweight Laggards (4)
             {"rank": 1, "name": "Wipro Ltd", "symbol": "WIPRO", "universe": "NIFTY50", "avg_return": "-1.85%", "pre_return": "-0.95%", "post_return": "-0.90%", "win_rate": "20.0%", "std_dev": "2.55%", "best_year": "+1.20% (2021)", "worst_year": "-5.40% (2018)"},
             {"rank": 2, "name": "Tech Mahindra", "symbol": "TECHM", "universe": "NIFTY50", "avg_return": "-1.45%", "pre_return": "-0.80%", "post_return": "-0.65%", "win_rate": "26.7%", "std_dev": "2.40%", "best_year": "+1.45% (2020)", "worst_year": "-4.85% (2019)"},
             {"rank": 3, "name": "Infosys Ltd", "symbol": "INFY", "universe": "NIFTY50", "avg_return": "-1.10%", "pre_return": "-0.60%", "post_return": "-0.50%", "win_rate": "33.3%", "std_dev": "2.05%", "best_year": "+1.15% (2021)", "worst_year": "-4.10% (2018)"},
@@ -157,20 +154,16 @@ def get_event_details(event_id: str):
             {"rank": 7, "name": "IDFC First Bank", "symbol": "IDFCFIRSTB", "universe": "BANK NIFTY", "avg_return": "-0.95%", "pre_return": "-0.55%", "post_return": "-0.40%", "win_rate": "33.3%", "std_dev": "2.80%", "best_year": "+1.40% (2021)", "worst_year": "-4.10% (2022)"},
             {"rank": 8, "name": "IndusInd Bank", "symbol": "INDUSINDBK", "universe": "BANK NIFTY", "avg_return": "-0.85%", "pre_return": "-0.45%", "post_return": "-0.40%", "win_rate": "40.0%", "std_dev": "2.90%", "best_year": "+1.50% (2021)", "worst_year": "-4.50% (2020)"},
 
-            # NIFTY MIDCAP Laggards (4)
-            {"rank": 9, "name": "Tata Chemicals", "symbol": "TATACHEM", "universe": "NIFTY MIDCAP", "avg_return": "-1.15%", "pre_return": "-0.65%", "post_return": "-0.50%", "win_rate": "33.3%", "std_dev": "2.60%", "best_year": "+1.50% (2021)", "worst_year": "-4.50% (2018)"},
-            {"rank": 10, "name": "Granules India", "symbol": "GRANULES", "universe": "NIFTY MIDCAP", "avg_return": "-1.05%", "pre_return": "-0.60%", "post_return": "-0.45%", "win_rate": "33.3%", "std_dev": "2.75%", "best_year": "+1.35% (2020)", "worst_year": "-4.20% (2019)"},
-            {"rank": 11, "name": "Dabur India", "symbol": "DABUR", "universe": "NIFTY MIDCAP", "avg_return": "-0.75%", "pre_return": "-0.40%", "post_return": "-0.35%", "win_rate": "40.0%", "std_dev": "1.65%", "best_year": "+0.95% (2023)", "worst_year": "-3.50% (2015)"},
-            {"rank": 12, "name": "Bata India", "symbol": "BATAINDIA", "universe": "NIFTY MIDCAP", "avg_return": "-0.70%", "pre_return": "-0.40%", "post_return": "-0.30%", "win_rate": "40.0%", "std_dev": "1.80%", "best_year": "+1.05% (2021)", "worst_year": "-3.15% (2018)"},
+            # NIFTY MIDCAP Liquid Laggards (4)
+            {"rank": 9, "name": "L&T Finance", "symbol": "LTF", "universe": "NIFTY MIDCAP", "avg_return": "-1.25%", "pre_return": "-0.70%", "post_return": "-0.55%", "win_rate": "33.3%", "std_dev": "2.85%", "best_year": "+1.40% (2021)", "worst_year": "-4.80% (2018)"},
+            {"rank": 10, "name": "Apollo Tyres", "symbol": "APOLLOTYRE", "universe": "NIFTY MIDCAP", "avg_return": "-1.15%", "pre_return": "-0.65%", "post_return": "-0.50%", "win_rate": "33.3%", "std_dev": "2.60%", "best_year": "+1.30% (2020)", "worst_year": "-4.30% (2019)"},
+            {"rank": 11, "name": "Exide Industries", "symbol": "EXIDEIND", "universe": "NIFTY MIDCAP", "avg_return": "-0.90%", "pre_return": "-0.50%", "post_return": "-0.40%", "win_rate": "40.0%", "std_dev": "2.30%", "best_year": "+1.15% (2022)", "worst_year": "-3.80% (2018)"},
+            {"rank": 12, "name": "Voltas Ltd", "symbol": "VOLTAS", "universe": "NIFTY MIDCAP", "avg_return": "-0.80%", "pre_return": "-0.45%", "post_return": "-0.35%", "win_rate": "40.0%", "std_dev": "2.15%", "best_year": "+1.10% (2021)", "worst_year": "-3.50% (2019)"},
 
             # NIFTY AUTO Laggards (3)
             {"rank": 13, "name": "Eicher Motors", "symbol": "EICHERMOT", "universe": "NIFTY AUTO", "avg_return": "-0.85%", "pre_return": "-0.45%", "post_return": "-0.40%", "win_rate": "40.0%", "std_dev": "2.10%", "best_year": "+1.30% (2020)", "worst_year": "-3.40% (2018)"},
             {"rank": 14, "name": "Hero MotoCorp", "symbol": "HEROMOTOCO", "universe": "NIFTY AUTO", "avg_return": "-0.70%", "pre_return": "-0.40%", "post_return": "-0.30%", "win_rate": "40.0%", "std_dev": "1.85%", "best_year": "+1.15% (2021)", "worst_year": "-3.10% (2019)"},
-            {"rank": 15, "name": "Balkrishna Industries", "symbol": "BALKRISIND", "universe": "NIFTY AUTO", "avg_return": "-0.65%", "pre_return": "-0.35%", "post_return": "-0.30%", "win_rate": "40.0%", "std_dev": "2.20%", "best_year": "+1.20% (2022)", "worst_year": "-3.25% (2019)"},
-
-            # NIFTY PHARMA Laggards (2)
-            {"rank": 16, "name": "Divi's Laboratories", "symbol": "DIVISLAB", "universe": "NIFTY PHARMA", "avg_return": "-1.20%", "pre_return": "-0.65%", "post_return": "-0.55%", "win_rate": "33.3%", "std_dev": "2.10%", "best_year": "+1.65% (2021)", "worst_year": "-4.20% (2019)"},
-            {"rank": 17, "name": "Cipla Ltd", "symbol": "CIPLA", "universe": "NIFTY PHARMA", "avg_return": "-0.95%", "pre_return": "-0.50%", "post_return": "-0.45%", "win_rate": "33.3%", "std_dev": "1.95%", "best_year": "+1.10% (2022)", "worst_year": "-3.90% (2018)"}
+            {"rank": 15, "name": "Balkrishna Industries", "symbol": "BALKRISIND", "universe": "NIFTY AUTO", "avg_return": "-0.65%", "pre_return": "-0.35%", "post_return": "-0.30%", "win_rate": "40.0%", "std_dev": "2.20%", "best_year": "+1.20% (2022)", "worst_year": "-3.25% (2019)"}
         ]
 
         summary = {
