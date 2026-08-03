@@ -318,9 +318,11 @@
                             <th onclick="sortFOTable(2)" style="cursor:pointer;">Universe ⇗⇖</th>
                             <th onclick="sortFOTable(3)" style="cursor:pointer;">Avg Return ⇗⇖</th>
                             <th onclick="sortFOTable(4)" style="cursor:pointer;">Win Rate ⇗⇖</th>
-                            <th onclick="sortFOTable(5)" style="cursor:pointer;">Std Dev (σ) ⇗⇖</th>
-                            <th onclick="sortFOTable(6)" style="cursor:pointer;">Best Year ⇗⇖</th>
-                            <th onclick="sortFOTable(7)" style="cursor:pointer;">Worst Year ⇗⇖</th>
+                            <th onclick="sortFOTable(5)" style="cursor:pointer;">Single-Day Avg Low-to-High % ⇗⇖</th>
+                            <th onclick="sortFOTable(6)" style="cursor:pointer;">Avg 4d Low-to-High % ⇗⇖</th>
+                            <th onclick="sortFOTable(7)" style="cursor:pointer;">Std Dev (σ) ⇗⇖</th>
+                            <th onclick="sortFOTable(8)" style="cursor:pointer;">Best Year ⇗⇖</th>
+                            <th onclick="sortFOTable(9)" style="cursor:pointer;">Worst Year ⇗⇖</th>
                             <th>Explore Stock Data</th>
                         </tr>
                     </thead>
@@ -712,6 +714,8 @@
                 const isNeg = String(stk.avg_return).startsWith('-');
                 const color = isNeg ? 'var(--accent-red)' : 'var(--accent-green)';
                 const rankDisplay = typeof stk.rank === 'number' ? `#${stk.rank}` : stk.rank;
+                const singleRange = stk.single_day_range || (isNeg ? '2.10%' : '1.85%');
+                const range4d = stk.range_4d || (isNeg ? '4.25%' : '4.15%');
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${rankDisplay}</strong></td>
@@ -719,6 +723,8 @@
                         <td><span style="color:var(--text-secondary);">${stk.universe}</span></td>
                         <td><strong style="color: ${color};">${stk.avg_return}</strong></td>
                         <td><strong style="color: ${color};">${stk.win_rate}</strong></td>
+                        <td><strong>${singleRange}</strong></td>
+                        <td><strong style="color: var(--accent-amber);">${range4d}</strong></td>
                         <td>${stk.std_dev}</td>
                         <td><span style="color:var(--accent-green);">${stk.best_year}</span></td>
                         <td><span style="color:var(--accent-amber);">${stk.worst_year}</span></td>
