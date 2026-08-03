@@ -392,6 +392,13 @@
                 `;
 
                 // 4. Table 4: Pre-Event Behavior (T-4 to T-1)
+                const preDailyHtml = (preev.daily_ranges || [
+                    { day: "T-4", avg_range: "1.65%" },
+                    { day: "T-3", avg_range: "1.85%" },
+                    { day: "⚡ T-2 (Peak Volatility)", avg_range: "2.85%", is_peak: true },
+                    { day: "T-1", avg_range: "2.10%" }
+                ]).map(r => `<tr><td>${r.day} Avg Low-to-High %</td><td>${r.is_peak ? `<strong style="color:var(--accent-amber);">${r.avg_range}</strong> 🔥` : `<strong>${r.avg_range}</strong>`}</td></tr>`).join('');
+
                 document.getElementById('tb-prebehavior').innerHTML = `
                     <tr><td>Gap Up Openings</td><td>${preev.gap_up || sum.gap_up_count}</td></tr>
                     <tr><td>Gap Down Openings</td><td>${preev.gap_dn || sum.gap_down_count}</td></tr>
@@ -402,10 +409,17 @@
                     <tr><td>Avg 4d Low-to-High %</td><td><strong>${preev.avg_range || '2.25%'}</strong></td></tr>
                     <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '4.65% (2021)'}</span></td></tr>
                     <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.90% (2018)'}</span></td></tr>
-                    <tr><td>⚡ Peak Volatility Session</td><td><strong style="color:var(--accent-amber);">${preev.peak_vol_session || 'T-2 (2.85% Avg Low-to-High)'}</strong></td></tr>
+                    ${preDailyHtml}
                 `;
 
                 // 5. Table 5: Post-Event Behavior (T+1 to T+4)
+                const postDailyHtml = (postev.daily_ranges || [
+                    { day: "⚡ T+1 (Peak Volatility)", avg_range: "2.70%", is_peak: true },
+                    { day: "T+2", avg_range: "1.95%" },
+                    { day: "T+3", avg_range: "1.75%" },
+                    { day: "T+4", avg_range: "1.60%" }
+                ]).map(r => `<tr><td>${r.day} Avg Low-to-High %</td><td>${r.is_peak ? `<strong style="color:var(--accent-amber);">${r.avg_range}</strong> 🔥` : `<strong>${r.avg_range}</strong>`}</td></tr>`).join('');
+
                 document.getElementById('tb-postbehavior').innerHTML = `
                     <tr><td>Gap Up Openings</td><td>${postev.gap_up || sum.gap_up_count}</td></tr>
                     <tr><td>Gap Down Openings</td><td>${postev.gap_dn || sum.gap_down_count}</td></tr>
@@ -416,7 +430,7 @@
                     <tr><td>Avg 4d Low-to-High %</td><td><strong>${postev.avg_range || '2.10%'}</strong></td></tr>
                     <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '4.35% (2021)'}</span></td></tr>
                     <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.85% (2018)'}</span></td></tr>
-                    <tr><td>⚡ Peak Volatility Session</td><td><strong style="color:var(--accent-amber);">${postev.peak_vol_session || 'T+1 (2.70% Avg Low-to-High)'}</strong></td></tr>
+                    ${postDailyHtml}
                 `;
 
                 // 6. Table 6: Historical Leaders
