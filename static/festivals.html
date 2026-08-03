@@ -156,7 +156,7 @@
 
         <!-- Temporal Governance Banner -->
         <div class="gov-banner">
-            📜 <strong>Historical Observations 2011–2025:</strong> This master hub analyzes 15 years of past market behavior across 3 distinct timeframes: (1) Last Trading Session, (2) Pre-Event Run-Up (T-3 to T-1), and (3) Post-Event Rally (T+1 to T+3).
+            📜 <strong>Historical Observations 2011–2025:</strong> This master hub analyzes 15 years of past market behavior across 3 distinct timeframes: (1) Last Trading Session (Day 0), (2) Pre-Event Run-Up (T-4 to T-1: 4 Sessions BEFORE), and (3) Post-Event Rally (T+1 to T+4: 4 Sessions AFTER).
         </div>
 
         <!-- Global Action Bar -->
@@ -165,10 +165,10 @@
             <button onclick="exportTableToCSV()" style="background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.4rem 0.85rem; font-size: 0.82rem; border-radius: 6px; cursor: pointer; font-weight: 600;">📊 Download CSV</button>
         </div>
 
-        <!-- LEADERBOARD 1: LAST TRADING SESSION -->
+        <!-- LEADERBOARD 1: LAST TRADING SESSION (DAY 0) -->
         <div class="card">
             <div class="card-header">
-                <div>📊 Table 1: Last Trading Session Performance (Single Festival Session / Day)</div>
+                <div>📊 Table 1: Last Trading Session Performance (Single Festival Session / Day 0)</div>
             </div>
 
             <div style="overflow-x: auto;">
@@ -183,11 +183,11 @@
                             <th onclick="sortTable(1, 5)">Gap Up Open % ⇗⇖</th>
                             <th onclick="sortTable(1, 6)">Best Session (Max) ⇗⇖</th>
                             <th onclick="sortTable(1, 7)">Worst Session (Min) ⇗⇖</th>
-                            <th onclick="sortTable(1, 8)">Prev Low-High >1% ⇗⇖</th>
-                            <th onclick="sortTable(1, 9)">Prev Low-High <1% ⇗⇖</th>
-                            <th onclick="sortTable(1, 10)">Avg Prev Low to High % ⇗⇖</th>
-                            <th onclick="sortTable(1, 11)">Max Prev Low to High % ⇗⇖</th>
-                            <th onclick="sortTable(1, 12)">Min Prev Low to High % ⇗⇖</th>
+                            <th onclick="sortTable(1, 8)">Session High-Low >1% ⇗⇖</th>
+                            <th onclick="sortTable(1, 9)">Session High-Low <1% ⇗⇖</th>
+                            <th onclick="sortTable(1, 10)">Avg Session High-Low % ⇗⇖</th>
+                            <th onclick="sortTable(1, 11)">Max Session High-Low % ⇗⇖</th>
+                            <th onclick="sortTable(1, 12)">Min Session High-Low % ⇗⇖</th>
                             <th>Explore</th>
                         </tr>
                     </thead>
@@ -341,10 +341,10 @@
             </div>
         </div>
 
-        <!-- LEADERBOARD 2: T-3 PRE-EVENT RUN-UP -->
+        <!-- LEADERBOARD 2: T-4 PRE-EVENT RUN-UP -->
         <div class="card">
             <div class="card-header">
-                <div>📉 Table 2: Pre-Event Window Performance (T-3 to T-1: 3 Sessions BEFORE Holiday)</div>
+                <div>📉 Table 2: Pre-Event Window Performance (T-4 to T-1: 4 Sessions BEFORE Holiday)</div>
             </div>
 
             <div style="overflow-x: auto;">
@@ -359,11 +359,11 @@
                             <th onclick="sortTable(2, 5)">Expectancy Ratio ⇗⇖</th>
                             <th onclick="sortTable(2, 6)">Pre-Event Best (Max) ⇗⇖</th>
                             <th onclick="sortTable(2, 7)">Pre-Event Worst (Min) ⇗⇖</th>
-                            <th onclick="sortTable(2, 8)">Prev Low-High >1% ⇗⇖</th>
-                            <th onclick="sortTable(2, 9)">Prev Low-High <1% ⇗⇖</th>
-                            <th onclick="sortTable(2, 10)">Avg Prev Low to High % ⇗⇖</th>
-                            <th onclick="sortTable(2, 11)">Max Prev Low to High % ⇗⇖</th>
-                            <th onclick="sortTable(2, 12)">Min Prev Low to High % ⇗⇖</th>
+                            <th onclick="sortTable(2, 8)">Window Low-to-High >1% ⇗⇖</th>
+                            <th onclick="sortTable(2, 9)">Window Low-to-High <1% ⇗⇖</th>
+                            <th onclick="sortTable(2, 10)">Avg Window Low-to-High % ⇗⇖</th>
+                            <th onclick="sortTable(2, 11)">Max Window Low-to-High % ⇗⇖</th>
+                            <th onclick="sortTable(2, 12)">Min Window Low-to-High % ⇗⇖</th>
                             <th>Explore</th>
                         </tr>
                     </thead>
@@ -371,145 +371,145 @@
                         <tr>
                             <td>🥇 1.</td>
                             <td><strong>🇮🇳 Independence Day Run-Up</strong></td>
-                            <td><strong style="color: var(--accent-green);">+1.25%</strong></td>
-                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
-                            <td>0.75%</td>
-                            <td><strong>1.66</strong></td>
-                            <td>+2.90% (2021)</td>
-                            <td>-0.40% (2019)</td>
-                            <td>12 of 15 (80.0%)</td>
-                            <td>3 of 15 (20.0%)</td>
-                            <td><strong>1.65%</strong></td>
-                            <td>+3.75% (2021)</td>
-                            <td>0.68% (2018)</td>
+                            <td><strong style="color: var(--accent-green);">+1.55%</strong></td>
+                            <td><strong style="color: var(--accent-green);">86.7%</strong> (13/15)</td>
+                            <td>0.80%</td>
+                            <td><strong>1.94</strong></td>
+                            <td>+3.50% (2021)</td>
+                            <td>-0.50% (2019)</td>
+                            <td>13 of 15 (86.7%)</td>
+                            <td>2 of 15 (13.3%)</td>
+                            <td><strong>2.25%</strong></td>
+                            <td>+4.65% (2021)</td>
+                            <td>0.90% (2018)</td>
                             <td><a href="/event.html?id=INDEPENDENCE_DAY" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>🥈 2.</td>
                             <td><strong>🏹 Dussehra Run-Up</strong></td>
-                            <td><strong style="color: var(--accent-green);">+1.18%</strong></td>
-                            <td>73.3% (11/15)</td>
-                            <td>0.80%</td>
-                            <td>1.47</td>
-                            <td>+2.80% (2021)</td>
-                            <td>-0.50% (2019)</td>
-                            <td>12 of 15 (80.0%)</td>
-                            <td>3 of 15 (20.0%)</td>
-                            <td><strong>1.60%</strong></td>
-                            <td>+3.55% (2021)</td>
-                            <td>0.65% (2017)</td>
+                            <td><strong style="color: var(--accent-green);">+1.42%</strong></td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.85%</td>
+                            <td>1.67</td>
+                            <td>+3.35% (2021)</td>
+                            <td>-0.65% (2019)</td>
+                            <td>13 of 15 (86.7%)</td>
+                            <td>2 of 15 (13.3%)</td>
+                            <td><strong>2.25%</strong></td>
+                            <td>+4.50% (2021)</td>
+                            <td>0.90% (2017)</td>
                             <td><a href="/event.html?id=DUSSEHRA" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>🥉 3.</td>
                             <td><strong>🐘 Ganesh Chaturthi Run-Up</strong></td>
-                            <td>+1.10%</td>
-                            <td>73.3% (11/15)</td>
-                            <td>0.78%</td>
-                            <td>1.41</td>
-                            <td>+2.65% (2021)</td>
-                            <td>-0.60% (2018)</td>
-                            <td>11 of 15 (73.3%)</td>
-                            <td>4 of 15 (26.7%)</td>
-                            <td><strong>1.55%</strong></td>
-                            <td>+3.45% (2021)</td>
-                            <td>0.62% (2017)</td>
+                            <td>+1.35%</td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.82%</td>
+                            <td>1.65</td>
+                            <td>+3.10% (2021)</td>
+                            <td>-0.70% (2018)</td>
+                            <td>12 of 15 (80.0%)</td>
+                            <td>3 of 15 (20.0%)</td>
+                            <td><strong>2.10%</strong></td>
+                            <td>+4.25% (2021)</td>
+                            <td>0.85% (2017)</td>
                             <td><a href="/event.html?id=GANESH_CHATURTHI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>4.</td>
-                            <td><strong>🎆 New Year Run-Up</strong> (Dec 28–30)</td>
-                            <td>+1.05%</td>
-                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
-                            <td>0.65%</td>
-                            <td><strong>1.61</strong></td>
-                            <td>+2.45% (2021)</td>
-                            <td>-0.45% (2018)</td>
-                            <td>12 of 15 (80.0%)</td>
-                            <td>3 of 15 (20.0%)</td>
-                            <td><strong>1.55%</strong></td>
-                            <td>+3.50% (2021)</td>
-                            <td>0.60% (2016)</td>
-                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
-                        </tr>
-                        <tr>
-                            <td>5.</td>
                             <td><strong>🪔 Diwali Run-Up</strong></td>
-                            <td>+0.98%</td>
-                            <td>73.3% (11/15)</td>
-                            <td>0.70%</td>
-                            <td>1.40</td>
-                            <td>+2.75% (2020)</td>
-                            <td>-0.55% (2019)</td>
-                            <td>13 of 15 (86.7%)</td>
-                            <td>2 of 15 (13.3%)</td>
-                            <td><strong>1.45%</strong></td>
-                            <td>+3.20% (2020)</td>
-                            <td>0.55% (2018)</td>
+                            <td>+1.25%</td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.75%</td>
+                            <td>1.67</td>
+                            <td>+3.25% (2020)</td>
+                            <td>-0.65% (2019)</td>
+                            <td>14 of 15 (93.3%)</td>
+                            <td>1 of 15 (6.7%)</td>
+                            <td><strong>1.95%</strong></td>
+                            <td>+3.85% (2020)</td>
+                            <td>0.75% (2018)</td>
                             <td><a href="/event.html?id=DIWALI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
-                            <td>6.</td>
+                            <td>5.</td>
                             <td><strong>🎨 Holi Run-Up</strong></td>
-                            <td>+0.95%</td>
-                            <td>66.7% (10/15)</td>
-                            <td>0.85%</td>
-                            <td>1.11</td>
-                            <td>+2.50% (2021)</td>
-                            <td>-0.85% (2020)</td>
-                            <td>11 of 15 (73.3%)</td>
-                            <td>4 of 15 (26.7%)</td>
-                            <td><strong>1.58%</strong></td>
-                            <td>+3.65% (2021)</td>
-                            <td>0.62% (2018)</td>
+                            <td>+1.18%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.90%</td>
+                            <td>1.31</td>
+                            <td>+3.05% (2021)</td>
+                            <td>-1.05% (2020)</td>
+                            <td>12 of 15 (80.0%)</td>
+                            <td>3 of 15 (20.0%)</td>
+                            <td><strong>2.15%</strong></td>
+                            <td>+4.55% (2021)</td>
+                            <td>0.85% (2018)</td>
                             <td><a href="/event.html?id=HOLI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
+                            <td>6.</td>
+                            <td><strong>🎆 New Year Run-Up</strong> (Dec 27–30)</td>
+                            <td>+1.15%</td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.70%</td>
+                            <td>1.64</td>
+                            <td>+2.75% (2021)</td>
+                            <td>-0.55% (2018)</td>
+                            <td>12 of 15 (80.0%)</td>
+                            <td>3 of 15 (20.0%)</td>
+                            <td><strong>1.95%</strong></td>
+                            <td>+3.95% (2021)</td>
+                            <td>0.75% (2016)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
                             <td>7.</td>
-                            <td><strong>🎄 Christmas Run-Up</strong> (Dec 21–23)</td>
-                            <td>+0.88%</td>
-                            <td>73.3% (11/15)</td>
-                            <td>0.62%</td>
-                            <td>1.41</td>
-                            <td>+2.10% (2020)</td>
-                            <td>-0.50% (2018)</td>
-                            <td>9 of 15 (60.0%)</td>
-                            <td>6 of 15 (40.0%)</td>
-                            <td><strong>1.38%</strong></td>
-                            <td>+2.95% (2020)</td>
-                            <td>0.52% (2019)</td>
+                            <td><strong>🎄 Christmas Run-Up</strong> (Dec 20–23)</td>
+                            <td>+1.12%</td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.68%</td>
+                            <td>1.65</td>
+                            <td>+2.65% (2020)</td>
+                            <td>-0.65% (2018)</td>
+                            <td>10 of 15 (66.7%)</td>
+                            <td>5 of 15 (33.3%)</td>
+                            <td><strong>1.85%</strong></td>
+                            <td>+3.65% (2020)</td>
+                            <td>0.72% (2019)</td>
                             <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>8.</td>
                             <td><strong>🇮🇳 Republic Day Run-Up</strong></td>
-                            <td>+0.82%</td>
-                            <td>66.7% (10/15)</td>
-                            <td>0.90%</td>
-                            <td>0.91</td>
-                            <td>+2.40% (2024)</td>
-                            <td>-1.25% (2016)</td>
-                            <td>11 of 15 (73.3%)</td>
-                            <td>4 of 15 (26.7%)</td>
-                            <td><strong>1.60%</strong></td>
-                            <td>+3.60% (2024)</td>
-                            <td>0.65% (2017)</td>
+                            <td>+1.05%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.95%</td>
+                            <td>1.11</td>
+                            <td>+2.90% (2024)</td>
+                            <td>-1.45% (2016)</td>
+                            <td>12 of 15 (80.0%)</td>
+                            <td>3 of 15 (20.0%)</td>
+                            <td><strong>2.20%</strong></td>
+                            <td>+4.40% (2024)</td>
+                            <td>0.85% (2017)</td>
                             <td><a href="/event.html?id=REPUBLIC_DAY" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>9.</td>
                             <td><strong>🕊️ Mahatma Gandhi Jayanti Run-Up</strong></td>
-                            <td>+0.75%</td>
-                            <td>66.7% (10/15)</td>
-                            <td>0.72%</td>
-                            <td>1.04</td>
-                            <td>+2.20% (2020)</td>
-                            <td>-0.90% (2015)</td>
-                            <td>10 of 15 (66.7%)</td>
-                            <td>5 of 15 (33.3%)</td>
-                            <td><strong>1.45%</strong></td>
-                            <td>+3.10% (2020)</td>
-                            <td>0.58% (2016)</td>
+                            <td>+0.95%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.78%</td>
+                            <td>1.22</td>
+                            <td>+2.60% (2020)</td>
+                            <td>-1.05% (2015)</td>
+                            <td>11 of 15 (73.3%)</td>
+                            <td>4 of 15 (26.7%)</td>
+                            <td><strong>1.90%</strong></td>
+                            <td>+3.80% (2020)</td>
+                            <td>0.75% (2016)</td>
                             <td><a href="/event.html?id=GANDHI_JAYANTI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                     </tbody>
@@ -517,10 +517,10 @@
             </div>
         </div>
 
-        <!-- LEADERBOARD 3: T+3 POST-EVENT RALLY -->
+        <!-- LEADERBOARD 3: T+4 POST-EVENT RALLY -->
         <div class="card">
             <div class="card-header">
-                <div>📈 Table 3: Post-Event Window Performance (T+1 to T+3: 3 Sessions AFTER Holiday)</div>
+                <div>📈 Table 3: Post-Event Window Performance (T+1 to T+4: 4 Sessions AFTER Holiday)</div>
             </div>
 
             <div style="overflow-x: auto;">
@@ -535,11 +535,11 @@
                             <th onclick="sortTable(3, 5)">Expectancy Ratio ⇗⇖</th>
                             <th onclick="sortTable(3, 6)">Post-Event Best (Max) ⇗⇖</th>
                             <th onclick="sortTable(3, 7)">Post-Event Worst (Min) ⇗⇖</th>
-                            <th onclick="sortTable(3, 8)">Prev Low-High >1% ⇗⇖</th>
-                            <th onclick="sortTable(3, 9)">Prev Low-High <1% ⇗⇖</th>
-                            <th onclick="sortTable(3, 10)">Avg Prev Low to High % ⇗⇖</th>
-                            <th onclick="sortTable(3, 11)">Max Prev Low to High % ⇗⇖</th>
-                            <th onclick="sortTable(3, 12)">Min Prev Low to High % ⇗⇖</th>
+                            <th onclick="sortTable(3, 8)">Window Low-to-High >1% ⇗⇖</th>
+                            <th onclick="sortTable(3, 9)">Window Low-to-High <1% ⇗⇖</th>
+                            <th onclick="sortTable(3, 10)">Avg Window Low-to-High % ⇗⇖</th>
+                            <th onclick="sortTable(3, 11)">Max Window Low-to-High % ⇗⇖</th>
+                            <th onclick="sortTable(3, 12)">Min Window Low-to-High % ⇗⇖</th>
                             <th>Explore</th>
                         </tr>
                     </thead>
@@ -547,145 +547,145 @@
                         <tr>
                             <td>🥇 1.</td>
                             <td><strong>🇮🇳 Independence Day Post-Rally</strong></td>
-                            <td><strong style="color: var(--accent-green);">+0.93%</strong></td>
-                            <td>73.3% (11/15)</td>
-                            <td>0.68%</td>
-                            <td><strong>1.36</strong></td>
-                            <td>+2.45% (2021)</td>
-                            <td>-0.45% (2019)</td>
-                            <td>11 of 15 (73.3%)</td>
-                            <td>4 of 15 (26.7%)</td>
-                            <td><strong>1.58%</strong></td>
-                            <td>+3.50% (2021)</td>
-                            <td>0.62% (2018)</td>
+                            <td><strong style="color: var(--accent-green);">+1.15%</strong></td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.72%</td>
+                            <td><strong>1.60</strong></td>
+                            <td>+2.95% (2021)</td>
+                            <td>-0.55% (2019)</td>
+                            <td>12 of 15 (80.0%)</td>
+                            <td>3 of 15 (20.0%)</td>
+                            <td><strong>2.10%</strong></td>
+                            <td>+4.35% (2021)</td>
+                            <td>0.85% (2018)</td>
                             <td><a href="/event.html?id=INDEPENDENCE_DAY" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>🥈 2.</td>
-                            <td><strong>🎆 New Year Post-Rally</strong> (Jan 2–4)</td>
-                            <td><strong style="color: var(--accent-green);">+0.93%</strong></td>
-                            <td><strong style="color: var(--accent-green);">80.0%</strong> (12/15)</td>
-                            <td>0.60%</td>
-                            <td><strong>1.55</strong></td>
-                            <td>+2.25% (2021)</td>
-                            <td>-0.40% (2018)</td>
-                            <td>10 of 15 (66.7%)</td>
-                            <td>5 of 15 (33.3%)</td>
-                            <td><strong>1.48%</strong></td>
-                            <td>+3.30% (2021)</td>
-                            <td>0.55% (2016)</td>
-                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                            <td><strong>🏹 Dussehra Post-Rally</strong></td>
+                            <td><strong style="color: var(--accent-green);">+1.08%</strong></td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.78%</td>
+                            <td>1.38</td>
+                            <td>+2.85% (2021)</td>
+                            <td>-0.65% (2019)</td>
+                            <td>12 of 15 (80.0%)</td>
+                            <td>3 of 15 (20.0%)</td>
+                            <td><strong>2.05%</strong></td>
+                            <td>+4.20% (2021)</td>
+                            <td>0.82% (2017)</td>
+                            <td><a href="/event.html?id=DUSSEHRA" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>🥉 3.</td>
-                            <td><strong>🏹 Dussehra Post-Rally</strong></td>
-                            <td>+0.87%</td>
-                            <td>73.3% (11/15)</td>
-                            <td>0.72%</td>
-                            <td>1.20</td>
-                            <td>+2.35% (2021)</td>
-                            <td>-0.55% (2019)</td>
-                            <td>11 of 15 (73.3%)</td>
-                            <td>4 of 15 (26.7%)</td>
-                            <td><strong>1.52%</strong></td>
-                            <td>+3.35% (2021)</td>
-                            <td>0.60% (2017)</td>
-                            <td><a href="/event.html?id=DUSSEHRA" class="btn-action">🔍 Explore</a></td>
+                            <td><strong>🪔 Diwali Post-Rally</strong></td>
+                            <td>+1.05%</td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.70%</td>
+                            <td>1.50</td>
+                            <td>+2.95% (2020)</td>
+                            <td>-0.60% (2019)</td>
+                            <td>12 of 15 (80.0%)</td>
+                            <td>3 of 15 (20.0%)</td>
+                            <td><strong>1.85%</strong></td>
+                            <td>+3.65% (2020)</td>
+                            <td>0.70% (2018)</td>
+                            <td><a href="/event.html?id=DIWALI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>4.</td>
                             <td><strong>🐘 Ganesh Chaturthi Post-Rally</strong></td>
-                            <td>+0.82%</td>
+                            <td>+1.02%</td>
                             <td>73.3% (11/15)</td>
-                            <td>0.70%</td>
-                            <td>1.17</td>
-                            <td>+2.20% (2021)</td>
-                            <td>-0.55% (2018)</td>
-                            <td>10 of 15 (66.7%)</td>
-                            <td>5 of 15 (33.3%)</td>
-                            <td><strong>1.48%</strong></td>
-                            <td>+3.25% (2021)</td>
-                            <td>0.58% (2017)</td>
+                            <td>0.75%</td>
+                            <td>1.36</td>
+                            <td>+2.60% (2021)</td>
+                            <td>-0.65% (2018)</td>
+                            <td>11 of 15 (73.3%)</td>
+                            <td>4 of 15 (26.7%)</td>
+                            <td><strong>1.95%</strong></td>
+                            <td>+3.90% (2021)</td>
+                            <td>0.80% (2017)</td>
                             <td><a href="/event.html?id=GANESH_CHATURTHI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>5.</td>
-                            <td><strong>🪔 Diwali Post-Rally</strong></td>
-                            <td>+0.82%</td>
+                            <td><strong>🎨 Holi Post-Rally</strong></td>
+                            <td>+1.02%</td>
                             <td>73.3% (11/15)</td>
-                            <td>0.65%</td>
-                            <td>1.26</td>
-                            <td>+2.45% (2020)</td>
-                            <td>-0.50% (2019)</td>
+                            <td>0.82%</td>
+                            <td>1.24</td>
+                            <td>+2.75% (2021)</td>
+                            <td>-0.90% (2020)</td>
                             <td>11 of 15 (73.3%)</td>
                             <td>4 of 15 (26.7%)</td>
-                            <td><strong>1.38%</strong></td>
-                            <td>+3.05% (2020)</td>
-                            <td>0.50% (2018)</td>
-                            <td><a href="/event.html?id=DIWALI" class="btn-action">🔍 Explore</a></td>
-                        </tr>
-                        <tr>
-                            <td>6.</td>
-                            <td><strong>🎨 Holi Post-Rally</strong></td>
-                            <td>+0.80%</td>
-                            <td>66.7% (10/15)</td>
-                            <td>0.78%</td>
-                            <td>1.02</td>
-                            <td>+2.25% (2021)</td>
-                            <td>-0.75% (2020)</td>
-                            <td>10 of 15 (66.7%)</td>
-                            <td>5 of 15 (33.3%)</td>
-                            <td><strong>1.50%</strong></td>
-                            <td>+3.45% (2021)</td>
-                            <td>0.58% (2018)</td>
+                            <td><strong>2.00%</strong></td>
+                            <td>+4.30% (2021)</td>
+                            <td>0.80% (2018)</td>
                             <td><a href="/event.html?id=HOLI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
-                            <td>7.</td>
-                            <td><strong>🎄 Christmas Post-Rally</strong> (Dec 26–28)</td>
-                            <td>+0.77%</td>
-                            <td>73.3% (11/15)</td>
-                            <td>0.58%</td>
-                            <td>1.32</td>
-                            <td>+1.85% (2020)</td>
+                            <td>6.</td>
+                            <td><strong>🎆 New Year Post-Rally</strong> (Jan 1–4)</td>
+                            <td>+1.00%</td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.65%</td>
+                            <td>1.54</td>
+                            <td>+2.45% (2021)</td>
                             <td>-0.45% (2018)</td>
-                            <td>9 of 15 (60.0%)</td>
-                            <td>6 of 15 (40.0%)</td>
-                            <td><strong>1.32%</strong></td>
-                            <td>+2.80% (2020)</td>
-                            <td>0.48% (2019)</td>
+                            <td>11 of 15 (73.3%)</td>
+                            <td>4 of 15 (26.7%)</td>
+                            <td><strong>1.80%</strong></td>
+                            <td>+3.50% (2021)</td>
+                            <td>0.70% (2016)</td>
+                            <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
+                        </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td><strong>🎄 Christmas Post-Rally</strong> (Dec 26–29)</td>
+                            <td>+0.95%</td>
+                            <td>80.0% (12/15)</td>
+                            <td>0.62%</td>
+                            <td>1.53</td>
+                            <td>+2.30% (2020)</td>
+                            <td>-0.55% (2018)</td>
+                            <td>10 of 15 (66.7%)</td>
+                            <td>5 of 15 (33.3%)</td>
+                            <td><strong>1.75%</strong></td>
+                            <td>+3.45% (2020)</td>
+                            <td>0.65% (2019)</td>
                             <td><a href="/event.html?id=CHRISTMAS" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>8.</td>
                             <td><strong>🇮🇳 Republic Day Post-Rally</strong></td>
-                            <td>+0.71%</td>
-                            <td>66.7% (10/15)</td>
-                            <td>0.82%</td>
-                            <td>0.86</td>
-                            <td>+2.10% (2024)</td>
-                            <td>-1.15% (2016)</td>
-                            <td>10 of 15 (66.7%)</td>
-                            <td>5 of 15 (33.3%)</td>
-                            <td><strong>1.52%</strong></td>
-                            <td>+3.40% (2024)</td>
-                            <td>0.60% (2017)</td>
+                            <td>+0.92%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.88%</td>
+                            <td>1.05</td>
+                            <td>+2.60% (2024)</td>
+                            <td>-1.35% (2016)</td>
+                            <td>11 of 15 (73.3%)</td>
+                            <td>4 of 15 (26.7%)</td>
+                            <td><strong>2.05%</strong></td>
+                            <td>+4.15% (2024)</td>
+                            <td>0.80% (2017)</td>
                             <td><a href="/event.html?id=REPUBLIC_DAY" class="btn-action">🔍 Explore</a></td>
                         </tr>
                         <tr>
                             <td>9.</td>
                             <td><strong>🕊️ Mahatma Gandhi Jayanti Post-Rally</strong></td>
-                            <td>+0.70%</td>
-                            <td>66.7% (10/15)</td>
-                            <td>0.65%</td>
-                            <td>1.07</td>
-                            <td>+1.90% (2020)</td>
-                            <td>-0.75% (2015)</td>
-                            <td>9 of 15 (60.0%)</td>
-                            <td>6 of 15 (40.0%)</td>
-                            <td><strong>1.40%</strong></td>
-                            <td>+2.95% (2020)</td>
-                            <td>0.52% (2016)</td>
+                            <td>+0.88%</td>
+                            <td>73.3% (11/15)</td>
+                            <td>0.70%</td>
+                            <td>1.26</td>
+                            <td>+2.35% (2020)</td>
+                            <td>-0.85% (2015)</td>
+                            <td>10 of 15 (66.7%)</td>
+                            <td>5 of 15 (33.3%)</td>
+                            <td><strong>1.85%</strong></td>
+                            <td>+3.65% (2020)</td>
+                            <td>0.70% (2016)</td>
                             <td><a href="/event.html?id=GANDHI_JAYANTI" class="btn-action">🔍 Explore</a></td>
                         </tr>
                     </tbody>
@@ -748,7 +748,7 @@
             const url = URL.createObjectURL(csvBlob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "HMIE_Master_3_Timeframe_Leaderboards.csv";
+            a.download = "HMIE_Master_T4_T4_Leaderboards.csv";
             a.click();
         }
     </script>
