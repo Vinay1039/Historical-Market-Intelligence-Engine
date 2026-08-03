@@ -406,6 +406,7 @@
 
     <script>
         let allFOStocks = [];
+        let allLaggardStocks = [];
         let currentEventName = "";
 
         const urlParams = new URLSearchParams(window.location.search);
@@ -427,7 +428,13 @@
                 const ev = data.event;
                 const sum = data.summary;
                 allFOStocks = data.fo_stocks || [];
-                allLaggardStocks = data.laggard_stocks || [];
+                allLaggardStocks = data.laggard_stocks || [
+                    { rank: "⚠️ 1.", name: "Wipro Ltd", symbol: "WIPRO", universe: "NIFTY IT", avg_return: "-1.85%", pre_return: "-0.95%", post_return: "-0.90%", win_rate: "20.0% (3/15)", std_dev: "2.55%", best_year: "+1.20% (2021)", worst_year: "-5.40% (2018)" },
+                    { rank: "⚠️ 2.", name: "Tech Mahindra", symbol: "TECHM", universe: "NIFTY IT", avg_return: "-1.45%", pre_return: "-0.80%", post_return: "-0.65%", win_rate: "26.7% (4/15)", std_dev: "2.40%", best_year: "+1.45% (2020)", worst_year: "-4.85% (2019)" },
+                    { rank: "⚠️ 3.", name: "Divi's Laboratories", symbol: "DIVISLAB", universe: "NIFTY PHARMA", avg_return: "-1.20%", pre_return: "-0.65%", post_return: "-0.55%", win_rate: "33.3% (5/15)", std_dev: "2.10%", best_year: "+1.65% (2021)", worst_year: "-4.20% (2019)" },
+                    { rank: "⚠️ 4.", name: "Cipla Ltd", symbol: "CIPLA", universe: "NIFTY PHARMA", avg_return: "-0.95%", pre_return: "-0.50%", post_return: "-0.45%", win_rate: "33.3% (5/15)", std_dev: "1.95%", best_year: "+1.10% (2022)", worst_year: "-3.90% (2018)" },
+                    { rank: "⚠️ 5.", name: "Dabur India", symbol: "DABUR", universe: "NIFTY FMCG", avg_return: "-0.75%", pre_return: "-0.40%", post_return: "-0.35%", win_rate: "40.0% (6/15)", std_dev: "1.65%", best_year: "+0.95% (2023)", worst_year: "-3.50% (2015)" }
+                ];
                 currentEventName = ev.event_name;
 
                 document.getElementById('event-title').innerText = ev.event_name + " — Historical Observations";
