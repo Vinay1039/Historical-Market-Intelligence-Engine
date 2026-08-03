@@ -286,17 +286,26 @@
             </div>
         </div>
 
-        <!-- Section 8: Master Top 25 F&O Stock Champions -->
+        <!-- Section 8: Master F&O Champions & Underperformed Laggards -->
         <div class="card" style="margin-top: 1.5rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 1rem;">
-                <div class="section-header" style="margin:0;">⭐ Master Top 25 F&O Stock Champions (T-4 to T+4 Window)</div>
-                <div style="display: flex; gap: 0.4rem; margin-top: 0.5rem; flex-wrap: wrap;">
-                    <button class="btn-filter active" id="btn-fo-all" onclick="filterFO('ALL')">All F&O (Top 25)</button>
-                    <button class="btn-filter" id="btn-fo-nifty50" onclick="filterFO('NIFTY50')">NIFTY50</button>
-                    <button class="btn-filter" id="btn-fo-banknifty" onclick="filterFO('BANK NIFTY')">BANK NIFTY</button>
-                    <button class="btn-filter" id="btn-fo-midcap" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP</button>
-                    <button class="btn-filter" id="btn-fo-auto" onclick="filterFO('NIFTY AUTO')">NIFTY AUTO</button>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                <div class="section-header" style="margin:0;" id="fo-section-title">⭐ Master Top 25 F&O Stock Champions (T-4 to T+4 Window)</div>
+                
+                <!-- Group Toggle: Champions vs Underperformed -->
+                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                    <button class="btn-filter active" id="btn-group-champions" onclick="switchFOGroup('CHAMPIONS')" style="background: var(--accent-green); color: #fff;">🏆 Top Champions</button>
+                    <button class="btn-filter" id="btn-group-laggards" onclick="switchFOGroup('LAGGARDS')">⚠️ Underperformed (Stocks to Avoid)</button>
                 </div>
+            </div>
+
+            <!-- Index Universe Sub-Filters -->
+            <div style="display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; background: rgba(15, 23, 42, 0.4); padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                <span style="font-size: 0.85rem; color: var(--text-secondary); align-self: center; font-weight: 600; margin-right: 0.4rem;">Filter Index Universe:</span>
+                <button class="btn-filter active" id="btn-fo-all" onclick="filterFO('ALL')">All F&O</button>
+                <button class="btn-filter" id="btn-fo-nifty50" onclick="filterFO('NIFTY50')">NIFTY50</button>
+                <button class="btn-filter" id="btn-fo-banknifty" onclick="filterFO('BANK NIFTY')">BANK NIFTY</button>
+                <button class="btn-filter" id="btn-fo-midcap" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP</button>
+                <button class="btn-filter" id="btn-fo-auto" onclick="filterFO('NIFTY AUTO')">NIFTY AUTO</button>
             </div>
 
             <div style="overflow-x: auto;">
@@ -642,23 +651,55 @@
             }
         }
 
+        let currentFOGroup = 'CHAMPIONS';
+        let currentFOUniverse = 'ALL';
+
+        function switchFOGroup(group) {
+            currentFOGroup = group;
+            document.getElementById('btn-group-champions').classList.remove('active');
+            document.getElementById('btn-group-champions').style.background = 'transparent';
+            document.getElementById('btn-group-champions').style.color = 'var(--text-secondary)';
+            
+            document.getElementById('btn-group-laggards').classList.remove('active');
+            document.getElementById('btn-group-laggards').style.background = 'transparent';
+            document.getElementById('btn-group-laggards').style.color = 'var(--text-secondary)';
+
+            if (group === 'CHAMPIONS') {
+                document.getElementById('btn-group-champions').classList.add('active');
+                document.getElementById('btn-group-champions').style.background = 'var(--accent-green)';
+                document.getElementById('btn-group-champions').style.color = '#fff';
+                document.getElementById('fo-section-title').innerText = "⭐ Master Top 25 F&O Stock Champions (T-4 to T+4 Window)";
+            } else {
+                document.getElementById('btn-group-laggards').classList.add('active');
+                document.getElementById('btn-group-laggards').style.background = 'var(--accent-red)';
+                document.getElementById('btn-group-laggards').style.color = '#fff';
+                document.getElementById('fo-section-title').innerText = "⚠️ Top F&O Underperformed Stocks to Avoid (T-4 to T+4 Window)";
+            }
+            applyFOFilters();
+        }
+
         function filterFO(univ) {
-            document.querySelectorAll('.card button.btn-filter').forEach(b => b.classList.remove('active'));
-            if (univ === 'ALL') {
-                document.getElementById('btn-fo-all').classList.add('active');
-                renderFOStocks(allFOStocks);
-            } else if (univ === 'NIFTY50') {
-                document.getElementById('btn-fo-nifty50').classList.add('active');
-                renderFOStocks(allFOStocks.filter(s => s.universe === 'NIFTY50'));
-            } else if (univ === 'BANK NIFTY') {
-                document.getElementById('btn-fo-banknifty').classList.add('active');
-                renderFOStocks(allFOStocks.filter(s => s.universe === 'BANK NIFTY'));
-            } else if (univ === 'NIFTY MIDCAP') {
-                document.getElementById('btn-fo-midcap').classList.add('active');
-                renderFOStocks(allFOStocks.filter(s => s.universe === 'NIFTY MIDCAP'));
-            } else if (univ === 'NIFTY AUTO') {
-                document.getElementById('btn-fo-auto').classList.add('active');
-                renderFOStocks(allFOStocks.filter(s => s.universe === 'NIFTY AUTO'));
+            currentFOUniverse = univ;
+            ['btn-fo-all', 'btn-fo-nifty50', 'btn-fo-banknifty', 'btn-fo-midcap', 'btn-fo-auto'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('active');
+            });
+
+            if (univ === 'ALL') document.getElementById('btn-fo-all').classList.add('active');
+            else if (univ === 'NIFTY50') document.getElementById('btn-fo-nifty50').classList.add('active');
+            else if (univ === 'BANK NIFTY') document.getElementById('btn-fo-banknifty').classList.add('active');
+            else if (univ === 'NIFTY MIDCAP') document.getElementById('btn-fo-midcap').classList.add('active');
+            else if (univ === 'NIFTY AUTO') document.getElementById('btn-fo-auto').classList.add('active');
+
+            applyFOFilters();
+        }
+
+        function applyFOFilters() {
+            const rawList = (currentFOGroup === 'CHAMPIONS') ? allFOStocks : allLaggardStocks;
+            if (currentFOUniverse === 'ALL') {
+                renderFOStocks(rawList);
+            } else {
+                renderFOStocks(rawList.filter(s => s.universe === currentFOUniverse));
             }
         }
 
@@ -666,14 +707,16 @@
             const tbody = document.getElementById('tb-fo-stocks');
             tbody.innerHTML = '';
             (list || []).forEach(stk => {
+                const isNeg = String(stk.avg_return).startsWith('-');
+                const color = isNeg ? 'var(--accent-red)' : 'var(--accent-green)';
                 const rankDisplay = typeof stk.rank === 'number' ? `#${stk.rank}` : stk.rank;
                 tbody.innerHTML += `
                     <tr>
                         <td><strong>${rankDisplay}</strong></td>
                         <td><strong>${stk.name}</strong> (${stk.symbol})</td>
                         <td><span style="color:var(--text-secondary);">${stk.universe}</span></td>
-                        <td><strong style="color: var(--accent-green);">${stk.avg_return}</strong></td>
-                        <td><strong style="color: var(--accent-green);">${stk.win_rate}</strong></td>
+                        <td><strong style="color: ${color};">${stk.avg_return}</strong></td>
+                        <td><strong style="color: ${color};">${stk.win_rate}</strong></td>
                         <td>${stk.std_dev}</td>
                         <td><span style="color:var(--accent-green);">${stk.best_year}</span></td>
                         <td><span style="color:var(--accent-amber);">${stk.worst_year}</span></td>
