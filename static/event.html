@@ -298,14 +298,15 @@
                 </div>
             </div>
 
-            <!-- Index Universe Sub-Filters -->
+            <!-- Index Universe Sub-Filters with Stock Count Badges -->
             <div style="display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; background: rgba(15, 23, 42, 0.4); padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color);">
                 <span style="font-size: 0.85rem; color: var(--text-secondary); align-self: center; font-weight: 600; margin-right: 0.4rem;">Filter Index Universe:</span>
                 <button class="btn-filter active" id="btn-fo-all" onclick="filterFO('ALL')">All F&O</button>
-                <button class="btn-filter" id="btn-fo-nifty50" onclick="filterFO('NIFTY50')">NIFTY50</button>
-                <button class="btn-filter" id="btn-fo-banknifty" onclick="filterFO('BANK NIFTY')">BANK NIFTY</button>
-                <button class="btn-filter" id="btn-fo-midcap" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP</button>
-                <button class="btn-filter" id="btn-fo-auto" onclick="filterFO('NIFTY AUTO')">NIFTY AUTO</button>
+                <button class="btn-filter" id="btn-fo-nifty50" onclick="filterFO('NIFTY50')">NIFTY50 (4)</button>
+                <button class="btn-filter" id="btn-fo-banknifty" onclick="filterFO('BANK NIFTY')">BANK NIFTY (4)</button>
+                <button class="btn-filter" id="btn-fo-midcap" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP (4)</button>
+                <button class="btn-filter" id="btn-fo-auto" onclick="filterFO('NIFTY AUTO')">NIFTY AUTO (3)</button>
+                <button class="btn-filter" id="btn-fo-pharma" onclick="filterFO('NIFTY PHARMA')">NIFTY PHARMA (2)</button>
             </div>
 
             <div style="overflow-x: auto;">
@@ -680,7 +681,7 @@
 
         function filterFO(univ) {
             currentFOUniverse = univ;
-            ['btn-fo-all', 'btn-fo-nifty50', 'btn-fo-banknifty', 'btn-fo-midcap', 'btn-fo-auto'].forEach(id => {
+            ['btn-fo-all', 'btn-fo-nifty50', 'btn-fo-banknifty', 'btn-fo-midcap', 'btn-fo-auto', 'btn-fo-pharma'].forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.classList.remove('active');
             });
@@ -690,6 +691,7 @@
             else if (univ === 'BANK NIFTY') document.getElementById('btn-fo-banknifty').classList.add('active');
             else if (univ === 'NIFTY MIDCAP') document.getElementById('btn-fo-midcap').classList.add('active');
             else if (univ === 'NIFTY AUTO') document.getElementById('btn-fo-auto').classList.add('active');
+            else if (univ === 'NIFTY PHARMA') document.getElementById('btn-fo-pharma').classList.add('active');
 
             applyFOFilters();
         }
