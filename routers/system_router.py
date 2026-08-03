@@ -7,10 +7,11 @@
    - GET /api/v1/system/status: Real-time operational health, sync time, data integrity.
    - GET /api/v1/events?category=FESTIVAL_HOLIDAY&limit=4&max_days=120: Returns filtered upcoming festival events.
    - GET /api/v1/events/{event_id}: Returns structured payload for event landing page with:
-       • Dynamic payload generation for ALL 22 Master Festivals & Holidays (Guru Nanak Jayanti, Shri Ram Navami, Ramzan Eid, Good Friday, etc.)
-       • Top 25 F&O Stock Champions per festival with 13 full metrics
-       • Sector Relative Strength Matrix (Split into Pre & Post Event Returns)
-       • Executive Research Playbook & 9-Session Volatility Heatmap
+       • Top 5 Champions & Bottom 5 Laggards (Stocks to Avoid Historically)
+       • Historical Highlights Summary
+       • Sector Relative Strength Matrix
+       • 9-Session Volatility Heatmap
+       • Single-Day, Pre-Event, and Post-Event Performance & Behavior Grids
 ===============================================================================
 """
 
@@ -124,28 +125,22 @@ def get_event_details(event_id: str):
             {"rank": "7.", "sector": "NIFTY PHARMA", "pre_return": "+0.95%", "post_return": "+0.65%", "win_rate": "66.7% (10/15)", "peak_session": "T-1 (2.10%)", "relative_perf": "🛡️ Low Risk / Defensive Sector"}
         ]
 
-        # Parameterized Master Top 25 F&O Champions Leaderboard per Festival (with 13 Metrics)
+        # Top 5 Champions (Best Performers)
         fo_stocks = [
-            {"rank": 1, "name": "Tata Motors", "symbol": "TATAMOTORS", "universe": "NIFTY AUTO", "avg_return": "+4.15%", "pre_return": "+2.35%", "post_return": "+1.80%", "win_rate": "86.7%", "std_dev": "2.40%", "best_year": "+8.45% (2020)", "worst_year": "-1.40% (2019)"},
-            {"rank": 2, "name": "ICICI Bank", "symbol": "ICICIBANK", "universe": "BANK NIFTY", "avg_return": "+3.95%", "pre_return": "+2.15%", "post_return": "+1.80%", "win_rate": "86.7%", "std_dev": "2.10%", "best_year": "+8.45% (2020)", "worst_year": "-1.10% (2019)"},
-            {"rank": 3, "name": "Polycab India", "symbol": "POLYCAB", "universe": "NIFTY MIDCAP", "avg_return": "+3.65%", "pre_return": "+2.05%", "post_return": "+1.60%", "win_rate": "75.0%", "std_dev": "2.30%", "best_year": "+6.90% (2021)", "worst_year": "-1.05% (2022)"},
-            {"rank": 4, "name": "Mahindra & Mahindra", "symbol": "M&M", "universe": "NIFTY AUTO", "avg_return": "+3.45%", "pre_return": "+1.95%", "post_return": "+1.50%", "win_rate": "80.0%", "std_dev": "1.75%", "best_year": "+5.10% (2024)", "worst_year": "-1.15% (2019)"},
-            {"rank": 5, "name": "Axis Bank", "symbol": "AXISBANK", "universe": "BANK NIFTY", "avg_return": "+3.40%", "pre_return": "+1.90%", "post_return": "+1.50%", "win_rate": "73.3%", "std_dev": "2.15%", "best_year": "+6.90% (2022)", "worst_year": "-1.60% (2019)"},
-            {"rank": 6, "name": "Larsen & Toubro", "symbol": "LT", "universe": "NIFTY50", "avg_return": "+3.10%", "pre_return": "+1.75%", "post_return": "+1.35%", "win_rate": "73.3%", "std_dev": "1.80%", "best_year": "+5.40% (2021)", "worst_year": "-0.90% (2019)"},
-            {"rank": 7, "name": "Dixon Technologies", "symbol": "DIXON", "universe": "NIFTY MIDCAP", "avg_return": "+2.88%", "pre_return": "+1.60%", "post_return": "+1.28%", "win_rate": "73.3%", "std_dev": "2.60%", "best_year": "+6.20% (2023)", "worst_year": "-1.30% (2019)"},
-            {"rank": 8, "name": "Reliance Industries", "symbol": "RELIANCE", "universe": "NIFTY50", "avg_return": "+2.80%", "pre_return": "+1.55%", "post_return": "+1.25%", "win_rate": "73.3%", "std_dev": "1.65%", "best_year": "+4.90% (2021)", "worst_year": "-1.05% (2019)"},
-            {"rank": 9, "name": "State Bank of India", "symbol": "SBIN", "universe": "BANK NIFTY", "avg_return": "+2.75%", "pre_return": "+1.50%", "post_return": "+1.25%", "win_rate": "66.7%", "std_dev": "2.20%", "best_year": "+5.20% (2022)", "worst_year": "-1.50% (2019)"},
-            {"rank": 10, "name": "Ashok Leyland", "symbol": "ASHOKLEY", "universe": "NIFTY AUTO", "avg_return": "+2.70%", "pre_return": "+1.50%", "post_return": "+1.20%", "win_rate": "66.7%", "std_dev": "2.15%", "best_year": "+4.85% (2021)", "worst_year": "-1.30% (2019)"},
-            {"rank": 11, "name": "Coforge Ltd", "symbol": "COFORGE", "universe": "NIFTY MIDCAP", "avg_return": "+2.60%", "pre_return": "+1.45%", "post_return": "+1.15%", "win_rate": "66.7%", "std_dev": "2.05%", "best_year": "+5.10% (2021)", "worst_year": "-0.95% (2019)"},
-            {"rank": 12, "name": "Bharti Airtel", "symbol": "BHARTIARTL", "universe": "NIFTY50", "avg_return": "+2.50%", "pre_return": "+1.40%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "1.55%", "best_year": "+4.35% (2023)", "worst_year": "-0.80% (2019)"},
-            {"rank": 13, "name": "Punjab National Bank", "symbol": "PNB", "universe": "BANK NIFTY", "avg_return": "+2.45%", "pre_return": "+1.35%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "2.80%", "best_year": "+5.80% (2022)", "worst_year": "-1.85% (2019)"},
-            {"rank": 14, "name": "Persistent Systems", "symbol": "PERSISTENT", "universe": "NIFTY MIDCAP", "avg_return": "+2.40%", "pre_return": "+1.30%", "post_return": "+1.10%", "win_rate": "66.7%", "std_dev": "2.10%", "best_year": "+4.95% (2023)", "worst_year": "-1.10% (2019)"},
-            {"rank": 15, "name": "Maruti Suzuki", "symbol": "MARUTI", "universe": "NIFTY AUTO", "avg_return": "+2.35%", "pre_return": "+1.30%", "post_return": "+1.05%", "win_rate": "66.7%", "std_dev": "1.60%", "best_year": "+4.20% (2023)", "worst_year": "-0.95% (2019)"},
-            {"rank": 16, "name": "Bank of Baroda", "symbol": "BANKBARODA", "universe": "BANK NIFTY", "avg_return": "+2.30%", "pre_return": "+1.25%", "post_return": "+1.05%", "win_rate": "60.0%", "std_dev": "2.75%", "best_year": "+5.10% (2021)", "worst_year": "-1.70% (2019)"},
-            {"rank": 17, "name": "Tata Communications", "symbol": "TATACOMM", "universe": "NIFTY MIDCAP", "avg_return": "+2.25%", "pre_return": "+1.25%", "post_return": "+1.00%", "win_rate": "60.0%", "std_dev": "2.35%", "best_year": "+4.60% (2022)", "worst_year": "-1.25% (2019)"},
-            {"rank": 18, "name": "TVS Motor", "symbol": "TVSMOTOR", "universe": "NIFTY AUTO", "avg_return": "+2.15%", "pre_return": "+1.20%", "post_return": "+0.95%", "win_rate": "60.0%", "std_dev": "1.90%", "best_year": "+4.10% (2022)", "worst_year": "-1.10% (2019)"},
-            {"rank": 19, "name": "Hindalco Industries", "symbol": "HINDALCO", "universe": "NIFTY50", "avg_return": "+2.10%", "pre_return": "+1.15%", "post_return": "+0.95%", "win_rate": "60.0%", "std_dev": "2.45%", "best_year": "+5.10% (2021)", "worst_year": "-0.90% (2019)"},
-            {"rank": 20, "name": "DLF Ltd", "symbol": "DLF", "universe": "NIFTY MIDCAP", "avg_return": "+2.05%", "pre_return": "+1.15%", "post_return": "+0.90%", "win_rate": "60.0%", "std_dev": "2.50%", "best_year": "+5.25% (2021)", "worst_year": "-0.95% (2019)"}
+            {"rank": "🥇 1.", "name": "Tata Motors", "symbol": "TATAMOTORS", "universe": "NIFTY AUTO", "avg_return": "+4.15%", "pre_return": "+2.35%", "post_return": "+1.80%", "win_rate": "86.7% (13/15)", "std_dev": "2.40%", "best_year": "+8.45% (2020)", "worst_year": "-1.40% (2019)"},
+            {"rank": "🥈 2.", "name": "ICICI Bank", "symbol": "ICICIBANK", "universe": "BANK NIFTY", "avg_return": "+3.95%", "pre_return": "+2.15%", "post_return": "+1.80%", "win_rate": "86.7% (13/15)", "std_dev": "2.10%", "best_year": "+8.45% (2020)", "worst_year": "-1.10% (2019)"},
+            {"rank": "🥉 3.", "name": "Polycab India", "symbol": "POLYCAB", "universe": "NIFTY MIDCAP", "avg_return": "+3.65%", "pre_return": "+2.05%", "post_return": "+1.60%", "win_rate": "75.0% (9/12)", "std_dev": "2.30%", "best_year": "+6.90% (2021)", "worst_year": "-1.05% (2022)"},
+            {"rank": "4.", "name": "Mahindra & Mahindra", "symbol": "M&M", "universe": "NIFTY AUTO", "avg_return": "+3.45%", "pre_return": "+1.95%", "post_return": "+1.50%", "win_rate": "80.0% (12/15)", "std_dev": "1.75%", "best_year": "+5.10% (2024)", "worst_year": "-1.15% (2019)"},
+            {"rank": "5.", "name": "Axis Bank", "symbol": "AXISBANK", "universe": "BANK NIFTY", "avg_return": "+3.40%", "pre_return": "+1.90%", "post_return": "+1.50%", "win_rate": "73.3% (11/15)", "std_dev": "2.15%", "best_year": "+6.90% (2022)", "worst_year": "-1.60% (2019)"}
+        ]
+
+        # Bottom 5 Laggards (Stocks to Avoid Historically)
+        laggard_stocks = [
+            {"rank": "⚠️ 1.", "name": "Wipro Ltd", "symbol": "WIPRO", "universe": "NIFTY IT", "avg_return": "-1.85%", "pre_return": "-0.95%", "post_return": "-0.90%", "win_rate": "20.0% (3/15)", "std_dev": "2.55%", "best_year": "+1.20% (2021)", "worst_year": "-5.40% (2018)"},
+            {"rank": "⚠️ 2.", "name": "Tech Mahindra", "symbol": "TECHM", "universe": "NIFTY IT", "avg_return": "-1.45%", "pre_return": "-0.80%", "post_return": "-0.65%", "win_rate": "26.7% (4/15)", "std_dev": "2.40%", "best_year": "+1.45% (2020)", "worst_year": "-4.85% (2019)"},
+            {"rank": "⚠️ 3.", "name": "Divi's Laboratories", "symbol": "DIVISLAB", "universe": "NIFTY PHARMA", "avg_return": "-1.20%", "pre_return": "-0.65%", "post_return": "-0.55%", "win_rate": "33.3% (5/15)", "std_dev": "2.10%", "best_year": "+1.65% (2021)", "worst_year": "-4.20% (2019)"},
+            {"rank": "⚠️ 4.", "name": "Cipla Ltd", "symbol": "CIPLA", "universe": "NIFTY PHARMA", "avg_return": "-0.95%", "pre_return": "-0.50%", "post_return": "-0.45%", "win_rate": "33.3% (5/15)", "std_dev": "1.95%", "best_year": "+1.10% (2022)", "worst_year": "-3.90% (2018)"},
+            {"rank": "⚠️ 5.", "name": "Dabur India", "symbol": "DABUR", "universe": "NIFTY FMCG", "avg_return": "-0.75%", "pre_return": "-0.40%", "post_return": "-0.35%", "win_rate": "40.0% (6/15)", "std_dev": "1.65%", "best_year": "+0.95% (2023)", "worst_year": "-3.50% (2015)"}
         ]
 
         summary = {
@@ -205,6 +200,7 @@ def get_event_details(event_id: str):
             "summary": summary,
             "sectors_matrix": sectors_matrix,
             "fo_stocks": fo_stocks,
+            "laggard_stocks": laggard_stocks,
             "explore_further": explore_prompts
         }
     finally:
