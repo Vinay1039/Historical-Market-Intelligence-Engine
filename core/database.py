@@ -28,7 +28,10 @@ def close_db_pool():
     """Closes Oracle connection pool on application shutdown."""
     global _pool
     if _pool is not None:
-        _pool.close()
+        try:
+            _pool.close(force=True)
+        except Exception:
+            pass
         _pool = None
         print("[INFO] Oracle connection pool closed.")
 
