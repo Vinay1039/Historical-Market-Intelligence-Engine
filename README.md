@@ -11,6 +11,17 @@ HMIE's mission is to transform historical Indian market data into reproducible, 
 
 ---
 
+## 📖 Table of Contents
+1. [What HMIE Does](#-what-hmie-does)
+2. [Current Status](#-current-status)
+3. [Beginner's Step-by-Step Installation & Execution Guide](#-beginners-step-by-step-installation--execution-guide)
+4. [CAR Quality Gates](#-car-quality-gates-canonical-acceptance-review)
+5. [The Three-Layer Architecture](#-the-three-layer-architecture)
+6. [Deliberately Excluded Features](#-deliberately-excluded-from-hmie-v1)
+7. [Core Principles](#-core-principles)
+
+---
+
 ## 📚 What HMIE Does
 - **Produces Reproducible Research**: All studies adhere to 100% reproducible Oracle database EOD replay.
 - **Publishes Canonical Research Notes (CRN)**: Single-domain historical baselines (RBI Policy, Diwali, Budget, Market Corrections, Independence Day).
@@ -24,6 +35,105 @@ HMIE's mission is to transform historical Indian market data into reproducible, 
 - ✅ **Specification**: CRN v1.1 Refined & IRS v1.0 Standard
 - ✅ **Quality Audits**: CAR-1 through CAR-5 Verified
 - ✅ **Dataset Baseline**: Oracle XE EOD Replay (`v2.0.1`)
+
+---
+
+## 🛠️ Beginner's Step-by-Step Installation & Execution Guide
+
+If you are cloning this repository for the first time without any prior knowledge of HMIE, follow these exact 5 steps:
+
+### Prerequisites
+- **Python**: Version 3.10 or higher
+- **Database**: Oracle XE 11g / 21c / 23c (or local Oracle instance)
+- **Fyers Account** *(Optional for live EOD sync)*: Free Fyers Developer API App Client ID & Secret
+
+---
+
+### Step 1: Clone Repository & Setup Virtual Environment
+
+```bash
+# 1. Clone the repository from GitHub
+git clone https://github.com/YOUR_USERNAME/HMIE.git
+cd HMIE
+
+# 2. Create a virtual environment
+python -m venv .venv
+
+# 3. Activate the virtual environment
+# On Windows PowerShell:
+.venv\Scripts\Activate.ps1
+# On Linux / macOS:
+source .venv/bin/activate
+
+# 4. Install dependencies
+pip install -r requirements.txt
+```
+
+---
+
+### Step 2: Set Up Oracle Database Schema
+
+Ensure Oracle XE is running on your machine, then run the master DDL script to create all required tables (`STAGING.STOCK_HIST_DATA`, `SECTOR_MASTER`, `EVIDENCE_CORRECTIONS`, etc.):
+
+```bash
+# Connect to SQL*Plus as STAGING user and execute DDL script:
+sqlplus staging/password@localhost:1521/XE @database_schema/master_schema.sql
+```
+
+---
+
+### Step 3: Configure API Credentials (Optional for Live Ingestion)
+
+Copy the template `fyers.env.example` to `fyers.env`:
+
+```bash
+# Copy template file
+cp fyers.env.example fyers.env
+```
+
+Open `fyers.env` in any text editor and paste your Fyers App credentials:
+```ini
+FYERS_CLIENT_ID=YOUR_CLIENT_ID_HERE-100
+FYERS_SECRET_KEY=YOUR_SECRET_KEY_HERE
+FYERS_REDIRECT_URI=https://127.0.0.1/
+```
+
+---
+
+### Step 4: Run Data Pipeline & Analytical Engines
+
+Execute the sequential analytical engines to populate stock history, sector rotation, and precomputed historical event evidence:
+
+```bash
+# 1. Authenticate & Ingest 15-Year EOD Stock History into Oracle DB:
+python data_pipeline/fetchers/fyers_login.py
+python data_pipeline/ingestion/upload_stocks_to_db.py
+
+# 2. Run Market Structure & Sector Rotation Engine:
+python data_pipeline/stages/stage3_market_structure.py
+
+# 3. Run Historical Evidence Engine (Drawdowns & Macro Event Windows):
+python data_pipeline/stages/stage4_historical_evidence.py
+
+# 4. Run Strategy & Plausibility Validation Suite:
+python data_pipeline/stages/stage6_strategy_lab.py
+python data_pipeline/stages/stage10_plausibility_engine.py
+
+# 5. Run Automated CAR Quality Gate Test Suite:
+python -m unittest discover -s tests -p "test_*.py"
+```
+
+---
+
+### Step 5: Launch Research Terminal Web Portal
+
+```bash
+# Launch FastAPI REST backend & terminal server
+python -m uvicorn api.main:app --host 127.0.0.1 --port 8000
+```
+
+Open your browser and navigate to:  
+👉 **[http://127.0.0.1:8000/library.html](http://127.0.0.1:8000/library.html)**
 
 ---
 
@@ -66,19 +176,6 @@ To protect the platform from feature creep and unearned architectural bloat:
 - ❌ No Microservices or Graph Databases
 - ❌ No Real-Time Streaming or Day-Trading Execution APIs
 - ❌ No Autonomous LLM Research Generators or Unverified Predictive AI
-
----
-
-## ⚡ Quick Start
-
-### 1. Launch Platform Server
-Double-click `start_hmie.bat` or run:
-```powershell
-python -m uvicorn api.main:app --host 127.0.0.1 --port 8000
-```
-
-### 2. Open Research Library Terminal
-Navigate your browser to: **[http://127.0.0.1:8000/library.html](http://127.0.0.1:8000/library.html)**
 
 ---
 
