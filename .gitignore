@@ -4,11 +4,15 @@ __pycache__/
 *$py.class
 .pytest_cache/
 
-# Environments
+# Environments & Secrets
 .venv/
 venv/
 ENV/
 env/
+*.env
+fyers.env
+access_token.txt
+*.token
 
 # Databases & Local Logs
 *.db

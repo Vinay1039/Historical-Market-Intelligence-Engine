@@ -15,9 +15,9 @@ if ENV_PATH.exists():
             env_vars[k.strip()] = v.strip()
             os.environ[k.strip()] = v.strip()
 
-client_id = os.environ.get('FYERS_CLIENT_ID', '545JRF7BC3-100')
-secret_key = os.environ.get('FYERS_SECRET_KEY', 'R2TBB2ON59')
-redirect_uri = os.environ.get('FYERS_REDIRECT_URI', 'https://www.google.com/')
+client_id = os.environ.get('FYERS_CLIENT_ID', '')
+secret_key = os.environ.get('FYERS_SECRET_KEY', '')
+redirect_uri = os.environ.get('FYERS_REDIRECT_URI', 'https://127.0.0.1/')
 
 if not redirect_uri.endswith('/'):
     redirect_uri += '/'
