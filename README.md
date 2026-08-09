@@ -179,17 +179,14 @@ To protect the platform from feature creep and unearned architectural bloat:
 
 ---
 
-## 🖼️ Dashboard & Evidence Screenshots
+## 🖼️ Visual Evidence & Terminal Walkthrough
 
-All visual evidence screenshots are saved in the [`Dashboard_Images/`](file:///c:/Users/vinay/.gemini/Fyers_Hist/Dashboard_Images/) directory:
+Explore the comprehensive **[HMIE Visual Evidence & Terminal Walkthrough (Dashboard_Images/README.md)](Dashboard_Images/README.md)** document, featuring high-density screenshots and plain-English metric breakdowns across all terminal views:
 
-| Screenshot | Description | Preview Link |
+| View Category | Featured Screenshots | Quick Link |
 |:---|:---|:---:|
-| **01. Plain English Market Assistant** | Guided Discovery cards, status bar, and upcoming festival opportunities | [View Image](Dashboard_Images/01_Plain_English_Hub.png) |
-| **02. Dynamic Column Customizer** | Drag-and-drop metrics customizer (Win Rate, Low-to-High %, Gap Up %) | [View Image](Dashboard_Images/02_Dynamic_Column_Customizer.png) |
-| **03. Day 0 Session Performance** | Single festival trading session performance rankings (Diwali, Independence Day) | [View Image](Dashboard_Images/03_Day0_Single_Festival_Session.png) |
-| **04. Pre-Event Window (T-4 to T-1)** | 4-session pre-holiday run-up performance and peak volatility metrics | [View Image](Dashboard_Images/04_Pre_Event_Window_Performance.png) |
-| **05. Post-Event Window (T+1 to T+4)**| 4-session post-holiday rally performance and post-event win rates | [View Image](Dashboard_Images/05_Post_Event_Window_Performance.png) |
+| **Master Event Hub** | Plain English Assistant, Dynamic Column Customizer, Day 0 / Pre / Post Windows | [View Gallery Document](Dashboard_Images/README.md#-section-1-master-festival--macro-event-hub) |
+| **Deep-Dive Event Analytics** | 15-Year Metrics, Volatility Curve, Sector Strength Matrix, Stock Champions | [View Gallery Document](Dashboard_Images/README.md#-section-2-deep-dive-event-analytics-independence-day-example) |
 
 ---
 
