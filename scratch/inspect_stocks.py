@@ -1,6 +1,6 @@
 import oracledb
 oracledb.init_oracle_client(lib_dir=r'C:\instantclient_23_0')
-conn = oracledb.connect(user='analysis', password='hr', dsn='localhost:1521/XE')
+conn = oracledb.connect(user='', password='', dsn='localhost:1521/XE')
 cursor = conn.cursor()
 
 cursor.execute("SELECT COUNT(*) FROM HR.STOCKS WHERE EXCHANGE='NSE' AND MARKET_CAP IS NOT NULL")
