@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="http://127.0.0.1:8000/">
+    <title>HMIE — Compare Anything Framework (Module 1)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #090d16;
+            --bg-card: #111827;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-red: #ef4444;
+            --border-color: #1e293b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-filter {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .btn-filter.active {
+            background: var(--accent-blue);
+            color: #fff;
+            border-color: var(--accent-blue);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background-color: rgba(15, 23, 42, 0.6);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.78rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div>
+                <h1 style="margin:0; font-size:1.6rem; color:var(--text-primary);">⚔️ Compare Anything Framework</h1>
+                <p style="margin:0.25rem 0 0 0; color:var(--text-secondary); font-size:0.9rem;">HMIE 2.5 Module 1 — Side-by-Side Relative Historical Comparison</p>
+            </div>
+            <div>
+                <a href="/festivals.html" class="btn-filter" style="text-decoration:none;">← Cross-Event Intelligence Hub</a>
+                <a href="/dashboard" class="btn-filter" style="text-decoration:none; margin-left:0.4rem;">🏠 HMIE Home</a>
+            </div>
+        </div>
+
+        <!-- Selector Card -->
+        <div class="card">
+            <div style="display:flex; gap:1rem; align-items:center; flex-wrap:wrap; margin-bottom:1rem;">
+                <span style="font-weight:600; color:var(--text-secondary);">Select Comparison Mode:</span>
+                <button class="btn-filter active" id="mode-event" onclick="switchMode('EVENT')">🪔 Event vs Event</button>
+                <button class="btn-filter" id="mode-stock" onclick="switchMode('STOCK')">📈 Stock vs Stock</button>
+                <button class="btn-filter" id="mode-era" onclick="switchMode('ERA')">⏳ Era vs Era</button>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <label style="display:block; font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.4rem;" id="lbl-entity1">Select First Entity:</label>
+                    <select id="sel-entity1" style="width:100%; padding:0.6rem; background:#0f172a; border:1px solid var(--border-color); color:var(--text-primary); border-radius:6px; font-size:0.9rem;" onchange="runComparison()"></select>
+                </div>
+                <div>
+                    <label style="display:block; font-size:0.85rem; color:var(--text-secondary); margin-bottom:0.4rem;" id="lbl-entity2">Select Second Entity:</label>
+                    <select id="sel-entity2" style="width:100%; padding:0.6rem; background:#0f172a; border:1px solid var(--border-color); color:var(--text-primary); border-radius:6px; font-size:0.9rem;" onchange="runComparison()"></select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Side-by-Side Comparison Output Grid -->
+        <div class="grid-2" id="cmp-output-grid">
+            <div class="card">
+                <h3 id="card1-title" style="margin-top:0; color:var(--accent-blue);">Entity 1</h3>
+                <div id="card1-body">Loading...</div>
+            </div>
+
+            <div class="card">
+                <h3 id="card2-title" style="margin-top:0; color:var(--accent-purple);">Entity 2</h3>
+                <div id="card2-body">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Delta Insights Box -->
+        <div class="card" style="background: rgba(59, 130, 246, 0.08); border-left: 4px solid var(--accent-blue);">
+            <h3 style="margin-top:0; color:var(--accent-blue); font-size:1.05rem;">⚖️ Comparative Research Delta Insights</h3>
+            <div id="cmp-delta-body" style="font-size:0.92rem; line-height:1.6;">Comparing entities...</div>
+        </div>
+    </div>
+
+    <script>
+        let currentMode = 'EVENT';
+
+        const eventsList = [
+            { id: 'DIWALI', name: '🪔 Diwali & Laxmi Pujan' },
+            { id: 'HOLI', name: '🎨 Holi (Dhulandi)' },
+            { id: 'INDEPENDENCE_DAY', name: '🇮🇳 Independence Day' },
+            { id: 'REPUBLIC_DAY', name: '🇮🇳 Republic Day' },
+            { id: 'GURU_NANAK_JAYANTI', name: '🪔 Guru Nanak Jayanti' },
+            { id: 'RAM_NAVAMI', name: '🏹 Shri Ram Navami' },
+            { id: 'DHANTERAS', name: '🪙 Dhanteras Gold Festival' },
+            { id: 'CHRISTMAS', name: '🎄 Christmas Rally' }
+        ];
+
+        const stocksList = [
+            { symbol: 'ICICIBANK', name: 'ICICI Bank' },
+            { symbol: 'SBIN', name: 'State Bank of India' },
+            { symbol: 'TATAMOTORS', name: 'Tata Motors' },
+            { symbol: 'MARUTI', name: 'Maruti Suzuki' },
+            { symbol: 'LT', name: 'Larsen & Toubro' },
+            { symbol: 'RELIANCE', name: 'Reliance Industries' },
+            { symbol: 'INFY', name: 'Infosys Ltd' },
+            { symbol: 'WIPRO', name: 'Wipro Ltd' }
+        ];
+
+        const erasList = [
+            { id: '2011_2017', name: 'Era 1 (2011–2017 Early Sample)' },
+            { id: '2018_2025', name: 'Era 2 (2018–2025 Modern Sample)' }
+        ];
+
+        function switchMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.btn-filter').forEach(b => b.classList.remove('active'));
+            document.getElementById(`mode-${mode.toLowerCase()}`).classList.add('active');
+
+            const s1 = document.getElementById('sel-entity1');
+            const s2 = document.getElementById('sel-entity2');
+            s1.innerHTML = '';
+            s2.innerHTML = '';
+
+            if (mode === 'EVENT') {
+                eventsList.forEach((e, idx) => {
+                    s1.innerHTML += `<option value="${e.id}" ${idx===0?'selected':''}>${e.name}</option>`;
+                    s2.innerHTML += `<option value="${e.id}" ${idx===1?'selected':''}>${e.name}</option>`;
+                });
+            } else if (mode === 'STOCK') {
+                stocksList.forEach((s, idx) => {
+                    s1.innerHTML += `<option value="${s.symbol}" ${idx===0?'selected':''}>${s.name} (${s.symbol})</option>`;
+                    s2.innerHTML += `<option value="${s.symbol}" ${idx===1?'selected':''}>${s.name} (${s.symbol})</option>`;
+                });
+            } else if (mode === 'ERA') {
+                erasList.forEach((e, idx) => {
+                    s1.innerHTML += `<option value="${e.id}" ${idx===0?'selected':''}>${e.name}</option>`;
+                    s2.innerHTML += `<option value="${e.id}" ${idx===1?'selected':''}>${e.name}</option>`;
+                });
+            }
+            runComparison();
+        }
+
+        async function runComparison() {
+            const e1 = document.getElementById('sel-entity1').value;
+            const e2 = document.getElementById('sel-entity2').value;
+
+            try {
+                const res = await fetch(`/api/v1/compare?type=${currentMode}&id1=${e1}&id2=${e2}`);
+                const data = await res.json();
+
+                if (data.status === 'SUCCESS') {
+                    const ent1 = data.entity1;
+                    const ent2 = data.entity2;
+                    const delta = data.comparison_delta;
+
+                    document.getElementById('card1-title').innerText = ent1.name;
+                    document.getElementById('card2-title').innerText = ent2.name;
+
+                    if (currentMode === 'EVENT') {
+                        document.getElementById('card1-body').innerHTML = `
+                            <p>• <strong>Single-Day Return</strong>: <span style="color:var(--accent-green);">${ent1.single_day_return}</span></p>
+                            <p>• <strong>Pre-Event Return (T-4..T-1)</strong>: <span style="color:var(--accent-green);">${ent1.pre_event_return}</span></p>
+                            <p>• <strong>Post-Event Return (T+1..T+4)</strong>: <span style="color:var(--accent-green);">${ent1.post_event_return}</span></p>
+                            <p>• <strong>Historical Win Rate</strong>: <strong>${ent1.win_rate}</strong></p>
+                            <p>• <strong>Best Sector</strong>: ${ent1.best_sector}</p>
+                            <p>• <strong>Best Stock</strong>: ${ent1.best_stock}</p>
+                        `;
+
+                        document.getElementById('card2-body').innerHTML = `
+                            <p>• <strong>Single-Day Return</strong>: <span style="color:var(--accent-green);">${ent2.single_day_return}</span></p>
+                            <p>• <strong>Pre-Event Return (T-4..T-1)</strong>: <span style="color:var(--accent-green);">${ent2.pre_event_return}</span></p>
+                            <p>• <strong>Post-Event Return (T+1..T+4)</strong>: <span style="color:var(--accent-green);">${ent2.post_event_return}</span></p>
+                            <p>• <strong>Historical Win Rate</strong>: <strong>${ent2.win_rate}</strong></p>
+                            <p>• <strong>Best Sector</strong>: ${ent2.best_sector}</p>
+                            <p>• <strong>Best Stock</strong>: ${ent2.best_stock}</p>
+                        `;
+
+                        document.getElementById('cmp-delta-body').innerHTML = `
+                            • <strong>Pre-Event Momentum</strong>: ${delta.pre_event_diff}<br>
+                            • <strong>Post-Event Momentum</strong>: ${delta.post_event_diff}<br>
+                            • <strong>Win Rate Consistency</strong>: ${delta.win_rate_diff}<br>
+                            • <strong>Volatility Risk Split</strong>: ${delta.volatility_diff}
+                        `;
+                    } else if (currentMode === 'STOCK') {
+                        document.getElementById('card1-body').innerHTML = `
+                            <p>• <strong>Average Return</strong>: <span style="color:var(--accent-green);">${ent1.avg_return}</span></p>
+                            <p>• <strong>Win Rate</strong>: <strong>${ent1.win_rate}</strong></p>
+                            <p>• <strong>Single-Day Low-to-High</strong>: ${ent1.single_day_range}</p>
+                            <p>• <strong>Avg 4D Low-to-High</strong>: <span style="color:var(--accent-amber);">${ent1.range_4d}</span></p>
+                            <p>• <strong>Best Year</strong>: ${ent1.best_year}</p>
+                        `;
+                        document.getElementById('card2-body').innerHTML = `
+                            <p>• <strong>Average Return</strong>: <span style="color:var(--accent-green);">${ent2.avg_return}</span></p>
+                            <p>• <strong>Win Rate</strong>: <strong>${ent2.win_rate}</strong></p>
+                            <p>• <strong>Single-Day Low-to-High</strong>: ${ent2.single_day_range}</p>
+                            <p>• <strong>Avg 4D Low-to-High</strong>: <span style="color:var(--accent-amber);">${ent2.range_4d}</span></p>
+                            <p>• <strong>Best Year</strong>: ${ent2.best_year}</p>
+                        `;
+                        document.getElementById('cmp-delta-body').innerHTML = `
+                            • <strong>Average Return Split</strong>: ${delta.avg_return_diff}<br>
+                            • <strong>Win Rate Delta</strong>: ${delta.win_rate_diff}<br>
+                            • <strong>Range Expansion</strong>: ${delta.range_expansion_diff}
+                        `;
+                    }
+                }
+            } catch(e) {
+                console.error("Comparison failed", e);
+            }
+        }
+
+        window.onload = () => switchMode('EVENT');
+    </script>
+</body>
+</html>

@@ -17,8 +17,14 @@ import json
 from typing import Optional
 from core.database import get_db_connection
 
-router = APIRouter(prefix="/api/v1", tags=["System & Guided Discovery"])
+from services.health_service import HealthService
 
+router = APIRouter(prefix="/api/v1", tags=["System & Guided Discovery"])
+health_svc = HealthService()
+
+@router.get("/health/readiness")
+def get_health_readiness():
+    return health_svc.check_readiness()
 
 @router.get("/system/status")
 def get_system_status():

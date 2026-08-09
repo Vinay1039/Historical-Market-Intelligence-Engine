@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="http://127.0.0.1:8000/">
+    <title>RBI Monetary Policy Intelligence Dashboard — HMIE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #090d16;
+            --bg-panel: rgba(17, 24, 39, 0.7);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            
+            --accent-blue: hsl(199, 89%, 48%);
+            --accent-blue-glow: hsla(199, 89%, 48%, 0.15);
+            --accent-green: hsl(142, 70%, 45%);
+            --accent-green-glow: hsla(142, 70%, 45%, 0.15);
+            --accent-red: hsl(350, 89%, 60%);
+            --accent-red-glow: hsla(350, 89%, 60%, 0.15);
+            --accent-gold: hsl(45, 93%, 47%);
+            --accent-gold-glow: hsla(45, 93%, 47%, 0.15);
+            
+            --shadow-glow: 0 0 25px rgba(0, 0, 0, 0.5);
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.03) 0px, transparent 50%),
+                radial-gradient(at 90% 80%, rgba(16, 185, 129, 0.03) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        header {
+            background: var(--bg-panel);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-title {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .header-title h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .header-title .tag {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-nav {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-smooth);
+        }
+
+        .btn-nav:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-2px);
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .info-banner {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.15);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .selector-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-glow);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .selector-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+        }
+
+        .tab-btn span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            opacity: 0.7;
+        }
+
+        .tab-btn[data-stance="CUT"]:hover, .tab-btn[data-stance="CUT"].active {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+            background: var(--accent-green-glow);
+        }
+        .tab-btn[data-stance="PAUSE"]:hover, .tab-btn[data-stance="PAUSE"].active {
+            border-color: var(--accent-blue);
+            color: var(--accent-blue);
+            background: var(--accent-blue-glow);
+        }
+        .tab-btn[data-stance="HIKE"]:hover, .tab-btn[data-stance="HIKE"].active {
+            border-color: var(--accent-red);
+            color: var(--accent-red);
+            background: var(--accent-red-glow);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow-glow);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 0.75rem;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .highlights-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .highlights-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            font-size: 0.92rem;
+        }
+
+        .highlights-list li::before {
+            content: "✦";
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--accent-blue);
+            font-weight: bold;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            white-space: nowrap;
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.02);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.01);
+        }
+
+        .positive-return { color: var(--accent-green); font-weight: 600; }
+        .negative-return { color: var(--accent-red); font-weight: 600; }
+
+        .list-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .list-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-smooth);
+        }
+
+        .list-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .item-badge {
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 4px;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .item-values {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+        }
+
+        .item-winrate {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .input-group input {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.65rem 1rem;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition-smooth);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .input-group select {
+            background: #111827;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 0.65rem 1rem;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            appearance: auto;
+        }
+
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            background: #1a2234;
+        }
+
+        .input-group select option {
+            background: #111827;
+            color: var(--text-main);
+            padding: 0.5rem;
+        }
+
+        .btn-calc {
+            background: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            color: #ffffff;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .btn-calc:hover {
+            background: hsl(199, 89%, 40%);
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
+        }
+
+        .comparison-output {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.88rem;
+            display: none;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        footer {
+            background: var(--bg-panel);
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2rem;
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-title">
+            <h1>HMIE Research Suite</h1>
+            <span class="tag">RBI Policy Assistant</span>
+        </div>
+        <a href="/" class="btn-nav">← Back to Home Dashboard</a>
+    </header>
+
+    <div class="container">
+
+        <!-- Informational Banner -->
+        <div class="info-banner">
+            📜 <strong>Based on Real History (2011–2025):</strong> Every number on this page is calculated from actual historical stock market prices across 15 past RBI policy meetings.
+        </div>
+
+        <!-- Selector Card -->
+        <div class="selector-card">
+            <div class="selector-title">What is today's RBI rate decision?</div>
+            <div class="tabs">
+                <button class="tab-btn active" data-stance="PAUSE">
+                    <span style="font-size:1.5rem;">➖</span>
+                    No Change (Rate Pause)
+                    <span id="cnt-pause">Loading...</span>
+                </button>
+                <button class="tab-btn" data-stance="CUT">
+                    <span style="font-size:1.5rem;">📉</span>
+                    Rate Cut
+                    <span id="cnt-cut">Loading...</span>
+                </button>
+                <button class="tab-btn" data-stance="HIKE">
+                    <span style="font-size:1.5rem;">📈</span>
+                    Rate Hike
+                    <span id="cnt-hike">Loading...</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Historical Similar Cases Workspace Card -->
+        <div class="card" style="border-top: 3px solid var(--accent-blue);">
+            <div class="card-header">
+                <div class="card-title" style="color: var(--accent-blue);">🔍 Historical Similar Cases (Which past meetings match today?)</div>
+            </div>
+            
+            <div style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+                Enter today's meeting characteristics below. HMIE will search all historical RBI MPC meetings and rank the 5 closest historical cases.
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+                <div class="input-group">
+                    <label for="ana-action">Rate Action</label>
+                    <select id="ana-action">
+                        <option value="PAUSE">PAUSE (No Change)</option>
+                        <option value="CUT">CUT (Rate Cut)</option>
+                        <option value="HIKE">HIKE (Rate Hike)</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="ana-bps">BPS Change</label>
+                    <input type="number" id="ana-bps" value="0" step="5">
+                </div>
+                <div class="input-group">
+                    <label for="ana-cpi">CPI Inflation %</label>
+                    <input type="number" id="ana-cpi" value="4.5" step="0.1">
+                </div>
+                <div class="input-group">
+                    <label for="ana-regime">Market Regime</label>
+                    <select id="ana-regime">
+                        <option value="SIDEWAYS">SIDEWAYS</option>
+                        <option value="BULL">BULL</option>
+                        <option value="BEAR">BEAR</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="ana-tone">Statement Tone</label>
+                    <select id="ana-tone">
+                        <option value="NEUTRAL">NEUTRAL</option>
+                        <option value="DOVISH">DOVISH</option>
+                        <option value="HAWKISH">HAWKISH</option>
+                        <option value="ACCOMMODATIVE">ACCOMMODATIVE</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="btn-calc" onclick="findSimilarCases()">Find Historical Similar Cases</button>
+
+            <div id="analog-results-container" style="display:none; flex-direction:column; gap:1rem; margin-top:1rem;">
+                <!-- Upfront Top Analog Story Narrative Box -->
+                <div id="analog-narrative-box" style="background: rgba(59, 130, 246, 0.15); border-left: 4px solid var(--accent-blue); padding: 0.9rem 1.15rem; border-radius: 0 8px 8px 0; font-size: 0.92rem; color: var(--text-main);">
+                    <strong>Top Analog Narrative:</strong> Calculating narrative match breakdown...
+                </div>
+
+                <div class="info-banner" style="background: rgba(16, 185, 129, 0.05); border-color: rgba(16, 185, 129, 0.2); border-left-color: var(--accent-green);">
+                    📌 <strong>Historical Match Results:</strong> HMIE identified the 5 historical RBI meetings whose policy characteristics most closely resemble your input. These are historical analogs for research purposes, not forecasts.
+                </div>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Rank & Meeting Date</th>
+                                <th>Similarity %</th>
+                                <th>Match Breakdown</th>
+                                <th>Nifty T+1</th>
+                                <th>Nifty T+5</th>
+                                <th>Nifty T+10</th>
+                                <th>Bank Nifty T+5</th>
+                            </tr>
+                        </thead>
+                        <tbody id="analog-table-body">
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="font-size: 0.75rem; color: var(--text-muted); text-align: right;">
+                    Model: <code>RBI_ANALOG_V1</code> • Evaluated: <span id="evaluated-cnt">15</span> Meetings • Scoring: Weighted Historical Distance
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Cross-Stance Comparative Matrix Card -->
+        <div class="card" style="border-top: 3px solid var(--accent-gold);">
+            <div class="card-header">
+                <div class="card-title" style="color: var(--accent-gold);">⚔️ Quick Comparison: Rate Cut vs. Pause vs. Hike</div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Rate Decision</th>
+                            <th>Meetings Analyzed</th>
+                            <th>3-Day Avg Return</th>
+                            <th>Win Rate %</th>
+                            <th>Daily Swing (Volatility)</th>
+                            <th>Best Performing Sector</th>
+                            <th>Top Stock Champion</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cross-stance-table-body">
+                        <tr><td colspan="7" style="text-align:center; color: var(--text-muted);">Loading comparison table...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Dynamic Insights Card -->
+        <div class="card" id="insights-card">
+            <div class="card-title">📝 Key Takeaways from Past Meetings</div>
+            <ul class="highlights-list" id="highlights">
+                <li>Select a rate decision above to view past takeaways.</li>
+            </ul>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Side: Drift Table -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">📊 How Nifty 50 Moves Before & After Announcement</div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Timeline</th>
+                                <th>Meetings</th>
+                                <th>Average Return</th>
+                                <th>Typical (Median) Return</th>
+                                <th>Win Rate %</th>
+                                <th>Daily Volatility</th>
+                                <th>Best Move</th>
+                                <th>Worst Move</th>
+                            </tr>
+                        </thead>
+                        <tbody id="drift-table-body">
+                            <tr>
+                                <td colspan="8" style="text-align: center; color: var(--text-muted);">Select a rate decision above.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Right Side: Leaderboards -->
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                
+                <!-- Sector Sensitivity -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🏭 Best & Worst Sectors (3 Days After)</div>
+                    </div>
+                    <div class="list-container" id="sector-list">
+                        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Loading sectors...</div>
+                    </div>
+                </div>
+
+                <!-- F&O Champions -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🥇 Top 5 Stock Winners</div>
+                    </div>
+                    <div class="list-container" id="champions-list">
+                        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Loading winners...</div>
+                    </div>
+                </div>
+
+                <!-- F&O Laggards -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">🔻 Bottom 5 Performing Stocks</div>
+                    </div>
+                    <div class="list-container" id="laggards-list">
+                        <div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">Loading bottom stocks...</div>
+                    </div>
+                </div>
+
+                <!-- Compare with Reality Form -->
+                <div class="card" style="border: 1px dashed var(--accent-blue);">
+                    <div class="card-title" style="color: var(--accent-blue);">🏛️ Compare Today's Market Move With History</div>
+                    <div style="font-size: 0.82rem; color: var(--text-muted);">
+                        Enter today's actual market move to see if today outperformed or underperformed past RBI meetings.
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="actual-nifty">Today's Nifty 50 Move % (3-Day)</label>
+                        <input type="number" id="actual-nifty" step="0.01" placeholder="e.g. +0.75">
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="actual-banking">Today's Bank Nifty Move % (3-Day)</label>
+                        <input type="number" id="actual-banking" step="0.01" placeholder="e.g. +1.10">
+                    </div>
+
+                    <button class="btn-calc" onclick="calculateDivergence()">Compare With Past Meetings</button>
+
+                    <div class="comparison-output" id="comparison-result">
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer>
+        HMIE v2.5.0 • Historical Market Intelligence Engine • Governed Empirical Research
+    </footer>
+
+    <script>
+        let currentData = {};
+
+        async function fetchCountsAndComparison() {
+            try {
+                const [rCut, rPause, rHike, rComp] = await Promise.all([
+                    fetch('/api/v1/rbi/metrics?stance=CUT').then(r => r.json()),
+                    fetch('/api/v1/rbi/metrics?stance=PAUSE').then(r => r.json()),
+                    fetch('/api/v1/rbi/metrics?stance=HIKE').then(r => r.json()),
+                    fetch('/api/v1/rbi/comparison').then(r => r.json())
+                ]);
+
+                document.getElementById('cnt-cut').innerText = `(${rCut.event_count} events)`;
+                document.getElementById('cnt-pause').innerText = `(${rPause.event_count} events)`;
+                document.getElementById('cnt-hike').innerText = `(${rHike.event_count} events)`;
+
+                renderCrossStanceMatrix(rComp.comparison);
+            } catch (e) {
+                console.error("Error fetching counts & comparison", e);
+            }
+        }
+
+        function renderCrossStanceMatrix(comp) {
+            const tbody = document.getElementById('cross-stance-table-body');
+            tbody.innerHTML = "";
+
+            if (!comp) return;
+
+            const map = {
+                "CUT": { label: "📉 Repo Rate Cut", color: "var(--accent-green)" },
+                "PAUSE": { label: "➖ Policy Pause (No Change)", color: "var(--accent-blue)" },
+                "HIKE": { label: "📈 Repo Rate Hike", color: "var(--accent-red)" }
+            };
+
+            Object.keys(map).forEach(key => {
+                const data = comp[key];
+                if (!data) return;
+
+                const tr = document.createElement('tr');
+                const retClass = data.avg_return_t3.startsWith('+') ? 'positive-return' : (data.avg_return_t3.startsWith('-') ? 'negative-return' : '');
+
+                tr.innerHTML = `
+                    <td><strong style="color:${map[key].color};">${map[key].label}</strong></td>
+                    <td>${data.n_events}</td>
+                    <td class="${retClass}">${data.avg_return_t3}</td>
+                    <td>${data.win_rate_t3}</td>
+                    <td>${data.volatility_t3}</td>
+                    <td>${data.best_sector}</td>
+                    <td>${data.best_stock}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function loadStanceData(stance) {
+            try {
+                const response = await fetch(`/api/v1/rbi/metrics?stance=${stance}`);
+                const data = await response.json();
+                currentData = data;
+                
+                renderInsights(stance, data);
+                renderDriftTable(data.summary);
+                renderSectors(data.sectors);
+                renderLeaderboard('champions-list', data.champions);
+                renderLeaderboard('laggards-list', data.laggards);
+            } catch (e) {
+                console.error("Error loading stance metrics", e);
+            }
+        }
+
+        function renderInsights(stance, data) {
+            const list = document.getElementById('highlights');
+            list.innerHTML = "";
+
+            const t3Row = (data.summary || []).find(s => s.offset === 3) || {};
+            const t3Mean = t3Row.mean_return || "0.00%";
+            const t3Win = t3Row.win_rate || "0.0%";
+
+            let bullets = [];
+            if (stance === "PAUSE") {
+                bullets = [
+                    `Policy Pauses historically exhibit post-decision drift averaging **${t3Mean}** with a win rate of **${t3Win}** across the 3-day post-decision window.`,
+                    `The domestic **${(data.sectors && data.sectors[0]) ? data.sectors[0].sector : 'BANKING'}** sector historically shows the strongest post-pause relief.`,
+                    `Pre-meeting session ($T-1$) shows typical consolidation as markets await the rate decision.`
+                ];
+            } else if (stance === "CUT") {
+                bullets = [
+                    `Rate Cuts historically produce average 3-day post-decision returns of **${t3Mean}** with a win rate of **${t3Win}**.`,
+                    `Rate-sensitive stocks and top F&O champions (like **${(data.champions && data.champions[0]) ? data.champions[0].symbol : 'DIXON'}**) show strong post-cut momentum.`,
+                    `Post-announcement volatility expands, offering high intraday trading ranges.`
+                ];
+            } else if (stance === "HIKE") {
+                bullets = [
+                    `Rate Hikes historically coincide with slight index consolidation (3-day post-decision mean: **${t3Mean}** and win rate **${t3Win}**).`,
+                    `Defensive and export-oriented sectors (like **${(data.sectors && data.sectors[0]) ? data.sectors[0].sector : 'AUTO'}**) show relative outperformance during hike cycles.`,
+                    `Intraday variance expands following surprise hikes (such as the 40 bps off-cycle hike in May 2022).`
+                ];
+            }
+
+            bullets.forEach(b => {
+                const li = document.createElement('li');
+                li.innerHTML = b;
+                list.appendChild(li);
+            });
+        }
+
+
+        function renderDriftTable(summary) {
+            const tbody = document.getElementById('drift-table-body');
+            tbody.innerHTML = "";
+
+            if (!summary || summary.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted);">No records found.</td></tr>`;
+                return;
+            }
+
+            summary.forEach(row => {
+                const tr = document.createElement('tr');
+                const meanClass = row.mean_return.startsWith('+') ? 'positive-return' : (row.mean_return.startsWith('-') ? 'negative-return' : '');
+                const medianClass = row.median_return.startsWith('+') ? 'positive-return' : (row.median_return.startsWith('-') ? 'negative-return' : '');
+                
+                tr.innerHTML = `
+                    <td><strong>${row.window}</strong></td>
+                    <td>${row.n_events}</td>
+                    <td class="${meanClass}">${row.mean_return}</td>
+                    <td class="${medianClass}">${row.median_return}</td>
+                    <td>${row.win_rate}</td>
+                    <td>${row.volatility}</td>
+                    <td class="positive-return">${row.max_gain}</td>
+                    <td class="negative-return">${row.max_loss}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderSectors(sectors) {
+            const list = document.getElementById('sector-list');
+            list.innerHTML = "";
+
+            if (!sectors || sectors.length === 0) {
+                list.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">No sector data.</div>`;
+                return;
+            }
+
+            sectors.forEach((s, idx) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                const rank = idx === 0 ? "🥇" : (idx === 1 ? "🥈" : (idx === 2 ? "🥉" : `${idx + 1}.`));
+                const meanClass = s.mean_return.startsWith('+') ? 'positive-return' : (s.mean_return.startsWith('-') ? 'negative-return' : '');
+
+                item.innerHTML = `
+                    <div class="item-info">
+                        <span style="font-size:1.1rem; width: 24px; text-align:center;">${rank}</span>
+                        <strong style="font-size:0.9rem;">NIFTY ${s.sector}</strong>
+                    </div>
+                    <div class="item-values">
+                        <span class="${meanClass}">${s.mean_return}</span>
+                        <span class="item-winrate">Win Rate: ${s.win_rate}</span>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function renderLeaderboard(elementId, items) {
+            const list = document.getElementById(elementId);
+            list.innerHTML = "";
+
+            if (!items || items.length === 0) {
+                list.innerHTML = `<div style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">No stock data.</div>`;
+                return;
+            }
+
+            items.forEach((itemData, idx) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                const meanClass = itemData.mean_return.startsWith('+') ? 'positive-return' : (itemData.mean_return.startsWith('-') ? 'negative-return' : '');
+
+                item.innerHTML = `
+                    <div class="item-info">
+                        <span class="item-badge">${itemData.symbol}</span>
+                    </div>
+                    <div class="item-values">
+                        <span class="${meanClass}">${itemData.mean_return}</span>
+                        <span class="item-winrate">Win Rate: ${itemData.win_rate}</span>
+                    </div>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function calculateDivergence() {
+            const niftyVal = parseFloat(document.getElementById('actual-nifty').value);
+            const bankingVal = parseFloat(document.getElementById('actual-banking').value);
+
+            if (isNaN(niftyVal) && isNaN(bankingVal)) {
+                alert("Please enter at least one return value to compare.");
+                return;
+            }
+
+            const resultDiv = document.getElementById('comparison-result');
+            resultDiv.innerHTML = "";
+            resultDiv.style.display = "flex";
+
+            let histNiftyStr = "+0.85%";
+            let histBankingStr = "+1.11%";
+            
+            if (currentData.summary) {
+                const t3Row = currentData.summary.find(s => s.offset === 3);
+                if (t3Row) histNiftyStr = t3Row.mean_return;
+            }
+            if (currentData.sectors) {
+                const bankSect = currentData.sectors.find(s => s.sector === "BANKING");
+                if (bankSect) histBankingStr = bankSect.mean_return;
+            }
+
+            const histNifty = parseFloat(histNiftyStr.replace('%', ''));
+            const histBanking = parseFloat(histBankingStr.replace('%', ''));
+
+            let outputHtml = `<strong>📊 Reconciliation vs Historical Baseline</strong>`;
+
+            if (!isNaN(niftyVal)) {
+                const niftyDiff = niftyVal - histNifty;
+                const niftyStatus = niftyDiff > 0 ? "Outperformed history" : "Underperformed history";
+                const niftyColor = niftyDiff > 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+                outputHtml += `
+                    <div style="display:flex; justify-content:space-between; margin-top:0.5rem; font-size:0.85rem;">
+                        <span>Nifty 50:</span>
+                        <span>Actual: <strong>${niftyVal > 0 ? '+' : ''}${niftyVal.toFixed(2)}%</strong> (Hist: ${histNiftyStr})</span>
+                    </div>
+                    <div style="font-size:0.75rem; color:${niftyColor}; padding-left: 1rem;">
+                        ✦ ${niftyStatus} by ${niftyDiff > 0 ? '+' : ''}${niftyDiff.toFixed(2)}%
+                    </div>
+                `;
+            }
+
+            if (!isNaN(bankingVal)) {
+                const bankingDiff = bankingVal - histBanking;
+                const bankingStatus = bankingDiff > 0 ? "Outperformed history" : "Underperformed history";
+                const bankingColor = bankingDiff > 0 ? 'var(--accent-green)' : 'var(--accent-red)';
+                outputHtml += `
+                    <div style="display:flex; justify-content:space-between; margin-top:0.5rem; font-size:0.85rem;">
+                        <span>Banking Proxy:</span>
+                        <span>Actual: <strong>${bankingVal > 0 ? '+' : ''}${bankingVal.toFixed(2)}%</strong> (Hist: ${histBankingStr})</span>
+                    </div>
+                    <div style="font-size:0.75rem; color:${bankingColor}; padding-left: 1rem;">
+                        ✦ ${bankingStatus} by ${bankingDiff > 0 ? '+' : ''}${bankingDiff.toFixed(2)}%
+                    </div>
+                `;
+            }
+
+            resultDiv.innerHTML = outputHtml;
+        }
+
+        async function findSimilarCases() {
+            const action = document.getElementById('ana-action').value;
+            const bps = parseFloat(document.getElementById('ana-bps').value) || 0.0;
+            const cpi = parseFloat(document.getElementById('ana-cpi').value) || 4.5;
+            const regime = document.getElementById('ana-regime').value;
+            const tone = document.getElementById('ana-tone').value;
+
+            const payload = {
+                event_type: "RBI",
+                features: { action, bps, cpi, regime, tone },
+                top_n: 5
+            };
+
+            try {
+                const res = await fetch('/api/v1/rbi/analogs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await res.json();
+                
+                if (data.status === 'SUCCESS' && data.top_analogs) {
+                    document.getElementById('analog-results-container').style.display = 'flex';
+                    document.getElementById('evaluated-cnt').innerText = data.evaluated_count || 15;
+
+                    // Story Narrative Box
+                    const topMatch = data.top_analogs[0];
+                    if (topMatch) {
+                        const diffs = (topMatch.key_differences && topMatch.key_differences.length > 0) 
+                            ? `Key Differences: ${topMatch.key_differences.join(', ')}.` 
+                            : 'All policy factors match today exactly.';
+                        document.getElementById('analog-narrative-box').innerHTML = `
+                            <strong>Top Analog Narrative:</strong> Today's RBI meeting conditions most closely resemble the meeting of <strong>${topMatch.event_date}</strong> (Match: ${topMatch.similarity_pct}%). ${diffs} Historically, Nifty moved <strong>${topMatch.outcomes.nifty_t1 || '0.00%'}</strong> on Day 1 ($T+1$) following this meeting.
+                        `;
+                    }
+
+                    const tbody = document.getElementById('analog-table-body');
+                    tbody.innerHTML = '';
+
+                    data.top_analogs.forEach((m, idx) => {
+                        const tr = document.createElement('tr');
+                        const rank = idx === 0 ? "🥇 1." : (idx === 1 ? "🥈 2." : (idx === 2 ? "🥉 3." : `${idx + 1}.`));
+                        const b = m.match_breakdown || {};
+                        const o = m.outcomes || {};
+
+                        const n1 = o.nifty_t1 || 'N/A';
+                        const n5 = o.nifty_t5 || 'N/A';
+                        const n10 = o.nifty_t10 || 'N/A';
+                        const b5 = o.banknifty_t5 || 'N/A';
+
+                        const n5Class = n5.startsWith('+') ? 'positive-return' : (n5.startsWith('-') ? 'negative-return' : '');
+
+                        tr.innerHTML = `
+                            <td><strong>${rank} ${m.event_date}</strong></td>
+                            <td><strong style="color: var(--accent-green); font-size:1.05rem;">${m.similarity_pct}%</strong></td>
+                            <td>
+                                <span style="font-size:0.75rem; background:rgba(255,255,255,0.05); padding:2px 5px; border-radius:4px; margin-right:3px;">Act: ${b.action || '✅'}</span>
+                                <span style="font-size:0.75rem; background:rgba(255,255,255,0.05); padding:2px 5px; border-radius:4px; margin-right:3px;">BPS: ${b.bps || '✅'}</span>
+                                <span style="font-size:0.75rem; background:rgba(255,255,255,0.05); padding:2px 5px; border-radius:4px; margin-right:3px;">CPI: ${b.cpi || '✅'}</span>
+                                <span style="font-size:0.75rem; background:rgba(255,255,255,0.05); padding:2px 5px; border-radius:4px;">Reg: ${b.regime || '✅'}</span>
+                            </td>
+                            <td>${n1}</td>
+                            <td class="${n5Class}"><strong>${n5}</strong></td>
+                            <td>${n10}</td>
+                            <td>${b5}</td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+                    document.getElementById('analog-results-container').style.display = 'flex';
+                }
+            } catch (e) {
+                console.error("Error finding similar cases", e);
+            }
+        }
+
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const stance = btn.getAttribute('data-stance');
+                loadStanceData(stance);
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            await fetchCountsAndComparison();
+            loadStanceData("PAUSE");
+        });
+    </script>
+</body>
+</html>
+

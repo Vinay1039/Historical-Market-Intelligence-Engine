@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Query
 from typing import Optional
 from core.database import get_db_connection
-from services.ai_research_agent import generate_market_narrative
+from services.research_summary_service import generate_market_narrative
 from schemas.market_structure import (
     SectorListResponse, SectorItem,
     IndustryListResponse, IndustryItem,

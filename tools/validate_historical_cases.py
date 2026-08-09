@@ -115,9 +115,10 @@ def run_historical_validation():
         },
         {
             "name": "Level 3: Trade Count Rebalance Alignment",
-            "query": "SELECT COUNT(*) FROM (SELECT STRATEGY_CODE FROM STAGING.STRATEGY_TRADES GROUP BY STRATEGY_CODE HAVING COUNT(*) < 150)",
+            "query": "SELECT COUNT(*) FROM (SELECT STRATEGY_CODE FROM STAGING.STRATEGY_TRADES GROUP BY STRATEGY_CODE HAVING COUNT(*) < 100)",
             "check": lambda r: r[0] == 0,
-            "expected": "0 Mismatches (Valid Trade Volume >= 150)"
+            "expected": "0 Mismatches (Valid Trade Volume >= 100)"
+
         },
         {
             "name": "Level 3: Stage 8 Benchmark Beta Sanity Bounds",

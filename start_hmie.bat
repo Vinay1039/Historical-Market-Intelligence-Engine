@@ -1,28 +1,24 @@
 @echo off
-TITLE HMIE 2.3.0 Production Server Launcher
-COLOR 0A
+title HMIE v1.0.0 — Historical Market Intelligence Engine
 
-echo =======================================================================
-echo  HISTORICAL MARKET INTELLIGENCE ENGINE (HMIE 2.3.0) PRODUCTION LAUNCHER
-echo  Oracle 11g/23c XE • FastAPI Server • Governed AI Evidence Engine
-echo =======================================================================
-echo.
+cd /d "%~dp0"
 
-cd /d "c:\Users\vinay\.gemini\Fyers_Hist"
+echo ===============================================================================
+echo  HISTORICAL MARKET INTELLIGENCE ENGINE (HMIE v1.0.0)
+echo ===============================================================================
+echo [1/2] Checking Python environment...
 
-echo [1/3] Verifying Python Environment...
-if not exist "c:\Users\vinay\.gemini\.venv\Scripts\python.exe" (
-    echo [ERROR] Python environment not found! Exiting.
-    pause
-    exit /b 1
+if exist "..\.venv\Scripts\python.exe" (
+    set PYTHON_EXE=..\.venv\Scripts\python.exe
+) else (
+    set PYTHON_EXE=python
 )
 
-echo [2/3] Starting FastAPI Server on http://127.0.0.1:8000 ...
-echo [INFO] Logging output to logs/server.log
+echo [2/2] Launching FastAPI REST Backend & Research Terminal Server...
+echo Terminal URL: http://127.0.0.1:8000/library.html
+echo.
 
-if not exist "logs" mkdir "logs"
-
-start /b c:\Users\vinay\.gemini\.venv\Scripts\python.exe -m uvicorn api.main:app --host 127.0.0.1 --port 8000 > logs\server.log 2>&1
+%PYTHON_EXE% -m uvicorn api.main:app --host 127.0.0.1 --port 8000
 
 echo [3/3] Waiting for Server Startup...
 timeout /t 3 /nobreak > nul

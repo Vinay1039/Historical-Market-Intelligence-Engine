@@ -307,7 +307,7 @@ def query_research_engine(req: AIQueryRequest):
     """
     import time, datetime
     start_time = time.time()
-    from core.ai_evidence_engine import HMIEResearchEngine, close_engine
+    from services.ai_evidence_engine import HMIEResearchEngine, close_engine
     engine = HMIEResearchEngine()
     result = None
     status = "SUCCESS"

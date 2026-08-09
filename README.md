@@ -1,64 +1,89 @@
-# Historical Market Intelligence Engine (HMIE v3.0) 🏛️📊
+# Historical Market Intelligence Engine (HMIE v1.0.0) 🏛️
 
-> **A Governed Evidence-First AI Quantitative Research Platform for Indian Equity Markets**
-
-HMIE combines 15 years of daily NSE market price data ($2011–2026$), automated strategy and event analytical engines, cryptographic execution governance, a 24-study canonical knowledge base, and an explainable AI evidence engine with an interactive web dashboard.
+> **An Oracle-backed historical market research terminal for Indian equity markets.**
 
 ---
 
-## Key Features
+## 🎯 Mission Statement
+HMIE's mission is to transform historical Indian market data into reproducible, evidence-based research that is understandable to both experienced investors and newcomers. Every published insight must be traceable to verified historical data (`STAGING.STOCK_HIST_DATA`) and presented with clarity rather than complexity.
 
-- 🏛️ **Oracle Data Warehouse**: 856 symbols, 180 months of price history stored in Oracle 11g/23c XE (`STAGING.STOCK_HIST_DATA`).
-- 🛡️ **Research Governance Layer**: Single Canonical Execution Policy, SHA-256 Dual-Hashing (`EXECUTION_HASH` + `RESULT_HASH`), and Git Commit Tagging (`v3.0.0`).
-- 📚 **24 Governed Canonical Executions**: Covering 6 Research Domains:
-  1. **Momentum Research Suite** (Studies 001–004)
-  2. **Festival Research Suite** (Studies F001–F004)
-  3. **Union Budget Research Suite** (Studies B001–B004)
-  4. **RBI Monetary Policy Suite** (Studies R001–R004)
-  5. **General Lok Sabha Elections Suite** (Studies E001–E004)
-  6. **Meta-Research Suite** (Studies M001–M003)
-- 👤 **Plain English Intent AI Engine**: Classifies intent (`COUNT`, `LIST`, `STATISTICS`, `COMPARISON`, `PATTERN`) and returns human-friendly responses with Dual Indicators (`Evidence Quality` + `Sample Size`).
-- 🎨 **Interactive Web Dashboard**: Accessible directly at `http://127.0.0.1:8000/`.
+> **Operating Model**: HMIE v1.0.0 freezes the platform architecture—not the research. New historical studies, data updates, and evidence validation continue within the existing architecture. Every published research note independently passes all 5 CAR Quality Gates before entering the library.
 
 ---
 
-## Quick Start
+## 📚 What HMIE Does
+- **Produces Reproducible Research**: All studies adhere to 100% reproducible Oracle database EOD replay.
+- **Publishes Canonical Research Notes (CRN)**: Single-domain historical baselines (RBI Policy, Diwali, Budget, Market Corrections, Independence Day).
+- **Publishes Integrated Research Studies (IRS)**: Multi-domain cross-evidence synthesis (e.g. Union Budget during Market Correction).
+- **Enforces Non-Predictive Research**: Focuses strictly on historical evidence and observation (no black-box predictions).
+
+---
+
+## 🚀 Current Status
+- ✅ **Version 1.0.0** — Feature Complete | Architecture Frozen | Research Library Continuously Growing
+- ✅ **Specification**: CRN v1.1 Refined & IRS v1.0 Standard
+- ✅ **Quality Audits**: CAR-1 through CAR-5 Verified
+- ✅ **Dataset Baseline**: Oracle XE EOD Replay (`v2.0.1`)
+
+---
+
+## 🛡️ CAR Quality Gates (Canonical Acceptance Review)
+Every published research note independently passes 5 mandatory quality gates before entering the library:
+- **`CAR-1` Source Consistency**: Verified against authoritative `STAGING.STOCK_HIST_DATA` & `STAGING.SECTOR_MASTER`.
+- **`CAR-2` Math Reproducibility**: 100% accurate percentage, mean, and win rate calculations.
+- **`CAR-3` Aggregate Reconciliation**: Discrepancies between macro aggregates and stock-level details reconciled.
+- **`CAR-4` Method Transparency**: Quantitative methodology parameters locked and published before analysis.
+- **`CAR-5` Plain-English Validation**: Complex financial terms accompanied by 1-line plain-English takeaways.
+
+---
+
+## 🏛️ The Three-Layer Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ 🖥️ LAYER 3: USER EXPERIENCE & VISUAL STORYTELLING                            │
+│    • Research Library Terminal (library.html) • High-density CRN/IRS cards   │
+│    • Visual "Answer First" Cards • Contextual "Why should I care?" callouts  │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+┌──────────────────────────────────────┴──────────────────────────────────────┐
+│ 🔬 LAYER 2: INSTITUTIONAL RESEARCH ENGINE & GOVERNANCE                      │
+│    • Canonical Research Notes (CRN v1.1) • Integrated Research Studies (IRS) │
+│    • CAR-1 to CAR-5 Acceptance Reviews    • Combinatorial Guardrail Rule     │
+└──────────────────────────────────────┬──────────────────────────────────────┘
+                                       │
+┌──────────────────────────────────────┴──────────────────────────────────────┐
+│ 🗄️ LAYER 1: DATA FOUNDATION & REPLAY ENGINE                                 │
+│    • Oracle XE Database Pool • Precomputed Event Tables • EOD Replay Pipeline│
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🚫 Deliberately Excluded from HMIE v1
+To protect the platform from feature creep and unearned architectural bloat:
+- ❌ No RAG, Vector Search, or Embedding Engines
+- ❌ No Microservices or Graph Databases
+- ❌ No Real-Time Streaming or Day-Trading Execution APIs
+- ❌ No Autonomous LLM Research Generators or Unverified Predictive AI
+
+---
+
+## ⚡ Quick Start
 
 ### 1. Launch Platform Server
 Double-click `start_hmie.bat` or run:
 ```powershell
-c:\Users\vinay\.gemini\.venv\Scripts\python.exe -m uvicorn api.main:app --host 127.0.0.1 --port 8000
+python -m uvicorn api.main:app --host 127.0.0.1 --port 8000
 ```
 
-### 2. Open Web Dashboard
-Navigate your browser to: **[http://127.0.0.1:8000/](http://127.0.0.1:8000/)**
-
-### 3. Run Automated Evaluation Test
-```powershell
-c:\Users\vinay\.gemini\.venv\Scripts\python.exe tests/eval_harness.py
-```
+### 2. Open Research Library Terminal
+Navigate your browser to: **[http://127.0.0.1:8000/library.html](http://127.0.0.1:8000/library.html)**
 
 ---
 
-## System Architecture
-
-```
-                    User
-                      │
-                      ▼
-       HMIE 3.0 Evidence Dashboard UI (http://127.0.0.1:8000/)
-                      │
-                      ▼
-         FastAPI REST Backend (/api/v1/research/query)
-                      │
-                      ▼
-         HMIE 3.0 Intent AI Evidence Engine
-                      │
-                      ▼
-        Oracle Research Governance Store (STAGING.RESEARCH_EXECUTIONS)
-```
-
----
-
-## License & Provenance
-Registered under Git Commit `v3.0.0` • Dataset Version `v2.0.0`.
+## 📜 Core Principles
+1. **Historical Evidence Over Prediction**: All insights grounded in empirical Oracle database EOD data.
+2. **Simplicity Over Unnecessary Complexity**: Simple, shallow code architectures; earn complexity through proven need.
+3. **Plain-English Explanations**: Accessible to beginners without compromising institutional rigor.
+4. **100% Reproducible Research**: Immutable quality gates (`CAR-1` to `CAR-5`) for every published note.

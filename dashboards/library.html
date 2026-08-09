@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="http://127.0.0.1:8000/">
+    <title>HMIE 2.3.1 — Canonical Research Library Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-card: #1f293d;
+            --accent-green: #10b981;
+            --accent-blue: #3b82f6;
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-color: #374151;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: var(--bg-primary); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; }
+
+        header { background-color: var(--bg-secondary); border-bottom: 1px solid var(--border-color); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.25rem; font-weight: 700; color: var(--accent-blue); display: flex; align-items: center; gap: 0.5rem; }
+        .logo span { color: var(--accent-green); font-weight: 400; font-size: 0.85rem; }
+
+        .nav-links { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .nav-btn { padding: 0.4rem 0.85rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; text-decoration: none; border: 1px solid transparent; }
+        .nav-btn-active { background: rgba(59, 130, 246, 0.2); color: var(--accent-blue); border-color: var(--accent-blue); }
+        .nav-btn-sec { background: rgba(255, 255, 255, 0.05); color: var(--text-primary); border-color: var(--border-color); }
+        .nav-btn-sec:hover { background: rgba(255, 255, 255, 0.1); }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; width: 100%; flex: 1; }
+
+        .hero-banner { background: linear-gradient(135deg, rgba(31, 41, 61, 0.8) 0%, rgba(17, 24, 39, 0.9) 100%); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.75rem; margin-bottom: 2rem; }
+        .hero-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.75rem; }
+        .hero-subtitle { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.5; margin-bottom: 1.25rem; }
+
+        .controls-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; align-items: center; justify-content: space-between; }
+        .search-box { flex: 1; min-width: 280px; position: relative; }
+        .search-box input { width: 100%; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.75rem 1rem 0.75rem 2.5rem; color: var(--text-primary); font-size: 0.95rem; outline: none; }
+        .search-box input:focus { border-color: var(--accent-blue); }
+        .search-icon { position: absolute; left: 0.85rem; top: 50%; transform: translateY(-50%); color: var(--text-secondary); font-size: 0.9rem; }
+
+        .filter-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .filter-tab { background-color: var(--bg-secondary); border: 1px solid var(--border-color); color: var(--text-secondary); padding: 0.5rem 1rem; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .filter-tab:hover { background-color: rgba(255, 255, 255, 0.05); color: var(--text-primary); }
+        .filter-tab.active { background-color: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+
+        .stats-bar { display: flex; gap: 1.5rem; margin-bottom: 1.5rem; padding: 0.85rem 1.25rem; background-color: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; font-size: 0.85rem; }
+        .stat-item { display: flex; align-items: center; gap: 0.5rem; }
+        .stat-label { color: var(--text-secondary); }
+        .stat-val { font-weight: 700; color: var(--text-primary); }
+
+        .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+        .note-card { background-color: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 1.5rem; display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s, border-color 0.2s; }
+        .note-card:hover { transform: translateY(-2px); border-color: var(--accent-blue); }
+
+        .note-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; }
+        .note-badge { font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.6rem; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.03em; }
+        .badge-macro { background: rgba(139, 92, 246, 0.2); color: var(--accent-purple); border: 1px solid var(--accent-purple); }
+        .badge-season { background: rgba(245, 158, 11, 0.2); color: var(--accent-amber); border: 1px solid var(--accent-amber); }
+        .badge-behavior { background: rgba(16, 185, 129, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+
+        .note-status { font-size: 0.75rem; font-weight: 600; color: var(--accent-green); }
+        .note-status.ongoing { color: var(--accent-amber); }
+
+        .note-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); line-height: 1.3; }
+        .note-id { font-family: 'JetBrains Mono', monospace; font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.75rem; }
+
+        .note-question { font-size: 0.9rem; color: var(--text-primary); line-height: 1.4; margin-bottom: 1rem; background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 6px; border-left: 3px solid var(--accent-blue); }
+
+        .note-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem 1rem; font-size: 0.8rem; margin-bottom: 1.25rem; background: var(--bg-secondary); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--border-color); }
+        .meta-row { display: flex; flex-direction: column; }
+        .meta-k { color: var(--text-secondary); font-size: 0.75rem; }
+        .meta-v { font-weight: 600; color: var(--text-primary); }
+
+        .note-actions { display: flex; justify-content: space-between; align-items: center; margin-top: auto; pt-3; border-top: 1px solid var(--border-color); }
+        .note-readtime { font-size: 0.8rem; color: var(--text-secondary); display: flex; align-items: center; gap: 0.35rem; }
+        .btn-open { background-color: var(--accent-blue); color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; transition: background 0.2s; }
+        .btn-open:hover { background-color: #2563eb; }
+
+        footer { background-color: var(--bg-secondary); border-top: 1px solid var(--border-color); padding: 1.5rem 2rem; text-align: center; font-size: 0.85rem; color: var(--text-secondary); margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            HMIE 2.3.1 <span>Institutional Research Terminal</span>
+        </div>
+        <div class="nav-links">
+            <a href="/dashboards/library.html" class="nav-btn nav-btn-active">📚 Research Library</a>
+            <a href="/dashboards/home.html" class="nav-btn nav-btn-sec">🏠 Plain English Hub</a>
+            <a href="/dashboards/rbi.html" class="nav-btn nav-btn-sec">🏛️ RBI Policy Intel</a>
+            <a href="/dashboards/festival_research.html" class="nav-btn nav-btn-sec">📅 Festivals & Seasonality</a>
+            <a href="/dashboards/system_health.html" class="nav-btn nav-btn-sec">🩺 System Health</a>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- Hero Section -->
+        <div class="hero-banner">
+            <div class="hero-title">
+                📚 HMIE Canonical Research Library
+                <span style="font-size: 0.8rem; font-weight: 600; background: rgba(16,185,129,0.2); color: var(--accent-green); border: 1px solid var(--accent-green); padding: 0.2rem 0.6rem; border-radius: 20px;">CRN v1.1 Frozen</span>
+            </div>
+            <div class="hero-subtitle">
+                Standardized, evidence-first historical research notes generated from Oracle EOD replay data (`STAGING.STOCK_HIST_DATA`). Every note follows a single canonical publishing specification with zero non-reproducible predictions.
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <span class="stat-label">Published Notes:</span>
+                    <span class="stat-val" id="total-notes">6 Published</span>
+                </div>
+                <div class="stat-item" style="border-left: 1px solid var(--border-color); padding-left: 1.5rem;">
+                    <span class="stat-label">Specification:</span>
+                    <span class="stat-val" style="color: var(--accent-green);">CRN v1.1 / IRS v1.0</span>
+                </div>
+                <div class="stat-item" style="border-left: 1px solid var(--border-color); padding-left: 1.5rem;">
+                    <span class="stat-label">Quality Audits:</span>
+                    <span class="stat-val" style="color: var(--accent-blue);">CAR-1 .. CAR-5 Verified</span>
+                </div>
+                <div class="stat-item" style="border-left: 1px solid var(--border-color); padding-left: 1.5rem;">
+                    <span class="stat-label">Dataset Baseline:</span>
+                    <span class="stat-val">v2.0.1 (Oracle EOD)</span>
+                </div>
+            </div>
+
+            <!-- Research Index & Roadmap Summary Table -->
+            <div style="margin-top: 1.25rem; background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem 1.25rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                    <div style="font-weight: 700; font-size: 0.9rem; color: var(--accent-blue); display: flex; align-items: center; gap: 0.4rem;">
+                        🗺️ HMIE Research Index & Publication Roadmap (v1.1 Target)
+                    </div>
+                    <span style="font-size: 0.75rem; color: var(--text-secondary);">Target: 10–15 High-Quality CRN/IRS Publications</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.85rem; font-size: 0.8rem;">
+                    <div style="background: var(--bg-card); padding: 0.65rem 0.85rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 0.3rem;">
+                            <span>🏛️ Macro Research</span>
+                            <span style="color: var(--accent-amber);">2/5 Notes</span>
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">
+                            ✓ RBI Policy • ✓ Union Budget<br>
+                            ⏳ <i>Planned: US Fed, CPI Inflation, GDP</i>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-card); padding: 0.65rem 0.85rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 0.3rem;">
+                            <span>📅 Seasonality</span>
+                            <span style="color: var(--accent-amber);">2/6 Notes</span>
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">
+                            ✓ Independence Day • ✓ Pre-Diwali<br>
+                            ⏳ <i>Planned: Holi, Dussehra, FY End (Mar)</i>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-card); padding: 0.65rem 0.85rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 0.3rem;">
+                            <span>📉 Market Behaviour</span>
+                            <span style="color: var(--accent-amber);">1/5 Notes</span>
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">
+                            ✓ Market Corrections<br>
+                            ⏳ <i>Planned: Bull Markets, Bear, Elections</i>
+                        </div>
+                    </div>
+
+                    <div style="background: var(--bg-card); padding: 0.65rem 0.85rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                        <div style="display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 0.3rem;">
+                            <span>🔬 Integrated Studies</span>
+                            <span style="color: var(--accent-amber);">1/5 Notes</span>
+                        </div>
+                        <div style="color: var(--text-secondary); font-size: 0.75rem; line-height: 1.4;">
+                            ✓ Budget × Correction<br>
+                            ⏳ <i>Planned: RBI Pause × Correction, Diwali x Bull</i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Row -->
+        <div class="controls-row">
+            <div class="filter-tabs" id="category-tabs">
+                <button class="filter-tab active" data-cat="ALL">All Categories (6)</button>
+                <button class="filter-tab" data-cat="MACRO">🏛️ Macro (2)</button>
+                <button class="filter-tab" data-cat="SEASON">📅 Seasonality (2)</button>
+                <button class="filter-tab" data-cat="BEHAVIOR">📉 Market Behaviour (1)</button>
+                <button class="filter-tab" data-cat="INTEGRATED">🔬 Integrated Studies (1)</button>
+            </div>
+
+            <div class="search-box">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="library-search" placeholder="Search questions, sectors, tags, stocks (e.g. ICICI, IT, RBI, Diwali)...">
+            </div>
+        </div>
+
+        <!-- Notes Grid -->
+        <div class="notes-grid" id="notes-container">
+            <!-- Dynamically populated -->
+        </div>
+
+    </div>
+
+    <footer>
+        HMIE Canonical Research Library v1.1 • Historical Market Intelligence Engine • Institutional Evidence Terminal
+    </footer>
+
+    <script>
+        const LIBRARY_NOTES = [
+            {
+                id: "STUDY-BUDGET-CORR-01",
+                category: "INTEGRATED",
+                categoryLabel: "Integrated Research Study",
+                badgeClass: "badge-macro",
+                status: "🟢 Completed",
+                isOngoing: false,
+                title: "Union Budget During Market Correction",
+                question: "How do Union Budget announcements behave when presented during an active market correction phase (10%-37% drawdown)?",
+                sample: "N = 5 Union Budgets (2 Corr + 3 Bull)",
+                period: "2011–2025",
+                readTime: "~5 min",
+                evidence: "Limited (N=2 Corr)",
+                fileUrl: "/research/Union%20Budget%20During%20Market%20Correction.md",
+                tags: ["integrated", "cross domain", "budget", "correction", "infy", "sbin", "lt", "defensive rotation"]
+            },
+            {
+                id: "CORRECTION-2026-09",
+                category: "BEHAVIOR",
+                categoryLabel: "Market Behaviour",
+                badgeClass: "badge-behavior",
+                status: "🟡 Ongoing",
+                isOngoing: true,
+                title: "Market Corrections & Recoveries",
+                question: "How long do Indian equity market corrections historically take to recover, and which sectors lead the early recovery?",
+                sample: "N = 9 Episodes (8 Comp + 1 Act)",
+                period: "2011–2025",
+                readTime: "~5 min",
+                evidence: "High (Oracle Replay)",
+                fileUrl: "/research/Market%20Corrections%20%26%20Recoveries.md",
+                tags: ["corrections", "recoveries", "drawdowns", "divislab", "titan", "healthcare", "durables"]
+            },
+            {
+                id: "RBI-2026-08",
+                category: "MACRO",
+                categoryLabel: "Macro Research",
+                badgeClass: "badge-macro",
+                status: "🟢 Completed",
+                isOngoing: false,
+                title: "RBI Monetary Policy",
+                question: "How have Indian equity markets historically behaved after RBI Rate Hikes, Rate Cuts, and Policy Pauses, and what does current policy condition most closely resemble?",
+                sample: "N = 15 MPC Meetings (3 Pause)",
+                period: "2011–2025",
+                readTime: "~4 min",
+                evidence: "Moderate (N=3 Pause)",
+                fileUrl: "/research/RBI%20Monetary%20Policy.md",
+                tags: ["rbi", "mpc", "interest rates", "banking", "icicibank", "sbin", "pause", "cut", "hike"]
+            },
+            {
+                id: "BUDGET-2027-02",
+                category: "MACRO",
+                categoryLabel: "Macro Research",
+                badgeClass: "badge-macro",
+                status: "🟢 Completed",
+                isOngoing: false,
+                title: "Union Budget Seasonality",
+                question: "How have Indian equity markets historically behaved during pre-budget consolidation windows (T-10 → T-1), Budget Day, and post-budget relief rallies (T+1 → T+10)?",
+                sample: "N = 14 Union Budgets",
+                period: "2011–2025",
+                readTime: "~5 min",
+                evidence: "High (Oracle Replay)",
+                fileUrl: "/research/Union%20Budget%20Seasonality.md",
+                tags: ["budget", "fiscal policy", "sbin", "reliance", "psu banks", "de-risking", "relief rally"]
+            },
+            {
+                id: "DIWALI-2026-10",
+                category: "SEASON",
+                categoryLabel: "Seasonality Research",
+                badgeClass: "badge-season",
+                status: "🟢 Completed",
+                isOngoing: false,
+                title: "Pre-Diwali Seasonality",
+                question: "How have Indian equity markets historically behaved during the 15 trading days leading up to Diwali, during Muhurat Trading (Day 0), and post-Diwali?",
+                sample: "N = 15 Diwali Seasons",
+                period: "2011–2025",
+                readTime: "~4 min",
+                evidence: "High (Oracle Replay)",
+                fileUrl: "/research/Pre-Diwali%20Seasonality.md",
+                tags: ["diwali", "muhurat", "festive", "titan", "maruti", "consumer", "auto"]
+            },
+            {
+                id: "IND-2026-08",
+                category: "SEASON",
+                categoryLabel: "Seasonality Research",
+                badgeClass: "badge-season",
+                status: "🟢 Completed",
+                isOngoing: false,
+                title: "Independence Day Seasonality",
+                question: "How have Indian equity markets historically behaved during pre-event run-ups (T-4 → T-1), Day 0 sessions, and post-event rallies around Independence Day (August 15)?",
+                sample: "N = 15 Holiday Sessions",
+                period: "2011–2025",
+                readTime: "~4 min",
+                evidence: "High (Oracle Replay)",
+                fileUrl: "/research/Independence%20Day%20Seasonality.md",
+                tags: ["independence day", "august 15", "infy", "tcs", "it sector", "holiday seasonality"]
+            }
+        ];
+
+        let activeCategory = "ALL";
+        let searchQuery = "";
+
+        function renderNotes() {
+            const container = document.getElementById("notes-container");
+            const filtered = LIBRARY_NOTES.filter(n => {
+                const catMatch = activeCategory === "ALL" || n.category === activeCategory;
+                const qLower = searchQuery.toLowerCase().trim();
+                const searchMatch = !qLower || 
+                    n.title.toLowerCase().includes(qLower) || 
+                    n.question.toLowerCase().includes(qLower) || 
+                    n.id.toLowerCase().includes(qLower) ||
+                    n.tags.some(t => t.toLowerCase().includes(qLower));
+                return catMatch && searchMatch;
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; padding: 3rem; text-align: center; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; color: var(--text-secondary);">
+                        🔍 No research notes match your filter or search query.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map(n => `
+                <div class="note-card">
+                    <div>
+                        <div class="note-header">
+                            <span class="note-badge ${n.badgeClass}">${n.categoryLabel}</span>
+                            <span class="note-status ${n.isOngoing ? 'ongoing' : ''}">${n.status}</span>
+                        </div>
+                        <div class="note-title">${n.title}</div>
+                        <div class="note-id">ID: ${n.id} • Spec: CRN v1.1</div>
+                        <div class="note-question">
+                            <strong>Q:</strong> ${n.question}
+                        </div>
+                        <div class="note-meta">
+                            <div class="meta-row">
+                                <span class="meta-k">Sample Universe</span>
+                                <span class="meta-v">${n.sample}</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-k">Horizon</span>
+                                <span class="meta-v">${n.period}</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-k">Evidence Quality</span>
+                                <span class="meta-v">${n.evidence}</span>
+                            </div>
+                            <div class="meta-row">
+                                <span class="meta-k">Prediction Mode</span>
+                                <span class="meta-v">Non-Predictive</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="note-actions">
+                        <span class="note-readtime">⏱️ ${n.readTime} read</span>
+                        <a href="${n.fileUrl}" target="_blank" class="btn-open">Read Research Note →</a>
+                    </div>
+                </div>
+            `).join("");
+        }
+
+        // Event Listeners
+        document.getElementById("category-tabs").addEventListener("click", (e) => {
+            if (e.target.classList.contains("filter-tab")) {
+                document.querySelectorAll(".filter-tab").forEach(t => t.classList.remove("active"));
+                e.target.classList.add("active");
+                activeCategory = e.target.dataset.cat;
+                renderNotes();
+            }
+        });
+
+        document.getElementById("library-search").addEventListener("input", (e) => {
+            searchQuery = e.target.value;
+            renderNotes();
+        });
+
+        // Initial Render
+        renderNotes();
+    </script>
+</body>
+</html>

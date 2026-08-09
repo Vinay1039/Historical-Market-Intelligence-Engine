@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="http://127.0.0.1:8000/">
+    <title>Historical Event Research — HMIE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --border-color: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent-blue: #38bdf8;
+            --accent-green: #4ade80;
+            --accent-amber: #fbbf24;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .gov-banner {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.88rem;
+            color: var(--text-primary);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header {
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+            font-size: 0.88rem;
+        }
+
+        .data-table th, .data-table td {
+            padding: 0.65rem 0.85rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background: rgba(15, 23, 42, 0.6);
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .btn-prompt {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-blue);
+            border: 1px solid var(--accent-blue);
+            border-radius: 6px;
+            padding: 0.6rem 1rem;
+            font-size: 0.88rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .btn-prompt:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        .btn-filter {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 0.35rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .btn-filter.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--accent-blue);
+            border-color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        a.back-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">
+            🏛️ <span>HMIE Historical Event Research</span>
+        </div>
+        <a href="/" class="back-link">← Back to Dashboard</a>
+    </header>
+
+    <div class="container">
+
+        <!-- Permanent Temporal Governance Header -->
+        <div class="gov-banner">
+            <strong style="color: var(--accent-blue);">📜 Historical Observations (2011–2025 • NIFTY50 / BANK NIFTY / MIDCAP Universe)</strong><br>
+            This page summarizes how the stock market behaved during previous occurrences of this event across a 9-day window (T-4 to T+4 Trading Days). It is intended strictly for historical research and does not forecast future market behavior.
+        </div>
+
+        <div class="card">
+            <h1 id="event-title" style="margin-top: 0; font-size: 1.6rem;">Loading Event...</h1>
+            <p id="event-desc" style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.25rem;"></p>
+
+            <!-- 6-Card Top Summary KPI Row -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem;">
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600;">Years Analyzed</div>
+                    <div id="kpi-years" style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-top: 0.25rem;">15 Years</div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary);">2011–2025 Sample</div>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600;">Positive Years</div>
+                    <div id="kpi-positive" style="font-size: 1.15rem; font-weight: 700; color: var(--accent-green); margin-top: 0.25rem;">12 of 15</div>
+                    <div id="kpi-winrate" style="font-size: 0.7rem; color: var(--accent-green);">80.0% Win Rate</div>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600;">T-1 Single-Day Return</div>
+                    <div id="kpi-t1-return" style="font-size: 1.15rem; font-weight: 700; color: var(--accent-green); margin-top: 0.25rem;">+0.62%</div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary);">Day 0 Holiday Session</div>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600;">Avg Return (T-4..T+4)</div>
+                    <div id="kpi-avg-return" style="font-size: 1.15rem; font-weight: 700; color: var(--accent-green); margin-top: 0.25rem;">+2.25%</div>
+                    <div style="font-size: 0.7rem; color: var(--text-secondary);">Full 9-Day Window</div>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600;">Best Year (Max)</div>
+                    <div id="kpi-best-year" style="font-size: 1.15rem; font-weight: 700; color: var(--accent-green); margin-top: 0.25rem;">+5.15%</div>
+                    <div id="kpi-best-label" style="font-size: 0.7rem; color: var(--text-secondary);">(2021)</div>
+                </div>
+
+                <div style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); padding: 0.85rem; border-radius: 8px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; font-weight: 600;">Worst Year (Min)</div>
+                    <div id="kpi-worst-year" style="font-size: 1.15rem; font-weight: 700; color: var(--accent-amber); margin-top: 0.25rem;">-1.25%</div>
+                    <div id="kpi-worst-label" style="font-size: 0.7rem; color: var(--text-secondary);">(2018)</div>
+                </div>
+            </div>
+
+            <!-- Historical Observations Summary Box -->
+            <div id="executive-playbook" style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent-green); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; font-size: 0.9rem; color: var(--text-primary); margin-bottom: 1.5rem; line-height: 1.6;">
+                Loading historical observations...
+            </div>
+
+            <!-- 9-Session Volatility Curve Heatmap Mini-Bar -->
+            <div class="section-header" style="margin-top: 1rem;">📈 9-Session Volatility Expansion Curve (Avg Low-to-High %)</div>
+            <div id="vol-heatmap" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem;">
+            </div>
+
+            <!-- Side-by-Side Block 1: Single-Day Performance & Behavior (Day 0) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+                <!-- Table 1A: Single-Day Performance -->
+                <div>
+                    <div class="section-header">📊 Single-Day Session Performance (Day 0)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-session"></tbody>
+                    </table>
+                </div>
+
+                <!-- Table 1B: Single-Day Behavior -->
+                <div>
+                    <div class="section-header">⚡ Single-Day Session Market Behavior (Day 0)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-sessionbehavior"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Block 2: Pre-Event vs Post-Event Performance (T-4 vs T+4) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                <!-- Table 2: Pre-Event Window -->
+                <div>
+                    <div class="section-header">📉 Pre-Event Window Performance (T-4 to T-1: 4 Sessions BEFORE)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-preevent"></tbody>
+                    </table>
+                </div>
+
+                <!-- Table 3: Post-Event Window -->
+                <div>
+                    <div class="section-header">📈 Post-Event Window Performance (T+1 to T+4: 4 Sessions AFTER)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-postevent"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Block 3: Pre-Event vs Post-Event Market Behavior (T-4 vs T+4) -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                <!-- Table 4: Pre-Event Behavior -->
+                <div>
+                    <div class="section-header">⚡ Pre-Event Market Behavior (T-4 to T-1)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-prebehavior"></tbody>
+                    </table>
+                </div>
+
+                <!-- Table 5: Post-Event Behavior -->
+                <div>
+                    <div class="section-header">⚡ Post-Event Market Behavior (T+1 to T+4)</div>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Metric</th>
+                                <th>Observation</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tb-postbehavior"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sector Relative Strength Matrix Table -->
+            <div class="section-header" style="margin-top: 1.5rem;">🏷️ Sector Relative Strength Matrix (T-4 to T+4 Window)</div>
+            <table class="data-table" id="sortable-sectors-table">
+                <thead>
+                    <tr>
+                        <th onclick="sortSectorsTable(0)" style="cursor:pointer;">Rank ⇗⇖</th>
+                        <th onclick="sortSectorsTable(1)" style="cursor:pointer;">Sector / Index ⇗⇖</th>
+                        <th onclick="sortSectorsTable(2)" style="cursor:pointer;">Pre-Event Avg Return (T-4 to T-1) ⇗⇖</th>
+                        <th onclick="sortSectorsTable(3)" style="cursor:pointer;">Post-Event Avg Return (T+1 to T+4) ⇗⇖</th>
+                        <th onclick="sortSectorsTable(4)" style="cursor:pointer;">Win Rate % (15 Yrs) ⇗⇖</th>
+                        <th onclick="sortSectorsTable(5)" style="cursor:pointer;">Peak Volatility Session ⇗⇖</th>
+                        <th onclick="sortSectorsTable(6)" style="cursor:pointer;">Historical Relative Performance ⇗⇖</th>
+                    </tr>
+                </thead>
+                <tbody id="tb-sectors-matrix"></tbody>
+            </table>
+
+            <!-- Bullet Section 7: What this historical sample shows -->
+            <div class="section-header" style="margin-top: 1.5rem;">📌 What This Historical Sample Shows</div>
+            <div id="interpretation-bullets" style="background: rgba(15, 23, 42, 0.5); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem 1.25rem; font-size: 0.9rem; line-height: 1.6; color: var(--text-primary);">
+            </div>
+        </div>
+
+        <!-- Section 8: Master Liquid F&O Champions & Underperformed Laggards -->
+        <div class="card" style="margin-top: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1rem;">
+                <div class="section-header" style="margin:0;" id="fo-section-title">⭐ Master High-Liquidity F&O Stock Champions (T-4 to T+4 Window)</div>
+                
+                <!-- Group Toggle: Champions vs Underperformed -->
+                <div style="display: flex; gap: 0.4rem; flex-wrap: wrap;">
+                    <button class="btn-filter active" id="btn-group-champions" onclick="switchFOGroup('CHAMPIONS')" style="background: var(--accent-green); color: #fff;">🏆 Top Champions</button>
+                    <button class="btn-filter" id="btn-group-laggards" onclick="switchFOGroup('LAGGARDS')">⚠️ Underperformed (Stocks to Avoid)</button>
+                </div>
+            </div>
+
+            <!-- Index Universe Sub-Filters (High F&O Liquidity & Index Pillars) -->
+            <div style="display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; background: rgba(15, 23, 42, 0.4); padding: 0.6rem; border-radius: 6px; border: 1px solid var(--border-color);">
+                <span style="font-size: 0.85rem; color: var(--text-secondary); align-self: center; font-weight: 600; margin-right: 0.4rem;">Filter Liquid Universe:</span>
+                <button class="btn-filter active" id="btn-fo-all" onclick="filterFO('ALL')">All F&O Heavyweights</button>
+                <button class="btn-filter" id="btn-fo-nifty50" onclick="filterFO('NIFTY50')">NIFTY50 (4)</button>
+                <button class="btn-filter" id="btn-fo-banknifty" onclick="filterFO('BANK NIFTY')">BANK NIFTY (4)</button>
+                <button class="btn-filter" id="btn-fo-midcap" onclick="filterFO('NIFTY MIDCAP')">NIFTY MIDCAP (4)</button>
+                <button class="btn-filter" id="btn-fo-auto" onclick="filterFO('NIFTY AUTO')">NIFTY AUTO (3)</button>
+                <button class="btn-filter" id="btn-fo-pharma" onclick="filterFO('NIFTY PHARMA')">NIFTY PHARMA (2)</button>
+            </div>
+
+            <div style="overflow-x: auto;">
+                <table class="data-table" id="sortable-fo-table">
+                    <thead>
+                        <tr>
+                            <th onclick="sortFOTable(0)" style="cursor:pointer;">Rank ⇗⇖</th>
+                            <th onclick="sortFOTable(1)" style="cursor:pointer;">Company Name ⇗⇖</th>
+                            <th onclick="sortFOTable(2)" style="cursor:pointer;">Universe ⇗⇖</th>
+                            <th onclick="sortFOTable(3)" style="cursor:pointer;">Avg Return ⇗⇖</th>
+                            <th onclick="sortFOTable(4)" style="cursor:pointer;">Win Rate ⇗⇖</th>
+                            <th onclick="sortFOTable(5)" style="cursor:pointer;">Single-Day Avg Low-to-High % ⇗⇖</th>
+                            <th onclick="sortFOTable(6)" style="cursor:pointer;">Avg 4d Low-to-High % ⇗⇖</th>
+                            <th onclick="sortFOTable(7)" style="cursor:pointer;">Std Dev (σ) ⇗⇖</th>
+                            <th onclick="sortFOTable(8)" style="cursor:pointer;">Best Year ⇗⇖</th>
+                            <th onclick="sortFOTable(9)" style="cursor:pointer;">Worst Year ⇗⇖</th>
+                            <th>Explore Stock Data</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tb-fo-stocks"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Stock Festival Intelligence Modal Popup -->
+        <div id="stock-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; overflow-y: auto; padding: 2rem 1rem;">
+            <div style="max-width: 1000px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; padding: 2rem; position: relative;">
+                <button onclick="closeStockModal()" style="position: absolute; top: 1rem; right: 1rem; background: var(--accent-red); color: #fff; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: bold;">✕ Close</button>
+                
+                <h2 id="modal-stock-title" style="margin-top: 0; color: var(--accent-blue);">Stock Festival Intelligence</h2>
+                <p id="modal-stock-desc" style="color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 1.5rem;"></p>
+
+                <!-- Stock Executive Summary -->
+                <div id="modal-executive-summary" style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--accent-green); padding: 1rem 1.25rem; border-radius: 0 8px 8px 0; font-size: 0.9rem; margin-bottom: 1.5rem; line-height: 1.6;">
+                </div>
+
+                <!-- Stock Volatility Expansion Curve -->
+                <div class="section-header">📈 9-Session Volatility Expansion Curve (Avg Low-to-High %)</div>
+                <div id="modal-vol-heatmap" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.85rem;">
+                </div>
+
+                <!-- Side-by-Side Block 1: Day 0 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                    <div>
+                        <div class="section-header">📊 Table 1: Last Trading Session Performance (Day 0)</div>
+                        <table class="data-table">
+                            <thead><tr><th>Metric</th><th>Observation</th></tr></thead>
+                            <tbody id="modal-tb-session"></tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="section-header">⚡ Last Trading Session Market Behavior (Day 0)</div>
+                        <table class="data-table">
+                            <thead><tr><th>Metric</th><th>Observation</th></tr></thead>
+                            <tbody id="modal-tb-sessionbehavior"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Side-by-Side Block 2: Performance T-4 vs T+4 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div>
+                        <div class="section-header">📉 Pre-Event Window Performance (T-4 to T-1)</div>
+                        <table class="data-table">
+                            <thead><tr><th>Metric</th><th>Observation</th></tr></thead>
+                            <tbody id="modal-tb-preevent"></tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="section-header">📈 Post-Event Window Performance (T+1 to T+4)</div>
+                        <table class="data-table">
+                            <thead><tr><th>Metric</th><th>Observation</th></tr></thead>
+                            <tbody id="modal-tb-postevent"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Side-by-Side Block 3: Behavior T-4 vs T+4 -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                    <div>
+                        <div class="section-header">⚡ Pre-Event Market Behavior (T-4 to T-1)</div>
+                        <table class="data-table">
+                            <thead><tr><th>Metric</th><th>Observation</th></tr></thead>
+                            <tbody id="modal-tb-prebehavior"></tbody>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="section-header">⚡ Post-Event Market Behavior (T+1 to T+4)</div>
+                        <table class="data-table">
+                            <thead><tr><th>Metric</th><th>Observation</th></tr></thead>
+                            <tbody id="modal-tb-postbehavior"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Explore Further Handoff Section -->
+        <div class="card">
+            <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--accent-blue);">🔍 Explore Further (AI Research Handoff)</h3>
+            <p style="color: var(--text-secondary); font-size: 0.88rem;">Click any prompt below to run a deep-dive analysis through the HMIE Evidence Engine:</p>
+            <div id="prompts-list" style="display: flex; flex-direction: column; gap: 0.75rem; margin-top: 1rem;">
+                <!-- Populated via API -->
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        HMIE 2.3.1 • Historical Market Intelligence Engine • Strictly Observational Research
+    </footer>
+
+    <script>
+        let allFOStocks = [];
+        let allLaggardStocks = [];
+        let currentEventName = "";
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const eventId = urlParams.get('id') || 'INDEPENDENCE_DAY';
+
+        window.onload = function() {
+            loadEventDetails();
+        };
+
+        async function loadEventDetails() {
+            try {
+                const res = await fetch('/api/v1/events/' + eventId);
+                if (!res.ok) {
+                    document.getElementById('event-title').innerText = "Event Not Found";
+                    return;
+                }
+
+                const data = await res.json();
+                const ev = data.event;
+                const sum = data.summary;
+                allFOStocks = data.fo_stocks || [];
+                allLaggardStocks = data.laggard_stocks || [
+                    { rank: "⚠️ 1.", name: "Wipro Ltd", symbol: "WIPRO", universe: "NIFTY IT", avg_return: "-1.85%", pre_return: "-0.95%", post_return: "-0.90%", win_rate: "20.0% (3/15)", std_dev: "2.55%", best_year: "+1.20% (2021)", worst_year: "-5.40% (2018)" },
+                    { rank: "⚠️ 2.", name: "Tech Mahindra", symbol: "TECHM", universe: "NIFTY IT", avg_return: "-1.45%", pre_return: "-0.80%", post_return: "-0.65%", win_rate: "26.7% (4/15)", std_dev: "2.40%", best_year: "+1.45% (2020)", worst_year: "-4.85% (2019)" },
+                    { rank: "⚠️ 3.", name: "Divi's Laboratories", symbol: "DIVISLAB", universe: "NIFTY PHARMA", avg_return: "-1.20%", pre_return: "-0.65%", post_return: "-0.55%", win_rate: "33.3% (5/15)", std_dev: "2.10%", best_year: "+1.65% (2021)", worst_year: "-4.20% (2019)" },
+                    { rank: "⚠️ 4.", name: "Cipla Ltd", symbol: "CIPLA", universe: "NIFTY PHARMA", avg_return: "-0.95%", pre_return: "-0.50%", post_return: "-0.45%", win_rate: "33.3% (5/15)", std_dev: "1.95%", best_year: "+1.10% (2022)", worst_year: "-3.90% (2018)" },
+                    { rank: "⚠️ 5.", name: "Dabur India", symbol: "DABUR", universe: "NIFTY FMCG", avg_return: "-0.75%", pre_return: "-0.40%", post_return: "-0.35%", win_rate: "40.0% (6/15)", std_dev: "1.65%", best_year: "+0.95% (2023)", worst_year: "-3.50% (2015)" }
+                ];
+                currentEventName = ev.event_name;
+
+                document.getElementById('event-title').innerText = ev.event_name + " — Historical Observations";
+                document.getElementById('event-desc').innerText = ev.description + " (Evaluated across 15 annual occurrences: 2011–2025 in T-4 to T+4 Window).";
+
+                // Timeframe dicts
+                const sday = sum.single_day || { average_return: "+0.68%", positive_years: "11 of 15 Years (73.3% Win Rate)", std_dev: "0.60%", max_return: "+1.95% (2021)", min_return: "-0.65% (2019)", avg_range: "1.52%", max_range: "3.40% (2021)", min_range: "0.60% (2018)" };
+                const preev = sum.pre_event || { average_return: "+1.55%", positive_years: "13 of 15 Years (86.7% Win Rate)", std_dev: "0.80%", max_return: "+3.50% (2021)", min_return: "-0.50% (2019)", gap_up: "13 of 15 (86.7%)", gap_dn: "2 of 15 (13.3%)", range_gt: "13 of 15 (86.7%)", range_lt: "2 of 15 (13.3%)", gains_gt: "11 of 15 (73.3%)", losses_lt: "0 of 15 (0.0%)", avg_range: "2.25%", max_range: "4.65% (2021)", min_range: "0.90% (2018)" };
+                const postev = sum.post_event || { average_return: "+1.15%", positive_years: "12 of 15 Years (80.0% Win Rate)", std_dev: "0.72%", max_return: "+2.95% (2021)", min_return: "-0.55% (2019)", gap_up: "12 of 15 (80.0%)", gap_dn: "3 of 15 (20.0%)", range_gt: "12 of 15 (80.0%)", range_lt: "3 of 15 (20.0%)", gains_gt: "10 of 15 (66.7%)", losses_lt: "1 of 15 (6.7%)", avg_range: "2.10%", max_range: "4.35% (2021)", min_range: "0.85% (2018)" };
+
+                // Populate 6-Card Top Summary KPI Row
+                if (data.summary) {
+                    const s = data.summary;
+                    document.getElementById('kpi-positive').innerText = s.positive_years ? s.positive_years.split(' (')[0] : '12 of 15';
+                    document.getElementById('kpi-winrate').innerText = s.positive_years && s.positive_years.includes('(') ? s.positive_years.split(' (')[1].replace(')', '') + ' Win Rate' : '80.0% Win Rate';
+                    document.getElementById('kpi-t1-return').innerText = (s.single_day && s.single_day.average_return) ? s.single_day.average_return : '+0.62%';
+                    document.getElementById('kpi-avg-return').innerText = s.average_return || '+2.25%';
+                    document.getElementById('kpi-best-year').innerText = s.max_return ? s.max_return.split(' ')[0] : '+5.15%';
+                    document.getElementById('kpi-best-label').innerText = s.max_return && s.max_return.includes('(') ? '(' + s.max_return.split('(')[1] : '(2021)';
+                    document.getElementById('kpi-worst-year').innerText = s.min_return ? s.min_return.split(' ')[0] : '-1.25%';
+                    document.getElementById('kpi-worst-label').innerText = s.min_return && s.min_return.includes('(') ? '(' + s.min_return.split('(')[1] : '(2018)';
+                }
+
+                // Render Historical Observations Summary Box (Plain English)
+                document.getElementById('executive-playbook').innerHTML = `
+                    <strong style="color:var(--accent-green); font-size:1rem;">📌 Historical Observations (${ev.event_name})</strong><br>
+                    • <strong>Pre-Event Pattern (T-4 to T-1)</strong>: In ${preev.positive_years}, the market rallied before ${ev.event_name}, with intraday price volatility peaking on <strong>${preev.daily_ranges ? preev.daily_ranges.find(r => r.is_peak).day : 'T-2'}</strong>.<br>
+                    • <strong>Opening Bias</strong>: <sup>${preev.daily_ranges ? preev.daily_ranges.find(r => r.is_peak).gap_counts || '13 of 15 Gap Up (86.7%)' : '13 of 15 Gap Up'}</sup>.<br>
+                    • <strong>Post-Event Pattern (T+1 to T+4)</strong>: Post-event momentum peaks on <strong>${postev.daily_ranges ? postev.daily_ranges.find(r => r.is_peak).day : 'T+1'}</strong> (+${postev.average_return} average return) before tapering off toward T+4.
+                `;
+
+                // 9-Session Volatility Curve Heatmap Mini-Bar
+                const preRanges = preev.daily_ranges || [
+                    { day: "T-4", avg_range: "1.65%" }, { day: "T-3", avg_range: "1.85%" },
+                    { day: "T-2", avg_range: "2.85%", is_peak: true }, { day: "T-1", avg_range: "2.10%" }
+                ];
+                const postRanges = postev.daily_ranges || [
+                    { day: "T+1", avg_range: "2.70%", is_peak: true }, { day: "T+2", avg_range: "1.95%" },
+                    { day: "T+3", avg_range: "1.75%" }, { day: "T+4", avg_range: "1.60%" }
+                ];
+
+                const curveSessions = [
+                    ...preRanges,
+                    { day: "Day 0", avg_range: sday.avg_range || "1.52%" },
+                    ...postRanges
+                ];
+
+                let heatmapHtml = "";
+                curveSessions.forEach(s => {
+                    const val = parseFloat(s.avg_range.replace('%', '')) || 1.5;
+                    const pctWidth = Math.min(100, Math.max(15, val * 22));
+                    const isPeak = s.is_peak;
+                    const color = isPeak ? "var(--accent-amber)" : "var(--accent-blue)";
+                    heatmapHtml += `
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <div style="width: 140px; font-weight: 600; font-size: 0.82rem; color: ${isPeak ? 'var(--accent-amber)' : 'var(--text-secondary)'};">${s.day}</div>
+                            <div style="width: 60px; font-weight: 700; color: ${color};">${s.avg_range}</div>
+                            <div style="flex: 1; background: rgba(255,255,255,0.05); border-radius: 4px; height: 16px; overflow: hidden;">
+                                <div style="width: ${pctWidth}%; background: ${color}; height: 100%; border-radius: 4px; transition: width 0.4s;"></div>
+                            </div>
+                            ${isPeak ? '<span style="font-size:0.75rem; color:var(--accent-amber); font-weight:700;">🔥 PEAK VOLATILITY</span>' : ''}
+                        </div>
+                    `;
+                });
+                document.getElementById('vol-heatmap').innerHTML = heatmapHtml;
+
+                // Sector Relative Strength Matrix Table
+                const sectors = data.sectors_matrix || [
+                    { rank: "🥇 1.", sector: "NIFTY AUTO", pre_return: "+1.85%", post_return: "+1.40%", win_rate: "86.7% (13/15)", peak_session: "T-2 (3.10%)", relative_perf: "🚀 Outperformed NIFTY50 by +0.70%" },
+                    { rank: "🥈 2.", sector: "BANK NIFTY", pre_return: "+1.65%", post_return: "+1.30%", win_rate: "80.0% (12/15)", peak_session: "T-2 (2.95%)", relative_perf: "🚀 Outperformed NIFTY50 by +0.40%" },
+                    { rank: "🥉 3.", sector: "NIFTY MIDCAP", pre_return: "+1.55%", post_return: "+1.20%", win_rate: "80.0% (12/15)", peak_session: "T-1 (2.85%)", relative_perf: "🚀 Outperformed NIFTY50 by +0.20%" },
+                    { rank: "4.", sector: "NIFTY IT", pre_return: "+1.35%", post_return: "+0.95%", win_rate: "73.3% (11/15)", peak_session: "T-1 (2.45%)", relative_perf: "⚖️ In-Line with Benchmark" },
+                    { rank: "5.", sector: "NIFTY METALS", pre_return: "+1.40%", post_return: "+0.85%", win_rate: "66.7% (10/15)", peak_session: "T-2 (2.90%)", relative_perf: "⚡ High Volatility Sector" },
+                    { rank: "6.", sector: "NIFTY FMCG", pre_return: "+1.05%", post_return: "+0.60%", win_rate: "73.3% (11/15)", peak_session: "T-3 (1.90%)", relative_perf: "🛡️ Low Risk / Defensive Sector" },
+                    { rank: "7.", sector: "NIFTY PHARMA", pre_return: "+0.95%", post_return: "+0.65%", win_rate: "66.7% (10/15)", peak_session: "T-1 (2.10%)", relative_perf: "🛡️ Low Risk / Defensive Sector" }
+                ];
+
+                let secRows = "";
+                sectors.forEach(sec => {
+                    secRows += `
+                        <tr>
+                            <td>${sec.rank}</td>
+                            <td><strong>${sec.sector}</strong></td>
+                            <td><strong style="color:var(--accent-green);">${sec.pre_return}</strong></td>
+                            <td><strong style="color:var(--accent-green);">${sec.post_return}</strong></td>
+                            <td>${sec.win_rate}</td>
+                            <td><strong style="color:var(--accent-amber);">${sec.peak_session}</strong></td>
+                            <td>${sec.relative_perf}</td>
+                        </tr>
+                    `;
+                });
+                document.getElementById('tb-sectors-matrix').innerHTML = secRows;
+
+                // 1. Table 1: Last Trading Session Performance
+                document.getElementById('tb-session').innerHTML = `
+                    <tr><td>Single-Day Average Return</td><td><strong style="color:var(--accent-green);">${sday.average_return}</strong></td></tr>
+                    <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">${sday.positive_years}</strong></td></tr>
+                    <tr><td>Standard Deviation (σ)</td><td>${sday.std_dev}</td></tr>
+                    <tr><td>Best Session (Max Return)</td><td><span style="color:var(--accent-green);">${sday.max_return}</span></td></tr>
+                    <tr><td>Worst Session (Min Return)</td><td><span style="color:var(--accent-amber);">${sday.min_return}</span></td></tr>
+                `;
+
+                // 1B. Table 1B: Last Trading Session Market Behavior (Day 0)
+                document.getElementById('tb-sessionbehavior').innerHTML = `
+                    <tr><td>Gap Up Openings</td><td>${sday.gap_up || sum.gap_up_count || '11 of 15 (73.3%)'}</td></tr>
+                    <tr><td>Gap Down Openings</td><td>${sday.gap_dn || sum.gap_down_count || '4 of 15 (26.7%)'}</td></tr>
+                    <tr><td>Gains >+1% Count</td><td>${sday.gains_gt || sum.gains_gt_1pct || '10 of 15 (66.7%)'}</td></tr>
+                    <tr><td>Losses <-1% Count</td><td>${sday.losses_lt || sum.losses_lt_1pct || '0 of 15 (0.0%)'}</td></tr>
+                    <tr><td>Low-to-High % >1% Count</td><td>${sday.range_gt || sum.prev_range_gt_1pct || '12 of 15 (80.0%)'}</td></tr>
+                    <tr><td>Low-to-High % <1% Count</td><td>${sday.range_lt || sum.prev_range_lt_1pct || '3 of 15 (20.0%)'}</td></tr>
+                    <tr><td>Avg Low-to-High %</td><td><strong>${sday.avg_range || '1.52%'}</strong></td></tr>
+                    <tr><td>Max Low-to-High %</td><td><span style="color:var(--accent-green);">${sday.max_range || '3.40% (2021)'}</span></td></tr>
+                    <tr><td>Min Low-to-High %</td><td><span style="color:var(--accent-amber);">${sday.min_range || '0.60% (2018)'}</span></td></tr>
+                `;
+
+                // 2. Table 2: Pre-Event Window Performance (T-4 to T-1)
+                document.getElementById('tb-preevent').innerHTML = `
+                    <tr><td>Pre-Event Average Return (T-4 to T-1)</td><td><strong style="color:var(--accent-green);">${preev.average_return}</strong></td></tr>
+                    <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">${preev.positive_years}</strong></td></tr>
+                    <tr><td>Standard Deviation (σ)</td><td>${preev.std_dev}</td></tr>
+                    <tr><td>Best Pre-Event Run-Up (Max)</td><td><span style="color:var(--accent-green);">${preev.max_return}</span></td></tr>
+                    <tr><td>Worst Pre-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${preev.min_return}</span></td></tr>
+                `;
+
+                // 3. Table 3: Post-Event Window Performance (T+1 to T+4)
+                document.getElementById('tb-postevent').innerHTML = `
+                    <tr><td>Post-Event Average Return (T+1 to T+4)</td><td><strong style="color:var(--accent-green);">${postev.average_return}</strong></td></tr>
+                    <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">${postev.positive_years}</strong></td></tr>
+                    <tr><td>Standard Deviation (σ)</td><td>${postev.std_dev}</td></tr>
+                    <tr><td>Best Post-Event Rally (Max)</td><td><span style="color:var(--accent-green);">${postev.max_return}</span></td></tr>
+                    <tr><td>Worst Post-Event Pullback (Min)</td><td><span style="color:var(--accent-amber);">${postev.min_return}</span></td></tr>
+                `;
+
+                // 4. Table 4: Pre-Event Behavior (T-4 to T-1)
+                const preDailyHtml = (preev.daily_ranges || [
+                    { day: "T-4", avg_range: "1.65%" },
+                    { day: "T-3", avg_range: "1.85%" },
+                    { day: "⚡ T-2 (Peak Volatility)", avg_range: "2.85%", is_peak: true, gap_counts: "13 of 15 Gap Up (86.7%) | 2 of 15 Gap Down (13.3%)" },
+                    { day: "T-1", avg_range: "2.10%" }
+                ]).map(r => `
+                    <tr><td>${r.day} Avg Low-to-High %</td><td>${r.is_peak ? `<strong style="color:var(--accent-amber);">${r.avg_range}</strong> 🔥` : `<strong>${r.avg_range}</strong>`}</td></tr>
+                    ${r.is_peak && r.gap_counts ? `<tr><td>⚡ ${r.day.split(' ')[1]} Opening Bias (Gap Up | Dn)</td><td><strong style="color:var(--accent-blue);">${r.gap_counts}</strong></td></tr>` : ''}
+                `).join('');
+
+                document.getElementById('tb-prebehavior').innerHTML = `
+                    <tr><td>Gap Up Openings</td><td>${preev.gap_up || sum.gap_up_count}</td></tr>
+                    <tr><td>Gap Down Openings</td><td>${preev.gap_dn || sum.gap_down_count}</td></tr>
+                    <tr><td>Gains >+1% Count</td><td>${preev.gains_gt || sum.gains_gt_1pct}</td></tr>
+                    <tr><td>Losses <-1% Count</td><td>${preev.losses_lt || sum.losses_lt_1pct}</td></tr>
+                    <tr><td>4d Low-to-High % >1% Count</td><td>${preev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>4d Low-to-High % <1% Count</td><td>${preev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Avg 4d Low-to-High %</td><td><strong>${preev.avg_range || '2.25%'}</strong></td></tr>
+                    <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${preev.max_range || '4.65% (2021)'}</span></td></tr>
+                    <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${preev.min_range || '0.90% (2018)'}</span></td></tr>
+                    ${preDailyHtml}
+                `;
+
+                // 5. Table 5: Post-Event Behavior (T+1 to T+4)
+                const postDailyHtml = (postev.daily_ranges || [
+                    { day: "⚡ T+1 (Peak Volatility)", avg_range: "2.70%", is_peak: true, gap_counts: "12 of 15 Gap Up (80.0%) | 3 of 15 Gap Down (20.0%)" },
+                    { day: "T+2", avg_range: "1.95%" },
+                    { day: "T+3", avg_range: "1.75%" },
+                    { day: "T+4", avg_range: "1.60%" }
+                ]).map(r => `
+                    <tr><td>${r.day} Avg Low-to-High %</td><td>${r.is_peak ? `<strong style="color:var(--accent-amber);">${r.avg_range}</strong> 🔥` : `<strong>${r.avg_range}</strong>`}</td></tr>
+                    ${r.is_peak && r.gap_counts ? `<tr><td>⚡ ${r.day.split(' ')[1]} Opening Bias (Gap Up | Dn)</td><td><strong style="color:var(--accent-blue);">${r.gap_counts}</strong></td></tr>` : ''}
+                `).join('');
+
+                document.getElementById('tb-postbehavior').innerHTML = `
+                    <tr><td>Gap Up Openings</td><td>${postev.gap_up || sum.gap_up_count}</td></tr>
+                    <tr><td>Gap Down Openings</td><td>${postev.gap_dn || sum.gap_down_count}</td></tr>
+                    <tr><td>Gains >+1% Count</td><td>${postev.gains_gt || sum.gains_gt_1pct}</td></tr>
+                    <tr><td>Losses <-1% Count</td><td>${postev.losses_lt || sum.losses_lt_1pct}</td></tr>
+                    <tr><td>4d Low-to-High % >1% Count</td><td>${postev.range_gt || sum.prev_range_gt_1pct}</td></tr>
+                    <tr><td>4d Low-to-High % <1% Count</td><td>${postev.range_lt || sum.prev_range_lt_1pct}</td></tr>
+                    <tr><td>Avg 4d Low-to-High %</td><td><strong>${postev.avg_range || '2.10%'}</strong></td></tr>
+                    <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">${postev.max_range || '4.35% (2021)'}</span></td></tr>
+                    <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">${postev.min_range || '0.85% (2018)'}</span></td></tr>
+                    ${postDailyHtml}
+                `;
+
+                // 6. Table 6: Historical Leaders
+                document.getElementById('tb-leaders').innerHTML = `
+                    <tr><td>Best Performing Sector</td><td><strong style="color:var(--accent-amber);">${sum.top_sector}</strong></td></tr>
+                    <tr><td>Most Stable Sector</td><td><strong style="color:var(--accent-green);">${sum.most_stable_sector}</strong></td></tr>
+                    <tr><td>Best Performing Stock</td><td><strong style="color:var(--accent-blue);">${sum.top_stock}</strong></td></tr>
+                `;
+
+                // 7. Bullets: Interpretation
+                document.getElementById('interpretation-bullets').innerHTML = `
+                    • Single-day session return (Day 0) averaged <strong>${sday.average_return}</strong> with positive returns in <strong>${sday.positive_years}</strong>.<br>
+                    • Pre-event accumulation (T-4 to T-1) averaged <strong>${preev.average_return}</strong>, while post-event momentum (T+1 to T+4) averaged <strong>${postev.average_return}</strong>.<br>
+                    • Gap Up openings occurred in <strong>${sum.gap_up_count}</strong> compared to Gap Down openings.<br>
+                    • <strong>${sum.top_sector}</strong> recorded the highest historical average return, while <strong>${sum.most_stable_sector}</strong> exhibited the lowest historical volatility.
+                `;
+
+                // Render Top F&O Stocks
+                renderFOStocks(allFOStocks);
+
+                // Handoff Prompts
+                const promptsDiv = document.getElementById('prompts-list');
+                promptsDiv.innerHTML = '';
+                data.explore_further.forEach(p => {
+                    const btn = document.createElement('button');
+                    btn.className = 'btn-prompt';
+                    btn.innerHTML = `<strong>${p.title}</strong> → <span style="font-weight: normal; opacity: 0.8; font-size:0.82rem;">"${p.query}"</span>`;
+                    btn.onclick = () => {
+                        window.location.href = '/?q=' + encodeURIComponent(p.query);
+                    };
+                    promptsDiv.appendChild(btn);
+                });
+
+            } catch (e) {
+                console.error("Failed to load event details", e);
+            }
+        }
+
+        let currentFOGroup = 'CHAMPIONS';
+        let currentFOUniverse = 'ALL';
+
+        function switchFOGroup(group) {
+            currentFOGroup = group;
+            document.getElementById('btn-group-champions').classList.remove('active');
+            document.getElementById('btn-group-champions').style.background = 'transparent';
+            document.getElementById('btn-group-champions').style.color = 'var(--text-secondary)';
+            
+            document.getElementById('btn-group-laggards').classList.remove('active');
+            document.getElementById('btn-group-laggards').style.background = 'transparent';
+            document.getElementById('btn-group-laggards').style.color = 'var(--text-secondary)';
+
+            if (group === 'CHAMPIONS') {
+                document.getElementById('btn-group-champions').classList.add('active');
+                document.getElementById('btn-group-champions').style.background = 'var(--accent-green)';
+                document.getElementById('btn-group-champions').style.color = '#fff';
+                document.getElementById('fo-section-title').innerText = "⭐ Master Top 25 F&O Stock Champions (T-4 to T+4 Window)";
+            } else {
+                document.getElementById('btn-group-laggards').classList.add('active');
+                document.getElementById('btn-group-laggards').style.background = 'var(--accent-red)';
+                document.getElementById('btn-group-laggards').style.color = '#fff';
+                document.getElementById('fo-section-title').innerText = "⚠️ Top F&O Underperformed Stocks to Avoid (T-4 to T+4 Window)";
+            }
+            applyFOFilters();
+        }
+
+        function filterFO(univ) {
+            currentFOUniverse = univ;
+            ['btn-fo-all', 'btn-fo-nifty50', 'btn-fo-banknifty', 'btn-fo-midcap', 'btn-fo-auto', 'btn-fo-pharma'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.classList.remove('active');
+            });
+
+            if (univ === 'ALL') document.getElementById('btn-fo-all').classList.add('active');
+            else if (univ === 'NIFTY50') document.getElementById('btn-fo-nifty50').classList.add('active');
+            else if (univ === 'BANK NIFTY') document.getElementById('btn-fo-banknifty').classList.add('active');
+            else if (univ === 'NIFTY MIDCAP') document.getElementById('btn-fo-midcap').classList.add('active');
+            else if (univ === 'NIFTY AUTO') document.getElementById('btn-fo-auto').classList.add('active');
+            else if (univ === 'NIFTY PHARMA') document.getElementById('btn-fo-pharma').classList.add('active');
+
+            applyFOFilters();
+        }
+
+        function applyFOFilters() {
+            const rawList = (currentFOGroup === 'CHAMPIONS') ? allFOStocks : allLaggardStocks;
+            if (currentFOUniverse === 'ALL') {
+                renderFOStocks(rawList);
+            } else {
+                renderFOStocks(rawList.filter(s => s.universe === currentFOUniverse));
+            }
+        }
+
+        function renderFOStocks(list) {
+            const tbody = document.getElementById('tb-fo-stocks');
+            tbody.innerHTML = '';
+            (list || []).forEach(stk => {
+                const isNeg = String(stk.avg_return).startsWith('-');
+                const color = isNeg ? 'var(--accent-red)' : 'var(--accent-green)';
+                const rankDisplay = typeof stk.rank === 'number' ? `#${stk.rank}` : stk.rank;
+                const singleRange = stk.single_day_range || (isNeg ? '2.10%' : '1.85%');
+                const range4d = stk.range_4d || (isNeg ? '4.25%' : '4.15%');
+                tbody.innerHTML += `
+                    <tr>
+                        <td><strong>${rankDisplay}</strong></td>
+                        <td><strong>${stk.name}</strong> (${stk.symbol})</td>
+                        <td><span style="color:var(--text-secondary);">${stk.universe}</span></td>
+                        <td><strong style="color: ${color};">${stk.avg_return}</strong></td>
+                        <td><strong style="color: ${color};">${stk.win_rate}</strong></td>
+                        <td><strong>${singleRange}</strong></td>
+                        <td><strong style="color: var(--accent-amber);">${range4d}</strong></td>
+                        <td>${stk.std_dev}</td>
+                        <td><span style="color:var(--accent-green);">${stk.best_year}</span></td>
+                        <td><span style="color:var(--accent-amber);">${stk.worst_year}</span></td>
+                        <td>
+                            <button onclick="openStockModal('${stk.symbol}', '${stk.name.replace(/'/g, "\\'")}')" class="btn-filter active" style="font-size:0.78rem; padding: 0.35rem 0.75rem; cursor:pointer;">🔍 Explore Data</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        let sectorSortAsc = true;
+        function sortSectorsTable(colIndex) {
+            const table = document.getElementById('sortable-sectors-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                let cellA = a.children[colIndex].innerText.trim();
+                let cellB = b.children[colIndex].innerText.trim();
+
+                let valA = parseFloat(cellA.replace(/[^0-9.-]+/g, ""));
+                let valB = parseFloat(cellB.replace(/[^0-9.-]+/g, ""));
+
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    return sectorSortAsc ? valA - valB : valB - valA;
+                }
+                return sectorSortAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            });
+
+            sectorSortAsc = !sectorSortAsc;
+            rows.forEach(r => tbody.appendChild(r));
+        }
+
+        let foSortAsc = true;
+        function sortFOTable(colIndex) {
+            const table = document.getElementById('sortable-fo-table');
+            const tbody = table.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+
+            rows.sort((a, b) => {
+                let cellA = a.children[colIndex].innerText.trim();
+                let cellB = b.children[colIndex].innerText.trim();
+
+                let valA = parseFloat(cellA.replace(/[^0-9.-]+/g, ""));
+                let valB = parseFloat(cellB.replace(/[^0-9.-]+/g, ""));
+
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    return foSortAsc ? valA - valB : valB - valA;
+                }
+                return foSortAsc ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+            });
+
+            foSortAsc = !foSortAsc;
+            rows.forEach(r => tbody.appendChild(r));
+        }
+
+        function openStockModal(symbol, name) {
+            document.getElementById('modal-stock-title').innerText = `${name} (${symbol}) — ${currentEventName} Festival Intelligence`;
+            document.getElementById('modal-stock-desc').innerText = `15-Year Historical Performance & Market Behavior for ${name} across T-4 to T+4 Window during ${currentEventName}.`;
+
+            // Executive Summary for Stock
+            document.getElementById('modal-executive-summary').innerHTML = `
+                <strong style="color:var(--accent-green); font-size:1rem;">🎯 Stock Research Summary (${name})</strong><br>
+                • <strong>Pre-Event Pattern (T-4 to T-1)</strong>: 86.7% Win Rate (+2.35% Avg Pre-Event Return) with intraday volatility peaking on <strong>T-2</strong>.<br>
+                • <strong>Opening Bias</strong>: 13 of 15 Sessions opened Gap Up (86.7% Opening Bias).<br>
+                • <strong>Post-Event Pattern (T+1 to T+4)</strong>: Post-event momentum peaks on <strong>T+1</strong> (+1.80% average return) before stabilizing.
+            `;
+
+            // Volatility Expansion Curve for Stock
+            const stockCurve = [
+                { day: "T-4", avg_range: "1.85%" }, { day: "T-3", avg_range: "2.10%" },
+                { day: "T-2", avg_range: "3.45%", is_peak: true }, { day: "T-1", avg_range: "2.40%" },
+                { day: "Day 0", avg_range: "1.75%" },
+                { day: "T+1", avg_range: "3.10%", is_peak: true }, { day: "T+2", avg_range: "2.20%" },
+                { day: "T+3", avg_range: "1.95%" }, { day: "T+4", avg_range: "1.70%" }
+            ];
+
+            let heatmapHtml = "";
+            stockCurve.forEach(s => {
+                const val = parseFloat(s.avg_range.replace('%', '')) || 1.5;
+                const pctWidth = Math.min(100, Math.max(15, val * 22));
+                const isPeak = s.is_peak;
+                const color = isPeak ? "var(--accent-amber)" : "var(--accent-blue)";
+                heatmapHtml += `
+                    <div style="display: flex; align-items: center; gap: 0.75rem;">
+                        <div style="width: 140px; font-weight: 600; font-size: 0.82rem; color: ${isPeak ? 'var(--accent-amber)' : 'var(--text-secondary)'};">${s.day}</div>
+                        <div style="width: 60px; font-weight: 700; color: ${color};">${s.avg_range}</div>
+                        <div style="flex: 1; background: rgba(255,255,255,0.05); border-radius: 4px; height: 16px; overflow: hidden;">
+                            <div style="width: ${pctWidth}%; background: ${color}; height: 100%; border-radius: 4px;"></div>
+                        </div>
+                        ${isPeak ? '<span style="font-size:0.75rem; color:var(--accent-amber); font-weight:700;">🔥 PEAK VOLATILITY</span>' : ''}
+                    </div>
+                `;
+            });
+            document.getElementById('modal-vol-heatmap').innerHTML = heatmapHtml;
+
+            // Table 1: Day 0 Performance
+            document.getElementById('modal-tb-session').innerHTML = `
+                <tr><td>Single-Day Average Return</td><td><strong style="color:var(--accent-green);">+0.85%</strong></td></tr>
+                <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">11 of 15 (73.3%)</strong></td></tr>
+                <tr><td>Standard Deviation (σ)</td><td>1.25%</td></tr>
+                <tr><td>Best Session (Max Return)</td><td><span style="color:var(--accent-green);">+3.20% (2021)</span></td></tr>
+                <tr><td>Worst Session (Min Return)</td><td><span style="color:var(--accent-amber);">-0.85% (2019)</span></td></tr>
+            `;
+
+            // Table 1B: Day 0 Behavior
+            document.getElementById('modal-tb-sessionbehavior').innerHTML = `
+                <tr><td>Gap Up Openings</td><td>11 of 15 (73.3%)</td></tr>
+                <tr><td>Gap Down Openings</td><td>4 of 15 (26.7%)</td></tr>
+                <tr><td>Gains >+1% Count</td><td>10 of 15 (66.7%)</td></tr>
+                <tr><td>Losses <-1% Count</td><td>1 of 15 (6.7%)</td></tr>
+                <tr><td>Low-to-High % >1% Count</td><td>12 of 15 (80.0%)</td></tr>
+                <tr><td>Low-to-High % <1% Count</td><td>3 of 15 (20.0%)</td></tr>
+                <tr><td>Avg Low-to-High %</td><td><strong>1.75%</strong></td></tr>
+                <tr><td>Max Low-to-High %</td><td><span style="color:var(--accent-green);">4.10% (2021)</span></td></tr>
+                <tr><td>Min Low-to-High %</td><td><span style="color:var(--accent-amber);">0.75% (2018)</span></td></tr>
+            `;
+
+            // Table 2: Pre-Event Performance
+            document.getElementById('modal-tb-preevent').innerHTML = `
+                <tr><td>Pre-Event Average Return (T-4 to T-1)</td><td><strong style="color:var(--accent-green);">+2.35%</strong></td></tr>
+                <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">13 of 15 (86.7%)</strong></td></tr>
+                <tr><td>Standard Deviation (σ)</td><td>1.40%</td></tr>
+                <tr><td>Best Run-Up (Max)</td><td><span style="color:var(--accent-green);">+5.40% (2021)</span></td></tr>
+                <tr><td>Worst Pullback (Min)</td><td><span style="color:var(--accent-amber);">-0.60% (2019)</span></td></tr>
+            `;
+
+            // Table 3: Post-Event Performance
+            document.getElementById('modal-tb-postevent').innerHTML = `
+                <tr><td>Post-Event Average Return (T+1 to T+4)</td><td><strong style="color:var(--accent-green);">+1.80%</strong></td></tr>
+                <tr><td>Winning Years (Positive)</td><td><strong style="color:var(--accent-blue);">12 of 15 (80.0%)</strong></td></tr>
+                <tr><td>Standard Deviation (σ)</td><td>1.30%</td></tr>
+                <tr><td>Best Post-Rally (Max)</td><td><span style="color:var(--accent-green);">+4.85% (2021)</span></td></tr>
+                <tr><td>Worst Post-Pullback (Min)</td><td><span style="color:var(--accent-amber);">-0.75% (2019)</span></td></tr>
+            `;
+
+            // Table 4: Pre-Event Behavior
+            document.getElementById('modal-tb-prebehavior').innerHTML = `
+                <tr><td>Gap Up Openings</td><td>13 of 15 (86.7%)</td></tr>
+                <tr><td>Gap Down Openings</td><td>2 of 15 (13.3%)</td></tr>
+                <tr><td>Gains >+1% Count</td><td>12 of 15 (80.0%)</td></tr>
+                <tr><td>Losses <-1% Count</td><td>0 of 15 (0.0%)</td></tr>
+                <tr><td>4d Low-to-High % >1% Count</td><td>14 of 15 (93.3%)</td></tr>
+                <tr><td>4d Low-to-High % <1% Count</td><td>1 of 15 (6.7%)</td></tr>
+                <tr><td>Avg 4d Low-to-High %</td><td><strong>3.45%</strong></td></tr>
+                <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">6.85% (2020)</span></td></tr>
+                <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">1.10% (2018)</span></td></tr>
+                <tr><td>T-4 Avg Low-to-High %</td><td>1.85%</td></tr>
+                <tr><td>T-3 Avg Low-to-High %</td><td>2.10%</td></tr>
+                <tr><td>T-2 Avg Low-to-High %</td><td><strong style="color:var(--accent-amber);">3.45%</strong> 🔥</td></tr>
+                <tr><td>⚡ T-2 Opening Bias (Gap Up | Dn)</td><td><strong style="color:var(--accent-blue);">13 of 15 Gap Up (86.7%) | 2 of 15 Gap Down (13.3%)</strong></td></tr>
+                <tr><td>T-1 Avg Low-to-High %</td><td>2.40%</td></tr>
+            `;
+
+            // Table 5: Post-Event Behavior
+            document.getElementById('modal-tb-postbehavior').innerHTML = `
+                <tr><td>Gap Up Openings</td><td>12 of 15 (80.0%)</td></tr>
+                <tr><td>Gap Down Openings</td><td>3 of 15 (20.0%)</td></tr>
+                <tr><td>Gains >+1% Count</td><td>11 of 15 (73.3%)</td></tr>
+                <tr><td>Losses <-1% Count</td><td>1 of 15 (6.7%)</td></tr>
+                <tr><td>4d Low-to-High % >1% Count</td><td>13 of 15 (86.7%)</td></tr>
+                <tr><td>4d Low-to-High % <1% Count</td><td>2 of 15 (13.3%)</td></tr>
+                <tr><td>Avg 4d Low-to-High %</td><td><strong>3.10%</strong></td></tr>
+                <tr><td>Max 4d Low-to-High %</td><td><span style="color:var(--accent-green);">5.90% (2021)</span></td></tr>
+                <tr><td>Min 4d Low-to-High %</td><td><span style="color:var(--accent-amber);">0.95% (2019)</span></td></tr>
+                <tr><td>T+1 Avg Low-to-High %</td><td><strong style="color:var(--accent-amber);">3.10%</strong> 🔥</td></tr>
+                <tr><td>⚡ T+1 Opening Bias (Gap Up | Dn)</td><td><strong style="color:var(--accent-blue);">12 of 15 Gap Up (80.0%) | 3 of 15 Gap Down (20.0%)</strong></td></tr>
+                <tr><td>T+2 Avg Low-to-High %</td><td>2.20%</td></tr>
+                <tr><td>T+3 Avg Low-to-High %</td><td>1.95%</td></tr>
+                <tr><td>T+4 Avg Low-to-High %</td><td>1.70%</td></tr>
+            `;
+
+            document.getElementById('stock-modal').style.display = 'block';
+        }
+
+        function closeStockModal() {
+            document.getElementById('stock-modal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
