@@ -179,6 +179,17 @@ To protect the platform from feature creep and unearned architectural bloat:
 
 ---
 
+## 🖼️ Visual Evidence & Terminal Walkthrough
+
+Explore the comprehensive **[HMIE Visual Evidence & Terminal Walkthrough (Dashboard_Images/README.md)](Dashboard_Images/README.md)** document, featuring high-density screenshots and plain-English metric breakdowns across all terminal views:
+
+| View Category | Featured Screenshots | Quick Link |
+|:---|:---|:---:|
+| **Master Event Hub** | Plain English Assistant, Dynamic Column Customizer, Day 0 / Pre / Post Windows | [View Gallery Document](Dashboard_Images/README.md#-section-1-master-festival--macro-event-hub) |
+| **Deep-Dive Event Analytics** | 15-Year Metrics, Volatility Curve, Sector Strength Matrix, Stock Champions | [View Gallery Document](Dashboard_Images/README.md#-section-2-deep-dive-event-analytics-independence-day-example) |
+
+---
+
 ## 📜 Core Principles
 1. **Historical Evidence Over Prediction**: All insights grounded in empirical Oracle database EOD data.
 2. **Simplicity Over Unnecessary Complexity**: Simple, shallow code architectures; earn complexity through proven need.
