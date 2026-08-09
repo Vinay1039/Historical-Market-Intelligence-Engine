@@ -179,6 +179,20 @@ To protect the platform from feature creep and unearned architectural bloat:
 
 ---
 
+## 🖼️ Dashboard & Evidence Screenshots
+
+All visual evidence screenshots are saved in the [`Dashboard_Images/`](file:///c:/Users/vinay/.gemini/Fyers_Hist/Dashboard_Images/) directory:
+
+| Screenshot | Description | Preview Link |
+|:---|:---|:---:|
+| **01. Plain English Market Assistant** | Guided Discovery cards, status bar, and upcoming festival opportunities | [View Image](Dashboard_Images/01_Plain_English_Hub.png) |
+| **02. Dynamic Column Customizer** | Drag-and-drop metrics customizer (Win Rate, Low-to-High %, Gap Up %) | [View Image](Dashboard_Images/02_Dynamic_Column_Customizer.png) |
+| **03. Day 0 Session Performance** | Single festival trading session performance rankings (Diwali, Independence Day) | [View Image](Dashboard_Images/03_Day0_Single_Festival_Session.png) |
+| **04. Pre-Event Window (T-4 to T-1)** | 4-session pre-holiday run-up performance and peak volatility metrics | [View Image](Dashboard_Images/04_Pre_Event_Window_Performance.png) |
+| **05. Post-Event Window (T+1 to T+4)**| 4-session post-holiday rally performance and post-event win rates | [View Image](Dashboard_Images/05_Post_Event_Window_Performance.png) |
+
+---
+
 ## 📜 Core Principles
 1. **Historical Evidence Over Prediction**: All insights grounded in empirical Oracle database EOD data.
 2. **Simplicity Over Unnecessary Complexity**: Simple, shallow code architectures; earn complexity through proven need.
